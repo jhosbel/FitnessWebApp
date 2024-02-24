@@ -1,7 +1,8 @@
 "use client";
 
 import { createTrainingRequest } from "@/api/training";
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import { useTraining } from "@/context/useTraining";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 interface Exercise {
   id: string;
@@ -22,6 +23,9 @@ interface Training {
 }
 
 export default function TrainingForm() {
+  const { exercise } = useTraining();
+  console.log(exercise);
+
   const [training, setTraning] = useState({
     title: "",
     exercises: [
@@ -39,28 +43,23 @@ export default function TrainingForm() {
     ],
   });
 
-
-  /* const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setTraning({ ...training, [e.target.name]: e.target.value });
-  }; */
-
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTraning(prevTraining => ({
+    setTraning((prevTraining) => ({
       ...prevTraining,
-      title: e.target.value
+      title: e.target.value,
     }));
   };
 
-  const handleExerciseChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleExerciseChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     const index = parseInt(e.target.dataset.index || "0");
-    setTraning(prevTraining => ({
+    setTraning((prevTraining) => ({
       ...prevTraining,
       exercises: prevTraining.exercises.map((exercise, i) =>
         i === index ? { ...exercise, [name]: value } : exercise
-      )
+      ),
     }));
   };
 
@@ -99,7 +98,11 @@ export default function TrainingForm() {
           placeholder="Peso"
           onChange={handleExerciseChange}
         />
-        <select name="weightType" className="text-black" onChange={handleExerciseChange}>
+        <select
+          name="weightType"
+          className="text-black"
+          onChange={handleExerciseChange}
+        >
           <option value="kg">Kg</option>
           <option value="lbs">Lbs</option>
         </select>

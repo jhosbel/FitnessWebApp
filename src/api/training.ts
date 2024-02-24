@@ -1,21 +1,11 @@
+import {Training} from '../interfaces/training.interface'
+
 const API = 'http://localhost:5000/api'
 
-interface Exercise {
-    id: string;
-    name: string;
-    muscle: string;
-    equipment: string;
-    series: number;
-    weightType: string;
-    weight: number;
-    breakTime: number;
-    note: string;
-}
 
-interface Training {
-    title: string;
-    exercises: Exercise[];
-}
+
+export const getExercisesRequest = () => fetch(`${API}/exercise`)
+    
 
 export const createTrainingRequest = (training: Training) => 
     fetch(`${API}/training`, {
@@ -25,3 +15,13 @@ export const createTrainingRequest = (training: Training) =>
             'Content-Type': 'application/json'
         }
     })
+
+
+    /* const request = async () => {
+    try {
+        const response = await axios.get('http://localhost:5000/api/training');
+        const exercises: Exercise[] = response.data[0].exercises;
+        setExercise(exercises);
+    } catch (error) {
+        console.error('Error al hacer la solicitud:', error);
+    } */
