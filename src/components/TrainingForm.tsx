@@ -2,32 +2,13 @@
 
 import { createTrainingRequest } from "@/api/training";
 import { useTraining } from "@/context/useTraining";
+import { CompleteTraining } from "@/interfaces/training.interface";
 import { ChangeEvent, FormEvent, useState } from "react";
-
-interface Exercise {
-  id: string;
-  name: string;
-  muscle: string;
-  equipment: string;
-  instructions: string;
-}
-
-interface Training {
-  id: string;
-  title: string;
-  series: number;
-  weight: number;
-  weightType: string;
-  breakTime: string;
-  note: string;
-}
 
 export default function TrainingForm() {
   const { exercise } = useTraining();
-  console.log(exercise);
 
-  const [training, setTraning] = useState({
-    title: "",
+  const [training, setTraning] = useState<CompleteTraining>({
     exercises: [
       {
         id: "65d639026e0b13c60dda0c3e",
@@ -35,26 +16,48 @@ export default function TrainingForm() {
         muscle: "Pecho",
         equipment: "Mancuernas",
         series: 0,
-        weightType: "kg",
+        weightType: "Kg",
         weight: 0,
         breakTime: 0,
+        breakTimeType: "Seg",
         note: "",
       },
     ],
   });
 
-  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTraning((prevTraining) => ({
-      ...prevTraining,
-      title: e.target.value,
-    }));
-  };
+  const [index, setIndex] = useState<number>(0);
 
   const handleExerciseChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     const index = parseInt(e.target.dataset.index || "0");
+    setTraning((prevTraining) => ({
+      ...prevTraining,
+      exercises: prevTraining.exercises.map((exercise, i) =>
+        i === index ? { ...exercise, [name]: value } : exercise
+      ),
+    }));
+  };
+
+  const handleWeightTypeChange = (
+    e: ChangeEvent<HTMLSelectElement>,
+    index: number
+  ) => {
+    const { name, value } = e.target;
+    setTraning((prevTraining) => ({
+      ...prevTraining,
+      exercises: prevTraining.exercises.map((exercise, i) =>
+        i === index ? { ...exercise, [name]: value } : exercise
+      ),
+    }));
+  };
+  
+  const handleBreakTimeTypeChange = (
+    e: ChangeEvent<HTMLSelectElement>,
+    index: number
+  ) => {
+    const { name, value } = e.target;
     setTraning((prevTraining) => ({
       ...prevTraining,
       exercises: prevTraining.exercises.map((exercise, i) =>
@@ -78,13 +81,6 @@ export default function TrainingForm() {
       </div>
       <form onSubmit={handleSubmit} className="text-white">
         <input
-          type="text"
-          name="title"
-          className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 block w-full my-2"
-          placeholder="Escribe el titulo"
-          onChange={handleTitleChange}
-        />
-        <input
           type="number"
           name="series"
           className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 block w-full my-2"
@@ -101,10 +97,10 @@ export default function TrainingForm() {
         <select
           name="weightType"
           className="text-black"
-          onChange={handleExerciseChange}
+          onChange={(e) => handleWeightTypeChange(e, index)}
         >
-          <option value="kg">Kg</option>
-          <option value="lbs">Lbs</option>
+          <option value="Kg">Kg</option>
+          <option value="Lbs">Lbs</option>
         </select>
         <input
           type="text"
@@ -113,6 +109,14 @@ export default function TrainingForm() {
           placeholder="Tiempo de descanso"
           onChange={handleExerciseChange}
         />
+        <select
+          name="breakTimeType"
+          className="text-black"
+          onChange={(e) => handleBreakTimeTypeChange(e, index)}
+        >
+          <option value="Seg">Seg</option>
+          <option value="Min">Min</option>
+        </select>
         <textarea
           name="note"
           rows={3}

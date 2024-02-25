@@ -1,13 +1,38 @@
 import { getExercisesRequest } from "@/api/training";
-import { ExerciseOne } from "@/interfaces/training.interface";
-import { createContext, useState, useEffect } from "react";
+import { CompleteTraining, ExerciseOne } from "@/interfaces/training.interface";
+import {
+  createContext,
+  useState,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+} from "react";
 
 interface TrainingContextValue {
-  exercise: ExerciseOne[]
+  exercise: ExerciseOne[];
+  trainingData: CompleteTraining;
+  setTrainingData: Dispatch<SetStateAction<CompleteTraining>>;
 }
 
 export const TrainingContext = createContext<TrainingContextValue>({
   exercise: [],
+  trainingData: {
+    exercises: [
+      {
+        id: "65d639026e0b13c60dda0c3e",
+        name: "Press Banca",
+        muscle: "Pecho",
+        equipment: "Mancuernas",
+        series: 0,
+        weightType: "Kg",
+        weight: 0,
+        breakTime: 0,
+        breakTimeType: "Seg",
+        note: "",
+      },
+    ],
+  },
+  setTrainingData: () => {},
 });
 
 interface Props {
@@ -16,6 +41,26 @@ interface Props {
 
 export const TrainingProvider: React.FC<Props> = ({ children }) => {
   const [exercise, setExercise] = useState<ExerciseOne[]>([]);
+  const [trainingData, setTrainingData] = useState<CompleteTraining>({
+    exercises: [
+      {
+        id: "65d639026e0b13c60dda0c3e",
+        name: "Press Banca",
+        muscle: "Pecho",
+        equipment: "Mancuernas",
+        series: 0,
+        weightType: "Kg",
+        weight: 0,
+        breakTime: 0,
+        breakTimeType: "Seg",
+        note: "",
+      },
+    ],
+  });
+
+  const updateTrainingData = (newData: any) => {
+    setTrainingData((prevData) => ({ ...prevData, ...newData }));
+  };
 
   useEffect(() => {
     getExercisesRequest()
@@ -26,7 +71,9 @@ export const TrainingProvider: React.FC<Props> = ({ children }) => {
   }, []);
 
   return (
-    <TrainingContext.Provider value={{ exercise }}>
+    <TrainingContext.Provider
+      value={{ exercise, trainingData, setTrainingData }}
+    >
       {children}
     </TrainingContext.Provider>
   );

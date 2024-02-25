@@ -7,8 +7,15 @@ export interface Exercise {
     weightType: string;
     weight: number;
     breakTime: number;
+    breakTimeType: string;
     note: string;
 }
+
+export interface CompleteTraining {
+    exercises: Exercise[]
+}
+
+export type OnlyExercises = Omit<CompleteTraining, 'title'>
 
 //type ExerciseOne = Omit<Exercise, 'id' | 'series' | 'weightType' | 'weight' | 'breakTime' | 'note'> ejemplo de como omitir tipos de datos sin tener que crear una interfaz nueva
 
@@ -21,6 +28,5 @@ export interface ExerciseOne {
 }
 
 export interface Training {
-    title: string;
     exercises: Exercise[];
 }

@@ -1,16 +1,20 @@
-"use client"
-import { ExerciseOne } from "@/interfaces/training.interface";
+"use client";
+import { ExerciseOne, Training } from "@/interfaces/training.interface";
 import TrainingList from "../components/ExerciseList";
 import TrainingForm from "../components/TrainingForm";
 import { TrainingProvider } from "@/context/TrainingContext";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
+import { useTraining } from "@/context/useTraining";
+import { createTrainingRequest } from "@/api/training";
 
 export default function Home() {
+  const { trainingData, setTrainingData } = useTraining();
   const [selectedExercise, setSelectedExercise] = useState<ExerciseOne[]>([]);
 
   const handleExerciseClick = (clickedExercise: ExerciseOne) => {
     setSelectedExercise([...selectedExercise, clickedExercise]);
   };
+  console.log(trainingData);
   console.log(selectedExercise);
 
   return (
