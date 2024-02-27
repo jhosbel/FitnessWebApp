@@ -3,6 +3,8 @@ export interface Exercise {
     name: string;
     muscle: string;
     equipment: string;
+    instruction: string;
+    image: string;
     series: number;
     weightType: string;
     weight: number;
@@ -25,6 +27,7 @@ export interface ExerciseOne {
     muscle: string;
     equipment: string;
     instructions: string;
+    image: string;
 }
 
 export interface Training {

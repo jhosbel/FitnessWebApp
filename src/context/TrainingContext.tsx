@@ -19,10 +19,12 @@ export const TrainingContext = createContext<TrainingContextValue>({
   trainingData: {
     exercises: [
       {
-        id: "65d639026e0b13c60dda0c3e",
-        name: "Press Banca",
-        muscle: "Pecho",
-        equipment: "Mancuernas",
+        id: "",
+        name: "",
+        muscle: "",
+        equipment: "",
+        instruction: "",
+        image: "",
         series: 0,
         weightType: "Kg",
         weight: 0,
@@ -44,10 +46,12 @@ export const TrainingProvider: React.FC<Props> = ({ children }) => {
   const [trainingData, setTrainingData] = useState<CompleteTraining>({
     exercises: [
       {
-        id: "65d639026e0b13c60dda0c3e",
-        name: "Press Banca",
-        muscle: "Pecho",
-        equipment: "Mancuernas",
+        id: "",
+        name: "",
+        muscle: "",
+        equipment: "",
+        instruction: "",
+        image: "",
         series: 0,
         weightType: "Kg",
         weight: 0,

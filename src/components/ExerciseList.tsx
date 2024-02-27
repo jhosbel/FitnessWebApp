@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useTraining } from "@/context/useTraining";
@@ -25,8 +26,8 @@ export default function TrainingList({ onExerciseSelect }: TrainingListProps) {
             className="p-4 m-4 border-solid border-gray-900 border rounded-lg hover:bg-gray-800 hover:cursor-pointer hover:text-white transition"
             onClick={() => handleExerciseClick(exercise)}
           >
-            <p>{exercise._id}</p>
-            <p>Nombre: {exercise.name}</p>
+            <h1 className="text-center text-2xl my-2">{exercise.name}</h1>
+            <img src={exercise.image} alt={exercise.name} />
             <p>Musculo: {exercise.muscle}</p>
             <p>Equipo: {exercise.equipment}</p>
             <p>Instrucciones: {exercise.instructions}</p>

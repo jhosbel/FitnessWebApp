@@ -5,16 +5,32 @@ import { useTraining } from "@/context/useTraining";
 import { CompleteTraining } from "@/interfaces/training.interface";
 import { ChangeEvent, FormEvent, useState } from "react";
 
-export default function TrainingForm() {
-  const { exercise } = useTraining();
+interface Props {
+  id: string;
+  name: string;
+  muscle: string;
+  equipment: string;
+  instruction: string;
+  image: string;
+}
 
+export default function TrainingForm({
+  id,
+  name,
+  muscle,
+  equipment,
+  instruction,
+  image,
+}: Props) {
   const [training, setTraning] = useState<CompleteTraining>({
     exercises: [
       {
-        id: "65d639026e0b13c60dda0c3e",
-        name: "Press Banca",
-        muscle: "Pecho",
-        equipment: "Mancuernas",
+        id,
+        name,
+        muscle,
+        equipment,
+        instruction,
+        image,
         series: 0,
         weightType: "Kg",
         weight: 0,
@@ -52,7 +68,7 @@ export default function TrainingForm() {
       ),
     }));
   };
-  
+
   const handleBreakTimeTypeChange = (
     e: ChangeEvent<HTMLSelectElement>,
     index: number
@@ -76,9 +92,6 @@ export default function TrainingForm() {
 
   return (
     <div>
-      <div>
-        <h1>Lista de Ejercicios</h1>
-      </div>
       <form onSubmit={handleSubmit} className="text-white">
         <input
           type="number"
@@ -87,36 +100,40 @@ export default function TrainingForm() {
           placeholder="Numero de series"
           onChange={handleExerciseChange}
         />
-        <input
-          type="number"
-          name="weight"
-          className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 block w-full my-2"
-          placeholder="Peso"
-          onChange={handleExerciseChange}
-        />
-        <select
-          name="weightType"
-          className="text-black"
-          onChange={(e) => handleWeightTypeChange(e, index)}
-        >
-          <option value="Kg">Kg</option>
-          <option value="Lbs">Lbs</option>
-        </select>
-        <input
-          type="text"
-          name="breakTime"
-          className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 block w-full my-2"
-          placeholder="Tiempo de descanso"
-          onChange={handleExerciseChange}
-        />
-        <select
-          name="breakTimeType"
-          className="text-black"
-          onChange={(e) => handleBreakTimeTypeChange(e, index)}
-        >
-          <option value="Seg">Seg</option>
-          <option value="Min">Min</option>
-        </select>
+        <div className="flex justify-between gap-2 items-center">
+          <input
+            type="number"
+            name="weight"
+            className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 block w-full my-2"
+            placeholder="Peso"
+            onChange={handleExerciseChange}
+          />
+          <select
+            name="weightType"
+            className="text-black w-20 p-2 rounded-md h-12"
+            onChange={(e) => handleWeightTypeChange(e, index)}
+          >
+            <option value="Kg">Kg</option>
+            <option value="Lbs">Lbs</option>
+          </select>
+        </div>
+        <div className="flex justify-between gap-2 items-center">
+          <input
+            type="text"
+            name="breakTime"
+            className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 block w-full my-2"
+            placeholder="Tiempo de descanso"
+            onChange={handleExerciseChange}
+          />
+          <select
+            name="breakTimeType"
+            className="text-black w-20 p-2 rounded-md h-12"
+            onChange={(e) => handleBreakTimeTypeChange(e, index)}
+          >
+            <option value="Seg">Seg</option>
+            <option value="Min">Min</option>
+          </select>
+        </div>
         <textarea
           name="note"
           rows={3}
@@ -125,7 +142,7 @@ export default function TrainingForm() {
           onChange={handleExerciseChange}
         ></textarea>
         <button className="bg-indigo-500 px-3 block py-2 w-full text-white hover:bg-opacity-80 transition rounded-lg">
-          Guardar
+          Añadir
         </button>
       </form>
     </div>
