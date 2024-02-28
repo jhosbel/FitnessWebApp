@@ -30,6 +30,15 @@ export interface ExerciseOne {
     image: string;
 }
 
+/* export interface ExercisesList {
+    _id: string;
+    name: string;
+    muscle: string;
+    equipment: string;
+    instructions: string;
+    image: string;
+} */
+
 export interface Training {
     exercises: Exercise[];
 }

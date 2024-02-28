@@ -2,7 +2,7 @@
 
 import { createTrainingRequest } from "@/api/training";
 import { useTraining } from "@/context/useTraining";
-import { CompleteTraining } from "@/interfaces/training.interface";
+import { CompleteTraining, Exercise, ExerciseOne } from "@/interfaces/training.interface";
 import { ChangeEvent, FormEvent, useState } from "react";
 
 interface Props {
@@ -40,8 +40,10 @@ export default function TrainingForm({
       },
     ],
   });
+  const { setExerciseList, exerciseList } = useTraining();
 
   const [index, setIndex] = useState<number>(0);
+  /* const [exerciseList, setExerciseList] = useState<ExerciseOne[]>([]); */
 
   const handleExerciseChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -88,7 +90,14 @@ export default function TrainingForm({
     const res = await createTrainingRequest(training);
     const data = await res.json();
     console.log(data);
+    setExerciseList((prevExerciseList) => {
+      console.log(prevExerciseList)
+      const updatedList = [...prevExerciseList, ...data.exercises];
+      return updatedList;
+    });
   };
+
+  console.log(exerciseList)
 
   return (
     <div>

@@ -16,6 +16,8 @@ export const createTrainingRequest = (training: Training) =>
         }
     })
 
+export const getExerciseByMuscle = (e: any) => fetch(`${API}/exercise/by-muscle/${e}`)
+
 
     /* const request = async () => {
     try {

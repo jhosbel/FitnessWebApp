@@ -12,6 +12,8 @@ interface TrainingContextValue {
   exercise: ExerciseOne[];
   trainingData: CompleteTraining;
   setTrainingData: Dispatch<SetStateAction<CompleteTraining>>;
+  exerciseList: any[];
+  setExerciseList: Dispatch<SetStateAction<any[]>>;
 }
 
 export const TrainingContext = createContext<TrainingContextValue>({
@@ -35,6 +37,8 @@ export const TrainingContext = createContext<TrainingContextValue>({
     ],
   },
   setTrainingData: () => {},
+  exerciseList: [],
+  setExerciseList: () => {},
 });
 
 interface Props {
@@ -61,6 +65,7 @@ export const TrainingProvider: React.FC<Props> = ({ children }) => {
       },
     ],
   });
+  const [exerciseList, setExerciseList] = useState<any>([])
 
   const updateTrainingData = (newData: any) => {
     setTrainingData((prevData) => ({ ...prevData, ...newData }));
@@ -74,9 +79,17 @@ export const TrainingProvider: React.FC<Props> = ({ children }) => {
       });
   }, []);
 
+  console.log(exerciseList)
+
   return (
     <TrainingContext.Provider
-      value={{ exercise, trainingData, setTrainingData }}
+      value={{
+        exercise,
+        trainingData,
+        setTrainingData,
+        exerciseList,
+        setExerciseList,
+      }}
     >
       {children}
     </TrainingContext.Provider>
