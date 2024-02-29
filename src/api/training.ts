@@ -1,4 +1,4 @@
-import {Training} from '../interfaces/training.interface'
+import {CompleteTrainingList, Exercise} from '../interfaces/training.interface'
 
 const API = 'http://localhost:5000/api'
 
@@ -7,7 +7,7 @@ const API = 'http://localhost:5000/api'
 export const getExercisesRequest = () => fetch(`${API}/exercise`)
     
 
-export const createTrainingRequest = (training: Training) => 
+export const createTrainingRequest = (training: Exercise) => 
     fetch(`${API}/training`, {
         method: 'POST',
         body: JSON.stringify(training),
@@ -16,14 +16,12 @@ export const createTrainingRequest = (training: Training) =>
         }
     })
 
-export const getExerciseByMuscle = (e: any) => fetch(`${API}/exercise/by-muscle/${e}`)
+export const getExerciseByMuscle = (e: String) => fetch(`${API}/exercise/by-muscle/${e}`)
 
-
-    /* const request = async () => {
-    try {
-        const response = await axios.get('http://localhost:5000/api/training');
-        const exercises: Exercise[] = response.data[0].exercises;
-        setExercise(exercises);
-    } catch (error) {
-        console.error('Error al hacer la solicitud:', error);
-    } */
+export const createTrainingList = (trainingList: CompleteTrainingList) => fetch(`${API}/training-list`, {
+    method: 'POST',
+    body: JSON.stringify(trainingList),
+    headers: {
+        'Content-Type': 'application/json'
+    }
+})

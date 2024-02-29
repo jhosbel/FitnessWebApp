@@ -28,6 +28,7 @@ export const TrainingContext = createContext<TrainingContextValue>({
         instruction: "",
         image: "",
         series: 0,
+        reps: 0,
         weightType: "Kg",
         weight: 0,
         breakTime: 0,
@@ -57,6 +58,7 @@ export const TrainingProvider: React.FC<Props> = ({ children }) => {
         instruction: "",
         image: "",
         series: 0,
+        reps: 0,
         weightType: "Kg",
         weight: 0,
         breakTime: 0,
@@ -67,19 +69,13 @@ export const TrainingProvider: React.FC<Props> = ({ children }) => {
   });
   const [exerciseList, setExerciseList] = useState<any>([])
 
-  const updateTrainingData = (newData: any) => {
-    setTrainingData((prevData) => ({ ...prevData, ...newData }));
-  };
-
   useEffect(() => {
     getExercisesRequest()
       .then((res) => res.json())
       .then((data) => {
-        setExercise(data), console.log(data);
+        setExercise(data);
       });
   }, []);
-
-  console.log(exerciseList)
 
   return (
     <TrainingContext.Provider

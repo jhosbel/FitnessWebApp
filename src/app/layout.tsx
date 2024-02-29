@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Navigation from "@/components/Navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Aplicasión personal Fitness",
-  description: "Crea rutinas y dietas a tu gusto para mantenerte saludable y tener una mejor calidad de vida",
+  description:
+    "Crea rutinas y dietas a tu gusto para mantenerte saludable y tener una mejor calidad de vida",
 };
 
 export default function RootLayout({
@@ -16,7 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Navigation />
+        {children}
+      </body>
     </html>
   );
 }
