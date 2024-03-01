@@ -11,7 +11,6 @@ import { TrainingProvider } from "@/context/TrainingContext";
 import { useState } from "react";
 import { useTraining } from "@/context/useTraining";
 import { createTrainingList } from "@/api/training";
-import Link from "next/link";
 
 export default function Home() {
   const { setTrainingData } = useTraining();
@@ -71,49 +70,7 @@ export default function Home() {
 
   return (
     <main className="w-4/5 absolute right-0 flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>Fitness App</h1>
-      <form onSubmit={handleTrainingList}>
-        <input
-          type="text"
-          className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 block w-full my-2 text-white"
-          placeholder="Titulo del Entrenamiento"
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <button className="bg-indigo-500 px-3 block py-2 w-full text-white hover:bg-opacity-75 transition rounded-lg disabled:bg-opacity-75 disabled:bg-green-500">
-          Crear Lista
-        </button>
-      </form>
-      {selectedExercise.length > 0 && (
-        <div>
-          <h2>Ejercicios Seleccionados</h2>
-          <div className="grid grid-cols-3">
-            {selectedExercise.map((exercise) => (
-              <div key={exercise._id} className="m-2">
-                <h1 className="text-center text-2xl my-2">{exercise.name}</h1>
-                <img src={exercise.image} alt={exercise.name} />
-                <p>Musculo: {exercise.muscle}</p>
-                <p>Equipo: {exercise.equipment}</p>
-                <p>Instrucciones: {exercise.instructions}</p>
-                <span onClick={() => handleCloseClick(exercise._id)}>
-                  Cerrar
-                </span>
-                <TrainingForm
-                  id={exercise._id}
-                  name={exercise.name}
-                  muscle={exercise.muscle}
-                  equipment={exercise.equipment}
-                  instruction={exercise.instructions}
-                  image={exercise.image}
-                  onTrainingChange={handleTrainingChange}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-      <TrainingProvider>
-        <TrainingList onExerciseSelect={handleExerciseClick} />
-      </TrainingProvider>
+      <h1>Bienvenidos a MI Fitness App</h1>
     </main>
   );
 }

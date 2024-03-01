@@ -41,30 +41,34 @@ export default function TrainingList({ onExerciseSelect }: TrainingListProps) {
   };
 
   return (
-    <div>
-      <h1>Lista de Entrenamieto</h1>
-      <select name="musculos" onChange={handleMuscleType}>
-        <option value="">Todos</option>
-        <option value="Pecho">Pecho</option>
-        <option value="Biceps">Biceps</option>
-        <option value="Espalda">Espalda</option>
-        <option value="Cuadriceps">Cuadriceps</option>
-      </select>
-      <div className="grid grid-cols-3">
+    <article>
+      <div className="flex flex-col items-center">
+        <h1>Lista de Entrenamieto</h1>
+        <select name="musculos" onChange={handleMuscleType}>
+          <option value="">Todos</option>
+          <option value="Pecho">Pecho</option>
+          <option value="Biceps">Biceps</option>
+          <option value="Espalda">Espalda</option>
+          <option value="Cuadriceps">Cuadriceps</option>
+        </select>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {filteredExercises.map((exercise) => (
           <div
             key={exercise._id}
-            className="p-4 m-4 border-solid border-gray-900 border rounded-lg hover:bg-gray-800 hover:cursor-pointer hover:text-white transition"
+            className="m-4 border-solid border-gray-900 border rounded-lg hover:bg-gray-800 hover:cursor-pointer hover:text-white transition flex sm:flex-col"
             onClick={() => handleExerciseClick(exercise)}
           >
-            <h1 className="text-center text-2xl my-2">{exercise.name}</h1>
-            <img src={exercise.image} alt={exercise.name} />
-            <p>Musculo: {exercise.muscle}</p>
-            <p>Equipo: {exercise.equipment}</p>
-            <p>Instrucciones: {exercise.instructions}</p>
+            <img src={exercise.image} alt={exercise.name} className="sm:rounded-t-lg w-20 sm:w-full aspect-square"/>
+            <div className="w-full flex flex-col items-center px-2 pb-2">
+              <h1 className="text-center text-base sm:text-lg my-2">{exercise.name}</h1>
+              <p className="text-sm">{exercise.muscle}</p>
+              <p className="text-sm">{exercise.equipment}</p>
+              {/* <p>Instrucciones: {exercise.instructions}</p> */}
+            </div>
           </div>
         ))}
       </div>
-    </div>
+    </article>
   );
 }
