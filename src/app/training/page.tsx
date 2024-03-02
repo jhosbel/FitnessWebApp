@@ -74,6 +74,11 @@ export default function Training() {
     });
   };
 
+  const openModal = (exerciseId: string) => {
+    console.log("ID del ejercicio:", exerciseId);
+    setOpen(true);
+  };
+
   return (
     <main className="h-screen w-full sm:w-4/5 right-0 absolute sm:p-24">
       <section className="mt-20 sm:mt-0">
@@ -100,7 +105,7 @@ export default function Training() {
                   <p>Equipo: {exercise.equipment}</p>
                   <p>Instrucciones: {exercise.instructions}</p>
                   <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2"
-                  onClick={() => setOpen(true)}
+                  onClick={() => openModal(exercise._id)}
                   >
                     Mas info
                   </button>
@@ -122,6 +127,20 @@ export default function Training() {
           </div>
         )}
       </section>
+      {/* <div>
+        {selectedExercise.map((exe) => (
+          <div key={exe._id}>
+            <Modal isOpen={open} onClose={() => setOpen(false)}>
+              <img src={exe.image} alt={exe.name} />
+              <p>{exe.name}</p>
+              <p>{exe.muscle}</p>
+              <p>{exe.equipment}</p>
+              <p>{exe.instructions}</p>
+            </Modal>
+            <h1>{exe.name}</h1>
+          </div>
+        ))}
+      </div> */}
       <Modal isOpen={open} onClose={() => setOpen(false)}>
         <img
           src={selectedModalExercise?.image}
