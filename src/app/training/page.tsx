@@ -9,7 +9,7 @@ import {
 import { TrainingProvider } from "@/context/TrainingContext";
 import { useState } from "react";
 import { useTraining } from "@/context/useTraining";
-import { createTrainingList } from "@/api/training";
+import { createTrainingList, getExerciseOne } from "@/api/training";
 import TrainingList from "@/components/ExerciseList";
 import TrainingForm from "@/components/TrainingForm";
 import Modal from "@/components/Modal";
@@ -26,6 +26,7 @@ export default function Training() {
     exercises: [],
   });
   const [open, setOpen] = useState<boolean>(false);
+  const [exerInfo, setExerInfo] = useState<any>()
 
   const handleExerciseClick = (clickedExercise: ExerciseOne) => {
     const { _id, equipment, instructions, muscle, name, image } =
@@ -74,10 +75,13 @@ export default function Training() {
     });
   };
 
-  const openModal = (exerciseId: string) => {
-    console.log("ID del ejercicio:", exerciseId);
+  const openModal = async (exerciseId: string) => {
+    const res = await getExerciseOne(exerciseId)
+    const data = await res.json()
+    setExerInfo(data)
     setOpen(true);
   };
+
 
   return (
     <main className="h-screen w-full sm:w-4/5 right-0 absolute sm:p-24">
@@ -127,29 +131,15 @@ export default function Training() {
           </div>
         )}
       </section>
-      {/* <div>
-        {selectedExercise.map((exe) => (
-          <div key={exe._id}>
-            <Modal isOpen={open} onClose={() => setOpen(false)}>
-              <img src={exe.image} alt={exe.name} />
-              <p>{exe.name}</p>
-              <p>{exe.muscle}</p>
-              <p>{exe.equipment}</p>
-              <p>{exe.instructions}</p>
-            </Modal>
-            <h1>{exe.name}</h1>
-          </div>
-        ))}
-      </div> */}
       <Modal isOpen={open} onClose={() => setOpen(false)}>
         <img
-          src={selectedModalExercise?.image}
-          alt={selectedModalExercise?.name}
+          src={exerInfo?.image}
+          alt={exerInfo?.name}
         />
-        <p>{selectedModalExercise?.name}</p>
-        <p>{selectedModalExercise?.muscle}</p>
-        <p>{selectedModalExercise?.equipment}</p>
-        <p>{selectedModalExercise?.instructions}</p>
+        <p>{exerInfo?.name}</p>
+        <p>{exerInfo?.muscle}</p>
+        <p>{exerInfo?.equipment}</p>
+        <p>{exerInfo?.instructions}</p>
       </Modal>
       <section>
         <TrainingProvider>
