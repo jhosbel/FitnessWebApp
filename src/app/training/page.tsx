@@ -12,21 +12,26 @@ import { useTraining } from "@/context/useTraining";
 import { createTrainingList } from "@/api/training";
 import TrainingList from "@/components/ExerciseList";
 import TrainingForm from "@/components/TrainingForm";
+import Modal from "@/components/Modal";
 
 export default function Training() {
   const { setTrainingData } = useTraining();
   const [selectedExercise, setSelectedExercise] = useState<ExerciseOne[]>([]);
+  const [selectedModalExercise, setSelectedModalExercise] =
+    useState<ExerciseOne>();
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [title, setTitle] = useState("");
   const [trainingList, setTrainingList] = useState<CompleteTrainingList>({
     title: "",
     exercises: [],
   });
+  const [open, setOpen] = useState<boolean>(false);
 
   const handleExerciseClick = (clickedExercise: ExerciseOne) => {
     const { _id, equipment, instructions, muscle, name, image } =
       clickedExercise;
     setSelectedExercise([...selectedExercise, clickedExercise]);
+    setSelectedModalExercise(clickedExercise);
     setTrainingData({
       exercises: [
         {
@@ -68,6 +73,7 @@ export default function Training() {
       exercises: exercises,
     });
   };
+
   return (
     <main className="h-screen w-full sm:w-4/5 right-0 absolute sm:p-24">
       <section className="mt-20 sm:mt-0">
@@ -93,9 +99,14 @@ export default function Training() {
                   <p>Musculo: {exercise.muscle}</p>
                   <p>Equipo: {exercise.equipment}</p>
                   <p>Instrucciones: {exercise.instructions}</p>
-                  <span onClick={() => handleCloseClick(exercise._id)}>
+                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2"
+                  onClick={() => setOpen(true)}
+                  >
+                    Mas info
+                  </button>
+                  {/* <span onClick={() => handleCloseClick(exercise._id)}>
                     Cerrar
-                  </span>
+                  </span> */}
                   <TrainingForm
                     id={exercise._id}
                     name={exercise.name}
@@ -111,9 +122,22 @@ export default function Training() {
           </div>
         )}
       </section>
+      <Modal isOpen={open} onClose={() => setOpen(false)}>
+        <img
+          src={selectedModalExercise?.image}
+          alt={selectedModalExercise?.name}
+        />
+        <p>{selectedModalExercise?.name}</p>
+        <p>{selectedModalExercise?.muscle}</p>
+        <p>{selectedModalExercise?.equipment}</p>
+        <p>{selectedModalExercise?.instructions}</p>
+      </Modal>
       <section>
         <TrainingProvider>
-          <TrainingList onExerciseSelect={handleExerciseClick} />
+          <TrainingList
+            onExerciseSelect={handleExerciseClick}
+            openModal={() => setOpen(true)}
+          />
         </TrainingProvider>
       </section>
     </main>

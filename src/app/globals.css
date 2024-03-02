@@ -32,3 +32,27 @@ body {
     text-wrap: balance;
   }
 }
+
+
+/* Estilos para el overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Asegura que esté en la parte superior */
+  transition: opacity 0.3s ease; /* Transición de opacidad */
+}
+
+/* Estilos para el modal */
+.modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra */
+}

@@ -11,11 +11,10 @@ export default function Navigation() {
       <nav className="hidden sm:block sm:w-1/5 fixed top-0 left-0 h-screen bg-gray-400">
         <div className="h-full flex flex-col justify-between">
           <div className="pt-8">
-            <h2 className="text-white text-xl font-semibold px-4 mb-4">Menu</h2>
+            <h2 className="text-white text-xl font-semibold px-4 mb-4">
+              <Link href={'/'}>Complet Fitness</Link>
+            </h2>
             <ul className="space-y-2">
-              <li className="text-gray-800 hover:text-white cursor-pointer px-4 py-2">
-                <Link href={"/"}>Inicio</Link>
-              </li>
               <li className="text-gray-800 hover:text-white cursor-pointer px-4 py-2">
                 <Link href={"/training"}>Entrenamiento</Link>
               </li>
