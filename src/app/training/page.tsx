@@ -85,11 +85,11 @@ export default function Training() {
 
   return (
     <main className="h-screen w-full sm:w-4/5 right-0 absolute sm:p-24">
-      <section className="mt-20 sm:mt-0">
+      <section className="mt-20 flex flex-col-reverse items-center sm:flex-col sm:mt-0">
         <form onSubmit={handleTrainingList}>
           <input
             type="text"
-            className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 block w-full my-2 text-white"
+            className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 block w-full my-2 text-white text-xs sm:text-base"
             placeholder="Titulo del Entrenamiento"
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -98,33 +98,35 @@ export default function Training() {
           </button>
         </form>
         {selectedExercise.length > 0 && (
-          <div>
+          <div className="flex flex-col">
             <h2>Ejercicios Seleccionados</h2>
-            <div className="grid grid-cols-3">
+            <div className="flex sm:grid grid-cols-2 overflow-x-scroll sm:overflow-x-hidden sm:grid-cols-3 max-w-[375px] sm:max-w-full">
               {selectedExercise.map((exercise) => (
-                <div key={exercise._id} className="m-2">
-                  <h1 className="text-center text-2xl my-2">{exercise.name}</h1>
-                  <img src={exercise.image} alt={exercise.name} />
-                  <p>Musculo: {exercise.muscle}</p>
-                  <p>Equipo: {exercise.equipment}</p>
-                  <p>Instrucciones: {exercise.instructions}</p>
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2"
-                  onClick={() => openModal(exercise._id)}
-                  >
-                    Mas info
-                  </button>
-                  {/* <span onClick={() => handleCloseClick(exercise._id)}>
-                    Cerrar
-                  </span> */}
-                  <TrainingForm
-                    id={exercise._id}
-                    name={exercise.name}
-                    muscle={exercise.muscle}
-                    equipment={exercise.equipment}
-                    instruction={exercise.instructions}
-                    image={exercise.image}
-                    onTrainingChange={handleTrainingChange}
-                  />
+                <div key={exercise._id} className="my-2 mx-12 sm:m-2 flex flex-col items-center justify-between">
+                  <h1 className="text-center text-base sm:text-2xl my-2">{exercise.name}</h1>
+                  <div>
+                    <img src={exercise.image} alt={exercise.name} />
+                    <p>Musculo: {exercise.muscle}</p>
+                    <p>Equipo: {exercise.equipment}</p>
+                    {/* <p>Instrucciones: {exercise.instructions}</p> */}
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 text-xs sm:text-base"
+                    onClick={() => openModal(exercise._id)}
+                    >
+                      Mas info
+                    </button>
+                    {/* <span onClick={() => handleCloseClick(exercise._id)}>
+                      Cerrar
+                    </span> */}
+                    <TrainingForm
+                      id={exercise._id}
+                      name={exercise.name}
+                      muscle={exercise.muscle}
+                      equipment={exercise.equipment}
+                      instruction={exercise.instructions}
+                      image={exercise.image}
+                      onTrainingChange={handleTrainingChange}
+                    />
+                  </div>
                 </div>
               ))}
             </div>
@@ -135,11 +137,15 @@ export default function Training() {
         <img
           src={exerInfo?.image}
           alt={exerInfo?.name}
+          className="w-36 sm:w-full"
         />
         <p>{exerInfo?.name}</p>
         <p>{exerInfo?.muscle}</p>
-        <p>{exerInfo?.equipment}</p>
-        <p>{exerInfo?.instructions}</p>
+        <p>Equipo: {exerInfo?.equipment}</p>
+        <details>
+          <summary>Ver Instrucciones:</summary>
+          <p>Instrucciones: {exerInfo?.instructions}</p>
+        </details>
       </Modal>
       <section>
         <TrainingProvider>

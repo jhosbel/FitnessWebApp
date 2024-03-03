@@ -12,7 +12,7 @@ export default function Navigation() {
         <div className="h-full flex flex-col justify-between">
           <div className="pt-8">
             <h2 className="text-white text-xl font-semibold px-4 mb-4">
-              <Link href={'/'}>Complet Fitness</Link>
+              <Link href={"/"}>Complet Fitness</Link>
             </h2>
             <ul className="space-y-2">
               <li className="text-gray-800 hover:text-white cursor-pointer px-4 py-2">
@@ -34,7 +34,9 @@ export default function Navigation() {
 
       <nav className="sm:hidden fixed top-0 left-0 w-full z-50 bg-gray-400">
         <div className="flex justify-between items-center px-4 h-16">
-          <h2 className="text-white text-xl font-semibold">Menu</h2>
+          <h2 className="text-white text-xl font-semibold">
+            <Link href={"/"}>Complet Fitness</Link>
+          </h2>
           <button
             className="text-white focus:outline-none"
             onClick={() => setIsOpen(!isOpen)}
@@ -55,14 +57,11 @@ export default function Navigation() {
         {isOpen && (
           <div className="bg-gray-400 py-4">
             <ul className="flex flex-col items-center space-y-2">
-              <li className="text-gray-800 hover:text-white cursor-pointer">
-                Link 1
+              <li className="text-gray-800 hover:text-white cursor-pointer px-4 py-2">
+                <Link href={"/training"}>Entrenamiento</Link>
               </li>
-              <li className="text-gray-800 hover:text-white cursor-pointer">
-                Link 2
-              </li>
-              <li className="text-gray-800 hover:text-white cursor-pointer">
-                Link 3
+              <li className="text-gray-800 hover:text-white cursor-pointer px-4 py-2">
+                <Link href={"/feeding"}>Alimentación</Link>
               </li>
               {/* Agrega más elementos de menú según sea necesario */}
             </ul>

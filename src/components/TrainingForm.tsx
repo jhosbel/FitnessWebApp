@@ -97,7 +97,7 @@ export default function TrainingForm({
         <input
           type="number"
           name="series"
-          className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 block w-full my-2"
+          className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 block w-full my-2 text-xs sm:text-base"
           placeholder="Numero de series"
           onChange={handleExerciseChange}
         />
@@ -105,13 +105,13 @@ export default function TrainingForm({
           <input
             type="number"
             name="weight"
-            className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 block w-full my-2"
+            className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 block w-full my-2 text-xs sm:text-base"
             placeholder="Peso"
             onChange={handleExerciseChange}
           />
           <select
             name="weightType"
-            className="text-black w-20 p-2 rounded-md h-12"
+            className="text-black w-64 sm:w-20 text-center p-2 rounded-md h-12"
             onChange={(e) => handleWeightTypeChange(e, index)}
           >
             <option value="Kg">Kg</option>
@@ -121,7 +121,7 @@ export default function TrainingForm({
         <input
             type="number"
             name="reps"
-            className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 block w-full my-2"
+            className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 block w-full my-2 text-xs sm:text-base"
             placeholder="Repeticiones"
             onChange={handleExerciseChange}
           />
@@ -129,13 +129,13 @@ export default function TrainingForm({
           <input
             type="text"
             name="breakTime"
-            className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 block w-full my-2"
+            className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 block w-full my-2 text-xs sm:text-base"
             placeholder="Tiempo de descanso"
             onChange={handleExerciseChange}
           />
           <select
             name="breakTimeType"
-            className="text-black w-20 p-2 rounded-md h-12"
+            className="text-black w-64 sm:w-20 text-center p-2 rounded-md h-12"
             onChange={(e) => handleBreakTimeTypeChange(e, index)}
           >
             <option value="Seg">Seg</option>
@@ -145,7 +145,7 @@ export default function TrainingForm({
         <textarea
           name="note"
           rows={3}
-          className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 block w-full my-2"
+          className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 block w-full my-2 text-xs sm:text-base"
           placeholder="Descripcion de la rutina"
           onChange={handleExerciseChange}
         ></textarea>

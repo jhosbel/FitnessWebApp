@@ -78,24 +78,26 @@ export default function TrainingList({
               alt={exercise.name}
               className="sm:rounded-t-lg w-20 sm:w-full aspect-square"
             />
-            <div className="w-full flex flex-col items-center px-2 pb-2">
+            <div className="w-full flex flex-col items-center px-2 pb-2 h-full justify-around">
               <h1 className="text-center text-base sm:text-lg my-2">
                 {exercise.name}
               </h1>
               <p className="text-sm">{exercise.muscle}</p>
               <p className="text-sm">{exercise.equipment}</p>
-              <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2"
-                onClick={() => handleModalOpen(exercise)}
-              >
-                Mas Info
-              </button>
-              <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                onClick={() => onExerciseSelect(exercise)}
-              >
-                Agregar
-              </button>
+              <div className="w-full flex justify-around sm:flex-col">
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white text-xs font-bold py-2 px-4 rounded  sm:mb-2"
+                  onClick={() => handleModalOpen(exercise)}
+                >
+                  Mas Info
+                </button>
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white text-xs font-bold py-2 px-4 rounded"
+                  onClick={() => onExerciseSelect(exercise)}
+                >
+                  Agregar
+                </button>
+              </div>
             </div>
           </div>
         ))}
