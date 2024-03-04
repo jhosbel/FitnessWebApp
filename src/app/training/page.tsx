@@ -99,12 +99,12 @@ export default function Training() {
         </form>
         {selectedExercise.length > 0 && (
           <div className="flex flex-col">
-            <h2>Ejercicios Seleccionados</h2>
+            <h2 className="text-center">Ejercicios Seleccionados</h2>
             <div className="flex sm:grid grid-cols-2 overflow-x-scroll sm:overflow-x-hidden sm:grid-cols-3 max-w-[375px] sm:max-w-full">
               {selectedExercise.map((exercise) => (
                 <div key={exercise._id} className="my-2 mx-12 sm:m-2 flex flex-col items-center justify-between">
                   <h1 className="text-center text-base sm:text-2xl my-2">{exercise.name}</h1>
-                  <div>
+                  <div className="flex flex-col items-center">
                     <img src={exercise.image} alt={exercise.name} />
                     <p>Musculo: {exercise.muscle}</p>
                     <p>Equipo: {exercise.equipment}</p>
