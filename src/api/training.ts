@@ -7,6 +7,10 @@ const API = 'http://localhost:5000/api'
 export const getExercisesRequest = () => fetch(`${API}/exercise`)
 
 export const getExerciseOne = (id: string) => fetch(`${API}/exercise/${id}`)
+
+export const getTrainingList = () => fetch(`${API}/training-list`)
+
+export const getTrainingListOne = (id: string) => fetch(`${API}/training-list/${id}`)
     
 
 export const createTrainingRequest = (training: Exercise) => 
