@@ -26,7 +26,7 @@ export default function Training() {
     exercises: [],
   });
   const [open, setOpen] = useState<boolean>(false);
-  const [exerInfo, setExerInfo] = useState<any>()
+  const [exerInfo, setExerInfo] = useState<any>();
 
   const handleExerciseClick = (clickedExercise: ExerciseOne) => {
     const { _id, equipment, instructions, muscle, name, image } =
@@ -76,12 +76,11 @@ export default function Training() {
   };
 
   const openModal = async (exerciseId: string) => {
-    const res = await getExerciseOne(exerciseId)
-    const data = await res.json()
-    setExerInfo(data)
+    const res = await getExerciseOne(exerciseId);
+    const data = await res.json();
+    setExerInfo(data);
     setOpen(true);
   };
-
 
   return (
     <main className="h-screen w-full sm:w-4/5 right-0 absolute sm:p-24">
@@ -102,15 +101,21 @@ export default function Training() {
             <h2 className="text-center">Ejercicios Seleccionados</h2>
             <div className="flex sm:grid grid-cols-2 overflow-x-scroll sm:overflow-x-hidden sm:grid-cols-3 max-w-[375px] sm:max-w-full">
               {selectedExercise.map((exercise) => (
-                <div key={exercise._id} className="my-2 mx-12 sm:m-2 flex flex-col items-center justify-between">
-                  <h1 className="text-center text-base sm:text-2xl my-2">{exercise.name}</h1>
+                <div
+                  key={exercise._id}
+                  className="my-2 mx-12 sm:m-2 flex flex-col items-center justify-between"
+                >
+                  <h1 className="text-center text-base sm:text-2xl my-2">
+                    {exercise.name}
+                  </h1>
                   <div className="flex flex-col items-center">
                     <img src={exercise.image} alt={exercise.name} />
                     <p>Musculo: {exercise.muscle}</p>
                     <p>Equipo: {exercise.equipment}</p>
                     {/* <p>Instrucciones: {exercise.instructions}</p> */}
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 text-xs sm:text-base"
-                    onClick={() => openModal(exercise._id)}
+                    <button
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 text-xs sm:text-base"
+                      onClick={() => openModal(exercise._id)}
                     >
                       Mas info
                     </button>

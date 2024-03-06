@@ -1,5 +1,5 @@
-import { getExercisesRequest } from "@/api/training";
-import { CompleteTraining, ExerciseOne } from "@/interfaces/training.interface";
+import { getCalendarData, getExercisesRequest } from "@/api/training";
+import { CalendarData, CompleteTraining, ExerciseOne } from "@/interfaces/training.interface";
 import {
   createContext,
   useState,
@@ -14,6 +14,8 @@ interface TrainingContextValue {
   setTrainingData: Dispatch<SetStateAction<CompleteTraining>>;
   exerciseList: any[];
   setExerciseList: Dispatch<SetStateAction<any[]>>;
+  calendarData: any;
+  setCalendarData: Dispatch<SetStateAction<any[]>>;
 }
 
 export const TrainingContext = createContext<TrainingContextValue>({
@@ -40,6 +42,12 @@ export const TrainingContext = createContext<TrainingContextValue>({
   setTrainingData: () => {},
   exerciseList: [],
   setExerciseList: () => {},
+  calendarData: {
+    id: '',
+    start: '',
+    title: '',
+  },
+  setCalendarData: () => {}
 });
 
 interface Props {
@@ -67,13 +75,19 @@ export const TrainingProvider: React.FC<Props> = ({ children }) => {
       },
     ],
   });
-  const [exerciseList, setExerciseList] = useState<any>([])
+  const [exerciseList, setExerciseList] = useState<any>([]);
+  const [calendarData, setCalendarData] = useState<any>([]);
 
   useEffect(() => {
     getExercisesRequest()
       .then((res) => res.json())
       .then((data) => {
         setExercise(data);
+      });
+    getCalendarData()
+      .then((resCalendar) => resCalendar.json())
+      .then((dataCalendarData: any) => {
+        setCalendarData(dataCalendarData);
       });
   }, []);
 
@@ -85,6 +99,8 @@ export const TrainingProvider: React.FC<Props> = ({ children }) => {
         setTrainingData,
         exerciseList,
         setExerciseList,
+        calendarData,
+        setCalendarData
       }}
     >
       {children}

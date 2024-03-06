@@ -7,16 +7,25 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import allLocales from "@fullcalendar/core/locales-all";
-import { DateSelectArg } from "@fullcalendar/core";
-import { getTrainingList, getTrainingListOne } from "@/api/training";
+import { DateSelectArg, EventInput } from "@fullcalendar/core";
+import {
+  createCalendarData,
+  getCalendarData,
+  getTrainingList,
+  getTrainingListOne,
+} from "@/api/training";
 
 export default function Feeding() {
+  /* const {calendarData} = useTraining() */
   const [open, setOpen] = useState<boolean>(false);
   const [data, setData] = useState<any>();
-  const [data2, setData2] = useState<any>();
+  const [traininigList, setTrainingList] = useState<any>();
+  const [calendarData, setCalendarData] = useState<any>();
   const [titleList, setTitleList] = useState<string>("");
-  const [trainingLingId, setTrainingListId] = useState<string>('')
-  const event = [{ title: "Lunes de piernas", start: new Date() }];
+  const [trainingListId, setTrainingListId] = useState<any>({
+    id: "",
+    title: "",
+  });
 
   function createEventId() {
     let eventGuid = 0;
@@ -24,47 +33,81 @@ export default function Feeding() {
   }
 
   useEffect(() => {
-    getTrainingListOne(trainingLingId)
+    /* getTrainingListOne(trainingListId)
       .then((res) => res.json())
       .then((data) => {
         setData(data);
         setTitleList(data.title);
-      });
-      getTrainingList()
-      .then((res2) => res2.json())
-      .then((data2) => {
-        setData2(data2)
-      })
-  }, [trainingLingId]);
+      }); */
+    getTrainingList()
+      .then((res) => res.json())
+      .then((data) => setTrainingList(data));
+    getCalendarData()
+      .then((res) => res.json())
+      .then((data) => setCalendarData(data));
+  }, [trainingListId]);
 
-  const handleModalOpen = (clickedExercise: any) => {
+  const handleModalOpen = async (clickedExercise: any) => {
+    let id = clickedExercise.event.id;
+    const res = await getTrainingListOne(id);
+    const data = await res.json();
+    setData(data);
     setOpen(true);
   };
 
   const handleCloseModal = () => {
-    
     setOpen(false);
   };
 
+  /* const fecha = new Date().toISOString().replace(/T.*$/, "");
+  console.log(fecha);
   console.log(data);
-  console.log(data2);
-  console.log(trainingLingId);
+  console.log(titleList);
+  console.log(traininigList);
+  console.log(trainingListId);
+  console.log(calendarData); */
 
-  const handleDateSelect = (selectInfo: DateSelectArg) => {
-    let title = titleList;
+  const handleDateSelect = async (selectInfo: DateSelectArg) => {
+    const { startStr } = selectInfo;
     let calendarApi = selectInfo.view.calendar;
-    console.log(selectInfo);
-    calendarApi.unselect(); // clear date selectio
-
-    if (title) {
+    if (!trainingListId) return;
+    if (trainingListId.id === "") {
+      return alert("ID no proporcionado");
+    }
+    await createCalendarData({
+      id: trainingListId.id,
+      start: startStr,
+      title: trainingListId.title,
+    });
+    if (trainingListId) {
+      /* const newCalendaData = {...calendarData, event}
+      setCalendarData(newCalendaData) */
       calendarApi.addEvent({
-        id: createEventId(),
-        title,
+        id: trainingListId.id,
+        title: trainingListId.title,
         start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay,
       });
     }
+    // let title = titleList;
+    // let calendarApi = selectInfo.view.calendar;
+    // console.log(selectInfo);
+    // const data2 = {
+    //   id: trainingLingId,
+    //   title: data.title,
+    //   start: selectInfo.startStr
+    // }
+    // /* createCalendarData(data2) */
+    // calendarApi.unselect(); // clear date selectio
+
+    // if (title) {
+    //   calendarApi.addEvent({
+    //     id: trainingLingId,
+    //     title: data.title,
+    //     start: selectInfo.startStr,
+    //     /* end: selectInfo.endStr,
+    //     allDay: selectInfo.allDay, */
+    //   });
+    // }
   };
 
   return (
@@ -74,17 +117,13 @@ export default function Feeding() {
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           weekends={false}
-          /* events={data && data.exercises.map((exercise: any) => ({
-            id: exercise._id,
-            title: exercise.name,
-            start: exercise.date, // Ajusta esto según la propiedad que contiene la fecha del ejercicio
-          }))} */
           eventClick={handleModalOpen}
           locales={allLocales}
           locale={"es"}
           editable={true}
           selectable={true}
           select={handleDateSelect}
+          events={calendarData}
         />
         <Modal isOpen={open} onClose={handleCloseModal}>
           {data && (
@@ -109,15 +148,21 @@ export default function Feeding() {
         </Modal>
       </div>
       <div>
-        {data2 && (
+        {traininigList && (
           <div className="flex justify-around mt-20">
-            {data2.map((list: any) => (
-              <div key={data2._id} className="hover:bg-slate-500" onClick={() => setTrainingListId(list._id)}>
+            {traininigList.map((list: any) => (
+              <div
+                key={traininigList._id}
+                className="hover:bg-slate-500"
+                onClick={() =>
+                  setTrainingListId({ id: list._id, title: list.title })
+                }
+              >
                 <h1>{list.title}</h1>
                 <div className="flex flex-col">
-                  {list.exercises.map((e:any) => (
+                  {list.exercises.map((e: any) => (
                     <div key={e._id} className="flex my-4">
-                      <img src={e.image} alt={e.name} className="w-40"/>
+                      <img src={e.image} alt={e.name} className="w-40" />
                       <div>
                         <p>{e.name}</p>
                         <p>{e.muscle}</p>

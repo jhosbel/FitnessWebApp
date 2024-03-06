@@ -33,3 +33,9 @@ export interface ExerciseOne {
   instructions: string;
   image: string;
 }
+
+export interface CalendarData {
+  id: string;
+  title: string;
+  start: string;
+}
