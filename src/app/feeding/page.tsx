@@ -14,8 +14,12 @@ import {
   getTrainingList,
   getTrainingListOne,
 } from "@/api/training";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+import { format, subHours, startOfMonth } from "date-fns";
 
 export default function Feeding() {
+  const [value, onChange] = useState<any>(new Date());
   /* const {calendarData} = useTraining() */
   const [open, setOpen] = useState<boolean>(false);
   const [data, setData] = useState<any>();
@@ -110,11 +114,48 @@ export default function Feeding() {
     // }
   };
 
+  let [currentMonth, setCurrentMonth] = useState<Date>(
+    startOfMonth(new Date())
+  );
+
+  const formatData = (x: any) => {
+    let newDate = x.replaceAll("-", ",");
+    return newDate;
+  };
+  /* const test = calendarData[0].start
+const test2 = test?.replaceAll("-", ",")
+console.log(test2)
+console.log(calendarData) */
+console.log(calendarData)
+
+const handleDayClick = (value:any) => {
+  const fechaOriginal = value
+  const fechaFormateada = format(fechaOriginal, "yyyy,MM,dd")
+  console.log(fechaOriginal)
+  console.log(fechaFormateada)
+  setOpen(true);
+};
+
+const events = [
+  { date: new Date(2024, 2, 10), title: 'Jhosbel' } // Fecha del evento: 10 de marzo de 2024
+];
+
+// Función para renderizar los eventos en el calendario
+const tileContent = ({ date, view }:any) => {
+  if (view === 'month' && calendarData) {
+    const event = calendarData.find((event:any) => {
+      const eventStartDate = new Date(formatData(event.start));
+      return eventStartDate.toDateString() === date.toDateString();
+    });
+    return event ? <p>{event.title}</p> : null;
+  }
+};
+
   return (
-    <div className="h-screen absolute right-0 w-4/5 bg-slate-50">
+    <div className="absolute right-0 w-4/5 bg-slate-50">
       <h1>Proximamente</h1>
       <div className="w-2/4 h-2/4">
-        <FullCalendar
+        {/* <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           weekends={false}
           eventClick={handleModalOpen}
@@ -124,7 +165,7 @@ export default function Feeding() {
           selectable={true}
           select={handleDateSelect}
           events={calendarData}
-        />
+        /> */}
         <Modal isOpen={open} onClose={handleCloseModal}>
           {data && (
             <div key={data._id} className="bg-slate-200 flex w-full h-full">
@@ -175,6 +216,16 @@ export default function Feeding() {
             ))}
           </div>
         )}
+      </div>
+      <div className="w-[500px] h-[500px]">
+        <h1>Otro Calendario</h1>
+        <Calendar
+          onChange={onChange}
+          value={value}
+          onClickDay={handleDayClick}
+          tileContent={tileContent}
+          locale="es"
+        />
       </div>
     </div>
   );
