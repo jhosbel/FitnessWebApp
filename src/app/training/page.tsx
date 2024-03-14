@@ -9,12 +9,14 @@ import {
 import { TrainingProvider } from "@/context/TrainingContext";
 import { useState } from "react";
 import { useTraining } from "@/context/useTraining";
-import { createTrainingList, getExerciseOne } from "@/api/training";
+/* import useAuthAndApi, { createTrainingList, getExerciseOne } from "@/app/api/training"; */
 import TrainingList from "@/components/ExerciseList";
 import TrainingForm from "@/components/TrainingForm";
 import Modal from "@/components/Modal";
+import useAuthAndApi from "../api/training";
 
 export default function Training() {
+  const {createTrainingList, getExerciseOne} = useAuthAndApi()
   const { setTrainingData } = useTraining();
   const [selectedExercise, setSelectedExercise] = useState<ExerciseOne[]>([]);
   const [selectedModalExercise, setSelectedModalExercise] =
@@ -27,6 +29,8 @@ export default function Training() {
   });
   const [open, setOpen] = useState<boolean>(false);
   const [exerInfo, setExerInfo] = useState<any>();
+  const [isAdding, setIsAdding] = useState<boolean>(false);
+
 
   const handleExerciseClick = (clickedExercise: ExerciseOne) => {
     const { _id, equipment, instructions, muscle, name, image } =
@@ -65,6 +69,7 @@ export default function Training() {
 
   const handleTrainingList = (e: any) => {
     e.preventDefault();
+    setIsAdding(false);
     setTrainingList({
       title: title,
       exercises: exercises,
@@ -73,6 +78,8 @@ export default function Training() {
       title: title,
       exercises: exercises,
     });
+    setIsAdding(true);
+
   };
 
   const openModal = async (exerciseId: string) => {
@@ -92,8 +99,8 @@ export default function Training() {
             placeholder="Titulo del Entrenamiento"
             onChange={(e) => setTitle(e.target.value)}
           />
-          <button className="bg-indigo-500 px-3 block py-2 w-full text-white hover:bg-opacity-75 transition rounded-lg disabled:bg-opacity-75 disabled:bg-green-500">
-            Crear Lista
+          <button className="bg-indigo-500 px-3 block py-2 w-full text-white hover:bg-opacity-75 transition rounded-lg disabled:bg-opacity-75 disabled:bg-green-500" disabled={isAdding}>
+            {isAdding ? "Lista Creada" : "crear Lista"}
           </button>
         </form>
         {selectedExercise.length > 0 && (

@@ -1,7 +1,7 @@
 "use client";
 
-import { createTrainingRequest } from "@/api/training";
-import { useTraining } from "@/context/useTraining";
+/* import { createTrainingRequest } from "@/app/api/training";
+import { useTraining } from "@/context/useTraining"; */
 import {
   CompleteTraining,
   Exercise,

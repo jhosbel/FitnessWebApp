@@ -1,11 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
+/* eslint-disable react-hooks/exhaustive-deps */
+
 "use client";
 
-import { getExerciseByMuscle } from "@/api/training";
 import { useTraining } from "@/context/useTraining";
 import { ExerciseOne } from "@/interfaces/training.interface";
 import { useEffect, useState } from "react";
 import Modal from "./Modal";
+import useAuthAndApi from "@/app/api/training";
 
 interface TrainingListProps {
   onExerciseSelect: (exercise: ExerciseOne) => void;
@@ -16,6 +18,7 @@ export default function TrainingList({
   onExerciseSelect,
   openModal,
 }: TrainingListProps) {
+  const {getExerciseByMuscle} = useAuthAndApi()
   const { exercise } = useTraining();
   const [selectedMuscle, setSelectedMuscle] = useState("");
   const [filteredExercises, setFilteredExercises] = useState<ExerciseOne[]>([]);
@@ -67,7 +70,7 @@ export default function TrainingList({
         </select>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-        {filteredExercises.map((exercise) => (
+        {Array.isArray(filteredExercises) && filteredExercises.map((exercise) => (
           <div
             key={exercise._id}
             className="m-4 border-solid border-gray-900 border rounded-lg hover:bg-gray-800 hover:cursor-pointer hover:text-white transition flex sm:flex-col"

@@ -1,21 +1,25 @@
 /* eslint-disable @next/next/no-img-element */
+/* eslint-disable react-hooks/exhaustive-deps */
+
 "use client";
 import Modal from "@/components/Modal";
 import { useEffect, useState } from "react";
-import {
+/* import {
   createCalendarData,
   getCalendarData,
   getTrainingList,
   getTrainingListOne,
-} from "@/api/training";
+} from "@/app/api/training"; */
 import Calendar from "react-calendar";
 import { format } from "date-fns";
+import useAuthAndApi from "../api/training";
 
 export default function Feeding() {
+  const {getTrainingList, getCalendarData, getTrainingListOne, createCalendarData} = useAuthAndApi()
   const [value, onChange] = useState<any>(new Date());
   const [open, setOpen] = useState<boolean>(false);
   const [data, setData] = useState<any>();
-  const [traininigList, setTrainingList] = useState<any>();
+  const [trainingList, setTrainingList] = useState<any>();
   const [calendarData, setCalendarData] = useState<any>();
   const [trainingListId, setTrainingListId] = useState<any>({
     id: "",
@@ -82,10 +86,6 @@ export default function Feeding() {
     }
   };
 
-//react-calendar__month-view__days
-//react-calendar__month-view__weekdays
-//react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth
-
   return (
     <div className="absolute right-0 w-4/5 bg-slate-50">
       <h1>Proximamente</h1>
@@ -120,11 +120,11 @@ export default function Feeding() {
         </Modal>
       </div>
       <div>
-        {traininigList && (
+        {trainingList && (
           <div className="flex justify-around mt-20">
-            {traininigList.map((list: any) => (
+            {Array.isArray(trainingList) && trainingList.map((list: any) => (
               <div
-                key={traininigList._id}
+                key={list._id}
                 className="hover:bg-slate-500"
                 onClick={() =>
                   setTrainingListId({ id: list._id, title: list.title })

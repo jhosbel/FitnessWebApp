@@ -1,4 +1,6 @@
-import { getCalendarData, getExercisesRequest } from "@/api/training";
+/* eslint-disable react-hooks/exhaustive-deps */
+/* import { getCalendarData, getExercisesRequest } from "@/app/api/training"; */
+import useAuthAndApi from "@/app/api/training";
 import { CalendarData, CompleteTraining, ExerciseOne } from "@/interfaces/training.interface";
 import {
   createContext,
@@ -55,6 +57,7 @@ interface Props {
 }
 
 export const TrainingProvider: React.FC<Props> = ({ children }) => {
+  const { getCalendarData, getExercisesRequest } = useAuthAndApi()
   const [exercise, setExercise] = useState<ExerciseOne[]>([]);
   const [trainingData, setTrainingData] = useState<CompleteTraining>({
     exercises: [

@@ -1,9 +1,14 @@
 "use client";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function Navigation() {
+  const { data: session, status } = useSession();
   const [isOpen, setIsOpen] = useState(false);
+
+  console.log({ session, status });
+
   return (
     <aside className="relative">
       {/* Version Escritorio */}
@@ -21,6 +26,22 @@ export default function Navigation() {
               <li className="text-gray-800 hover:text-white cursor-pointer px-4 py-2">
                 <Link href={"/feeding"}>Alimentación</Link>
               </li>
+              {!session ? (
+                <>
+                  <li className="text-gray-800 hover:text-white cursor-pointer px-4 py-2">
+                    <Link href={"/register"}>Registrarse</Link>
+                  </li>
+                  <li className="text-gray-800 hover:text-white cursor-pointer px-4 py-2">
+                    <Link href={"/login"}>Entrar</Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="text-gray-800 hover:text-white cursor-pointer px-4 py-2">
+                    <button onClick={() => signOut()}>Salir</button>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
           <div className="pb-8">

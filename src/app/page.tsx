@@ -10,7 +10,7 @@ import TrainingForm from "../components/TrainingForm";
 import { TrainingProvider } from "@/context/TrainingContext";
 import { useState } from "react";
 import { useTraining } from "@/context/useTraining";
-import { createTrainingList } from "@/api/training";
+import { createTrainingList } from "@/app/api/training";
 
 export default function Home() {
   const { setTrainingData } = useTraining();
