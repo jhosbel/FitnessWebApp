@@ -7,8 +7,6 @@ export default function Navigation() {
   const { data: session, status } = useSession();
   const [isOpen, setIsOpen] = useState(false);
 
-  console.log({ session, status });
-
   return (
     <aside className="relative">
       {/* Version Escritorio */}
