@@ -7,16 +7,18 @@ import {
   ExerciseOne,
 } from "@/interfaces/training.interface";
 import { TrainingProvider } from "@/context/TrainingContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTraining } from "@/context/useTraining";
-/* import useAuthAndApi, { createTrainingList, getExerciseOne } from "@/app/api/training"; */
 import TrainingList from "@/components/ExerciseList";
 import TrainingForm from "@/components/TrainingForm";
 import Modal from "@/components/Modal";
 import useAuthAndApi from "../api/training";
+import { useSession } from "next-auth/react";
+import CalendarData from "@/components/CalendarData";
 
 export default function Training() {
-  const {createTrainingList, getExerciseOne} = useAuthAndApi()
+  const { data: session } = useSession();
+  const { createTrainingList, getExerciseOne } = useAuthAndApi();
   const { setTrainingData } = useTraining();
   const [selectedExercise, setSelectedExercise] = useState<ExerciseOne[]>([]);
   const [selectedModalExercise, setSelectedModalExercise] =
@@ -26,11 +28,13 @@ export default function Training() {
   const [trainingList, setTrainingList] = useState<CompleteTrainingList>({
     title: "",
     exercises: [],
+    userEmail: "",
+    userId: "",
   });
   const [open, setOpen] = useState<boolean>(false);
   const [exerInfo, setExerInfo] = useState<any>();
   const [isAdding, setIsAdding] = useState<boolean>(false);
-
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
   const handleExerciseClick = (clickedExercise: ExerciseOne) => {
     const { _id, equipment, instructions, muscle, name, image } =
@@ -73,13 +77,16 @@ export default function Training() {
     setTrainingList({
       title: title,
       exercises: exercises,
+      userEmail: session?.user?.email || "",
+      userId: session?.user?.id || "",
     });
     createTrainingList({
       title: title,
       exercises: exercises,
+      userEmail: session?.user?.email || "",
+      userId: session?.user?.id || "",
     });
     setIsAdding(true);
-
   };
 
   const openModal = async (exerciseId: string) => {
@@ -89,8 +96,14 @@ export default function Training() {
     setOpen(true);
   };
 
+  const openCalendarData = () => {
+    setIsVisible(!isVisible);
+  };
+
   return (
     <main className="h-screen w-full sm:w-4/5 right-0 absolute sm:p-24">
+      <p onClick={openCalendarData}>Abrir calendario</p>
+      {isVisible && <CalendarData />}
       <section className="mt-20 flex flex-col-reverse items-center sm:flex-col sm:mt-0">
         <form onSubmit={handleTrainingList}>
           <input
@@ -99,7 +112,10 @@ export default function Training() {
             placeholder="Titulo del Entrenamiento"
             onChange={(e) => setTitle(e.target.value)}
           />
-          <button className="bg-indigo-500 px-3 block py-2 w-full text-white hover:bg-opacity-75 transition rounded-lg disabled:bg-opacity-75 disabled:bg-green-500" disabled={isAdding}>
+          <button
+            className="bg-indigo-500 px-3 block py-2 w-full text-white hover:bg-opacity-75 transition rounded-lg disabled:bg-opacity-75 disabled:bg-green-500"
+            disabled={isAdding}
+          >
             {isAdding ? "Lista Creada" : "crear Lista"}
           </button>
         </form>
@@ -126,9 +142,6 @@ export default function Training() {
                     >
                       Mas info
                     </button>
-                    {/* <span onClick={() => handleCloseClick(exercise._id)}>
-                      Cerrar
-                    </span> */}
                     <TrainingForm
                       id={exercise._id}
                       name={exercise.name}
@@ -138,6 +151,12 @@ export default function Training() {
                       image={exercise.image}
                       onTrainingChange={handleTrainingChange}
                     />
+                    <span
+                      onClick={() => handleCloseClick(exercise._id)}
+                      className="bg-red-600 px-3 block py-2 w-full text-white hover:bg-opacity-75 transition rounded-lg mt-2 text-center cursor-pointer"
+                    >
+                      Quitar
+                    </span>
                   </div>
                 </div>
               ))}

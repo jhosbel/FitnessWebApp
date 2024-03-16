@@ -21,6 +21,8 @@ export interface CompleteTraining {
 export interface CompleteTrainingList {
   title: string;
   exercises: Exercise[];
+  userEmail: string;
+  userId: string;
 }
 
 export type OnlyExercises = Omit<CompleteTraining, "title">;
@@ -38,4 +40,6 @@ export interface CalendarData {
   id: string;
   title: string;
   start: string;
+  userEmail: string;
+  userId: string;
 }

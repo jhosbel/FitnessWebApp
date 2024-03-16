@@ -6,12 +6,17 @@ import Modal from "@/components/Modal";
 import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import { format } from "date-fns";
-import useAuthAndApi from "../api/training";
 import { useSession } from "next-auth/react";
+import useAuthAndApi from "@/app/api/training";
 
-export default function Feeding() {
+const CalendarData = () => {
   const { data: session } = useSession();
-  const {getTrainingList, getCalendarData, getTrainingListOne, createCalendarData} = useAuthAndApi()
+  const {
+    getTrainingList,
+    getCalendarData,
+    getTrainingListOne,
+    createCalendarData,
+  } = useAuthAndApi();
   const [value, onChange] = useState<any>(new Date());
   const [open, setOpen] = useState<boolean>(false);
   const [data, setData] = useState<any>();
@@ -29,7 +34,7 @@ export default function Feeding() {
     getCalendarData()
       .then((res) => res.json())
       .then((data) => setCalendarData(data));
-  }, [trainingListId]);
+  }, [trainingListId, trainingList]);
 
   const handleModalOpen = async (clickedExercise: any) => {
     let id = clickedExercise.id;
@@ -54,8 +59,8 @@ export default function Feeding() {
       id: trainingListId.id,
       start: fechaFormateada,
       title: trainingListId.title,
-      userEmail: session?.user.email || '',
-      userId: session?.user?.id || ''
+      userEmail: session?.user.email || "",
+      userId: session?.user?.id || "",
     });
 
     setTrainingListId({ id: "", title: "" });
@@ -64,8 +69,11 @@ export default function Feeding() {
       res.json()
     );
     setCalendarData(updatedCalendarData);
-  };
 
+    await getTrainingList()
+      .then((res) => res.json())
+      .then((data) => setTrainingList(data));
+  };
 
   // Función para renderizar los eventos en el calendario
   const tileContent = ({ date, view }: any) => {
@@ -86,8 +94,7 @@ export default function Feeding() {
   };
 
   return (
-    <div className="absolute right-0 w-4/5 bg-slate-50">
-      <h1>Proximamente</h1>
+    <div className="relative right-0 w-full">
       <div className="w-full flex justify-center items-center">
         <Calendar
           onChange={onChange}
@@ -120,33 +127,40 @@ export default function Feeding() {
       </div>
       <div>
         {trainingList && (
-          <div className="flex justify-around mt-20">
-            {Array.isArray(trainingList) && trainingList.map((list: any) => (
-              <div
-                key={list._id}
-                className="hover:bg-slate-500"
-                onClick={() =>
-                  setTrainingListId({ id: list._id, title: list.title })
-                }
-              >
-                <h1>{list.title}</h1>
-                <div className="flex flex-col">
-                  {list.exercises.map((e: any) => (
-                    <div key={e._id} className="flex my-4">
-                      <img src={e.image} alt={e.name} className="w-40" />
-                      <div>
-                        <p>{e.name}</p>
-                        <p>{e.muscle}</p>
-                        <p>{e.equipment}</p>
+          <div className="flex flex-col justify-around mt-20">
+            {Array.isArray(trainingList) &&
+              trainingList.map((list: any) => (
+                <div
+                  key={list._id}
+                  className="hover:bg-slate-500"
+                  onClick={() =>
+                    setTrainingListId({ id: list._id, title: list.title })
+                  }
+                >
+                  <h1>{list.title}</h1>
+                  <div className="flex flex-row">
+                    {list.exercises.map((e: any) => (
+                      <div key={e._id} className="flex my-4">
+                        <img
+                          src={e.image}
+                          alt={e.name}
+                          className="w-24 rounded-full"
+                        />
+                        <div>
+                          <p>{e.name}</p>
+                          <p>{e.muscle}</p>
+                          <p>{e.equipment}</p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         )}
       </div>
     </div>
   );
-}
+};
+
+export default CalendarData;
