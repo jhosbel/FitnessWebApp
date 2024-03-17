@@ -1,7 +1,7 @@
+"use client";
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
 
-"use client";
 import Modal from "@/components/Modal";
 import { useEffect, useState } from "react";
 import Calendar from "react-calendar";

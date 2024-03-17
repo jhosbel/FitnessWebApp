@@ -35,7 +35,6 @@ export default function Training() {
   const [open, setOpen] = useState<boolean>(false);
   const [exerInfo, setExerInfo] = useState<any>();
   const [isAdding, setIsAdding] = useState<boolean>(false);
-  const [isVisible, setIsVisible] = useState<boolean>(false);
 
   const handleExerciseClick = (clickedExercise: ExerciseOne) => {
     const { _id, equipment, instructions, muscle, name, image } =
@@ -98,14 +97,8 @@ export default function Training() {
     setOpen(true);
   };
 
-  const openCalendarData = () => {
-    setIsVisible(!isVisible);
-  };
-
   return (
-    <main className="h-screen w-full sm:w-4/5 right-0 absolute sm:p-24">
-      <p onClick={openCalendarData}>Abrir calendario</p>
-      {isVisible && <CalendarData />}
+    <main>
       <section className="mt-20 flex flex-col-reverse items-center sm:flex-col sm:mt-0">
         <form onSubmit={handleTrainingList}>
           <input

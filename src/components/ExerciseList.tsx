@@ -60,7 +60,7 @@ export default function TrainingList({
   return (
     <article>
       <div className="flex flex-col items-center">
-        <h1>Lista de Entrenamieto</h1>
+        <h1>Lista de Ejercicios</h1>
         <select name="musculos" onChange={handleMuscleType}>
           <option value="">Todos</option>
           <option value="Pecho">Pecho</option>
