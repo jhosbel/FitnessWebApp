@@ -34,7 +34,7 @@ const CalendarData = () => {
     getCalendarData()
       .then((res) => res.json())
       .then((data) => setCalendarData(data));
-  }, [trainingListId, trainingList]);
+  }, []);
 
   const handleModalOpen = async (clickedExercise: any) => {
     let id = clickedExercise.id;

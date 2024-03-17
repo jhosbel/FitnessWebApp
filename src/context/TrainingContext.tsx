@@ -1,7 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* import { getCalendarData, getExercisesRequest } from "@/app/api/training"; */
 import useAuthAndApi from "@/app/api/training";
-import { CalendarData, CompleteTraining, ExerciseOne } from "@/interfaces/training.interface";
+import {
+  CalendarData,
+  CompleteTraining,
+  ExerciseOne,
+} from "@/interfaces/training.interface";
 import {
   createContext,
   useState,
@@ -16,7 +20,7 @@ interface TrainingContextValue {
   setTrainingData: Dispatch<SetStateAction<CompleteTraining>>;
   exerciseList: any[];
   setExerciseList: Dispatch<SetStateAction<any[]>>;
-  calendarData: any;
+  calendarData: CalendarData[];
   setCalendarData: Dispatch<SetStateAction<any[]>>;
 }
 
@@ -44,12 +48,8 @@ export const TrainingContext = createContext<TrainingContextValue>({
   setTrainingData: () => {},
   exerciseList: [],
   setExerciseList: () => {},
-  calendarData: {
-    id: '',
-    start: '',
-    title: '',
-  },
-  setCalendarData: () => {}
+  calendarData: [],
+  setCalendarData: () => {},
 });
 
 interface Props {
@@ -57,7 +57,7 @@ interface Props {
 }
 
 export const TrainingProvider: React.FC<Props> = ({ children }) => {
-  const { getCalendarData, getExercisesRequest } = useAuthAndApi()
+  const { getCalendarData, getExercisesRequest } = useAuthAndApi();
   const [exercise, setExercise] = useState<ExerciseOne[]>([]);
   const [trainingData, setTrainingData] = useState<CompleteTraining>({
     exercises: [
@@ -79,7 +79,7 @@ export const TrainingProvider: React.FC<Props> = ({ children }) => {
     ],
   });
   const [exerciseList, setExerciseList] = useState<any>([]);
-  const [calendarData, setCalendarData] = useState<any>([]);
+  const [calendarData, setCalendarData] = useState<any[]>([]);
 
   useEffect(() => {
     getExercisesRequest()
@@ -88,9 +88,9 @@ export const TrainingProvider: React.FC<Props> = ({ children }) => {
         setExercise(data);
       });
     getCalendarData()
-      .then((resCalendar) => resCalendar.json())
-      .then((dataCalendarData: any) => {
-        setCalendarData(dataCalendarData);
+      .then((res) => res.json())
+      .then((data) => {
+        setCalendarData(data);
       });
   }, []);
 
@@ -103,7 +103,7 @@ export const TrainingProvider: React.FC<Props> = ({ children }) => {
         exerciseList,
         setExerciseList,
         calendarData,
-        setCalendarData
+        setCalendarData,
       }}
     >
       {children}
