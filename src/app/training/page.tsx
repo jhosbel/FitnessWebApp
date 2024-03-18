@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import CalendarData from "@/components/CalendarData";
 import TrainingData from "@/components/TrainingData";
+import Link from "next/link";
 
 export default function Training() {
   const { data: session, status } = useSession();
@@ -29,6 +30,7 @@ export default function Training() {
         </section>
         <p onClick={openCalendarData}>Crear lista de Entrenamiento</p>
         {isVisible && <TrainingData />}
+        <Link href={'/training/createdlist'}>Cambiar pagina</Link>
       </main>
     );
   } else {
