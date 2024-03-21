@@ -62,11 +62,11 @@ export default function TrainingList({
       <div className="flex flex-col items-center">
         <h1>Lista de Ejercicios</h1>
         <select name="musculos" onChange={handleMuscleType}>
-          <option value="">Todos</option>
-          <option value="Pecho">Pecho</option>
-          <option value="Biceps">Biceps</option>
-          <option value="Espalda">Espalda</option>
-          <option value="Cuadriceps">Cuadriceps</option>
+          <option value="" className="text-xs">Todos</option>
+          <option value="Pecho" className="text-xs">Pecho</option>
+          <option value="Biceps" className="text-xs">Biceps</option>
+          <option value="Espalda" className="text-xs">Espalda</option>
+          <option value="Cuadriceps" className="text-xs">Cuadriceps</option>
         </select>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
@@ -108,11 +108,11 @@ export default function TrainingList({
       <Modal isOpen={open} onClose={handleCloseModal}>
         {selectedExercise && (
           <div>
-            <img src={selectedExercise.image} alt={selectedExercise.name} />
+            <img src={selectedExercise.image} alt={selectedExercise.name} className="max-w-[360px] max-h-[360px]"/>
             <p>{selectedExercise.name}</p>
             <p>{selectedExercise.muscle}</p>
             <p>{selectedExercise.equipment}</p>
-            <p>{selectedExercise.instructions}</p>
+            <p className="max-w-80">{selectedExercise.instructions}</p>
           </div>
         )}
       </Modal>

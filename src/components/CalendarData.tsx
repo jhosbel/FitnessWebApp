@@ -8,6 +8,8 @@ import Calendar from "react-calendar";
 import { format } from "date-fns";
 import { useSession } from "next-auth/react";
 import useAuthAndApi from "@/app/api/training";
+import CheckIcon from "./icons/CheckIcon";
+import Swal from "sweetalert2";
 
 const CalendarData = () => {
   const { data: session } = useSession();
@@ -26,6 +28,7 @@ const CalendarData = () => {
     id: "",
     title: "",
   });
+  const [selectedList, setSelectedList] = useState(null);
 
   useEffect(() => {
     getTrainingList()
@@ -52,8 +55,21 @@ const CalendarData = () => {
     const fechaFormateada = format(value, "yyyy,MM,dd");
     if (!trainingListId || trainingListId.id === "") return;
 
-    const confirmCreateEvent = window.confirm("¿Deseas crear el evento?");
-    if (!confirmCreateEvent) return; // Si el usuario cancela, no se crea el evento
+    const confirmCreateEvent = await Swal.fire({
+      title: "Estás seguro?",
+      text: "No podrás revertir esto.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, deseo crearla",
+      cancelButtonText: "Cancelar",
+    });
+    if (!confirmCreateEvent.isConfirmed) {  // Si el usuario cancela, no se crea el evento
+      setTrainingListId({ id: "", title: "" });
+      setSelectedList(null);
+      return;
+    }
 
     await createCalendarData({
       id: trainingListId.id,
@@ -64,6 +80,7 @@ const CalendarData = () => {
     });
 
     setTrainingListId({ id: "", title: "" });
+    setSelectedList(null);
 
     const updatedCalendarData = await getCalendarData().then((res) =>
       res.json()
@@ -93,6 +110,14 @@ const CalendarData = () => {
     }
   };
 
+  const handleListClick = async (listId: any) => {
+    if (listId === selectedList) {
+      setSelectedList(null);
+    } else {
+      setSelectedList(listId);
+    }
+  };
+
   return (
     <div className="relative right-0 w-full">
       <div className="w-full flex justify-center items-center">
@@ -105,54 +130,90 @@ const CalendarData = () => {
         />
         <Modal isOpen={open} onClose={handleCloseModal}>
           {data && (
-            <div key={data._id} className="bg-slate-200 flex w-full h-full">
+            <div key={data._id} className="bg-slate-200 flex flex-col w-full h-full gap-4">
               {data.exercises?.map((exercise: any) => (
-                <div key={exercise._id}>
-                  <img src={exercise.image} alt={exercise.name} />
-                  <p>{exercise.name}</p>
-                  <p>{exercise.muscle}</p>
-                  <p>{exercise.equipment}</p>
-                  <p>{exercise.instructions}</p>
-                  <p>Series: {exercise.series}</p>
-                  <div className="flex">
-                    <p>Peso: {exercise.weight}</p>
-                    <p>{exercise.weightType}</p>
+                <div key={exercise._id} className="flex gap-8 text-slate-600">
+                  <img src={exercise.image} alt={exercise.name} className="w-36 rounded-sm"/>
+                  <div>
+                    <p>{exercise.name}</p>
+                    <div>
+                      <p>{exercise.muscle}</p>
+                      <p>{exercise.equipment}</p>
+                      <p>{exercise.instructions}</p>
+                      <p>Series: {exercise.series}</p>
+                      <div className="flex gap-1">
+                        <p>Peso: {exercise.weight}</p>
+                        <p>{exercise.weightType}</p>
+                      </div>
+                      <p>Repeticiones: {exercise.reps}</p>
+                    </div>
                   </div>
-                  <p>Repeticiones: {exercise.reps}</p>
+                  <div className="max-w-60">
+                    <p>{exercise.note}</p>
+                  </div>
                 </div>
               ))}
             </div>
           )}
         </Modal>
       </div>
-      <div>
+      <div className="mt-8">
+        <h1 className="text-xl text-slate-700 bg-[#F7BE38] hover:bg-[#F7BE38]/90 focus:ring-4 focus:outline-none focus:ring-[#F7BE38]/50 rounded-lg px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#F7BE38]/50 me-2 mb-2 self-end font-bold">
+          Lista de entrenamiento
+        </h1>
         {trainingList && (
-          <div className="flex flex-col justify-around mt-20">
+          <div className="flex flex-col justify-around mt-8 gap-6">
             {Array.isArray(trainingList) &&
               trainingList.map((list: any) => (
-                <div
-                  key={list._id}
-                  className="hover:bg-slate-500"
-                  onClick={() =>
-                    setTrainingListId({ id: list._id, title: list.title })
-                  }
-                >
-                  <h1>{list.title}</h1>
-                  <div className="flex flex-row">
-                    {list.exercises.map((e: any) => (
-                      <div key={e._id} className="flex my-4">
-                        <img
-                          src={e.image}
-                          alt={e.name}
-                          className="w-24 rounded-full"
-                        />
-                        <div>
-                          <p>{e.name}</p>
-                          <p>{e.muscle}</p>
-                          <p>{e.equipment}</p>
-                        </div>
+                <div key={list._id}>
+                  <div
+                    className={`hover:bg-[#bfbfbf60] rounded-2xl px-4 cursor-pointer list-select ${
+                      list._id === selectedList ? "selected" : ""
+                    }`}
+                    onClick={() => {
+                      setTrainingListId({ id: list._id, title: list.title });
+                      handleListClick(list._id);
+                    }}
+                  >
+                    <div
+                      className={`h-40 w-full backdrop-blur-sm bg-[#39ff396b] absolute rounded-2xl hidden gap-4 justify-center left-0 items-center cursor-pointer list-select ${
+                        list._id === selectedList ? "selected" : ""
+                      }`}
+                      onClick={() => {
+                        setTrainingListId({});
+                        setSelectedList(null);
+                      }}
+                    >
+                      <div className="flex gap-4 justify-center items-center h-full">
+                        <CheckIcon className="h-12 w-12 text-[#185918]" />
+                        <span
+                          className="text-4xl font-bold text-[#185918]"
+                          onClick={() => {
+                            setTrainingListId({});
+                            setSelectedList(null);
+                          }}
+                        >
+                          Seleccionado
+                        </span>
                       </div>
-                    ))}
+                    </div>
+                    <h1 className="text-center">{list.title}</h1>
+                    <div className="flex flex-row mt-2">
+                      {list.exercises.map((e: any) => (
+                        <div key={e._id} className="flex my-4">
+                          <img
+                            src={e.image}
+                            alt={e.name}
+                            className="w-24 h-16 md:h-24 rounded-full"
+                          />
+                          <div className="hidden md:block">
+                            <p>{e.name}</p>
+                            <p>{e.muscle}</p>
+                            <p>{e.equipment}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               ))}

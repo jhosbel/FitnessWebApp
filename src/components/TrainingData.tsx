@@ -16,6 +16,7 @@ import Modal from "@/components/Modal";
 import { useSession } from "next-auth/react";
 import CalendarData from "@/components/CalendarData";
 import useAuthAndApi from "@/app/api/training";
+import { useRouter } from "next/navigation";
 
 export default function Training() {
   const { data: session } = useSession();
@@ -35,6 +36,8 @@ export default function Training() {
   const [open, setOpen] = useState<boolean>(false);
   const [exerInfo, setExerInfo] = useState<any>();
   const [isAdding, setIsAdding] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const handleExerciseClick = (clickedExercise: ExerciseOne) => {
     const { _id, equipment, instructions, muscle, name, image } =
@@ -87,7 +90,8 @@ export default function Training() {
       userId: session?.user?.id || "",
     });
     setIsAdding(true);
-    location.reload()
+    setSelectedExercise([]);
+    router.push("/training");
   };
 
   const openModal = async (exerciseId: string) => {
