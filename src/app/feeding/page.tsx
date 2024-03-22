@@ -1,5 +1,6 @@
 "use client";
 
+import Footer from "@/components/Footer";
 import Tools from "@/components/icons/Tools";
 
 export default function Feeding() {
@@ -11,7 +12,7 @@ export default function Feeding() {
         <h1 className="text-4xl font-bold text-slate-700">Proximamente...</h1>
         <p></p>
       </div>
-     
+      <Footer className="md:hidden p-2 text-[0.5rem] mt-4" />
     </div>
   );
 }

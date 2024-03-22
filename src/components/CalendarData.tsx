@@ -158,11 +158,11 @@ const CalendarData = () => {
         </Modal>
       </div>
       <div className="mt-8">
-        <h1 className="text-xl text-slate-700 bg-[#F7BE38] hover:bg-[#F7BE38]/90 focus:ring-4 focus:outline-none focus:ring-[#F7BE38]/50 rounded-lg px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#F7BE38]/50 me-2 mb-2 self-end font-bold">
+        <h1 className="text-2xl text-slate-700 focus:outline-none rounded-lg px-5 py-2.5 text-center inline-flex items-center mb-2 self-end font-bold">
           Lista de entrenamiento
         </h1>
         {trainingList && (
-          <div className="flex flex-col justify-around mt-8 gap-6">
+          <div className="flex flex-col justify-around my-8 gap-6">
             {Array.isArray(trainingList) &&
               trainingList.map((list: any) => (
                 <div key={list._id}>

@@ -1,8 +1,8 @@
 const newYear = new Date().getFullYear();
 
-const Footer = () => {
+const Footer = ({className}: any) => {
   return (
-    <footer>
+    <footer className={className}>
       <p className="px-8 text-center">
         © {newYear}{" "}
         <a

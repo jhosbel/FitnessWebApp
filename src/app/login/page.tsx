@@ -55,7 +55,7 @@ const LoginPage = () => {
                       />
                     </svg>
                   </div>
-                  <span className="ml-4">Sign Up with Google</span>
+                  <span className="ml-4">Ingresar con Google</span>
                 </button>
 
                 {/* <button className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline mt-5">
@@ -95,7 +95,7 @@ const LoginPage = () => {
                   />
                   <button
                     type="submit"
-                    className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                    className="mt-5 tracking-wide font-semibold bg-slate-700 text-gray-100 w-full py-4 rounded-lg hover:bg-slate-800 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                   >
                     <svg
                       className="w-6 h-6 -ml-2"

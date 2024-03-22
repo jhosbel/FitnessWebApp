@@ -1,12 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import Footer from "@/components/Footer";
+
 export default function Home() {
   return (
     <main className="w-full md:w-4/5 absolute right-0 flex min-h-screen flex-col items-center justify-between bg-slate-200 text-slate-700">
       <section className="flex flex-col md:flex-row mt-20">
         <div className="flex-1 px-4 md:px-8 flex flex-col gap-4">
-          <h2 className="text-base md:text-7xl font-bold">
+          <h2 className="text-3xl md:text-7xl font-bold">
             Planifica tus entrenamientos de manera organizada con C-Fitness
           </h2>
           <p>
@@ -27,7 +29,11 @@ export default function Home() {
           <h2 className="font-bold text-base md:text-5xl">
             Planifica tus entrenamientos de manera organizada con C-Fitness
           </h2>
-          <p>Accede a calendarios personalizados y listas de ejercicios para alcanzar tus metas de fitness.</p>
+          <p>
+            Planifica tu entrenamiento de forma personal, crea tus listas de
+            entrenamiento a través de nuestros ejercicios para alcanzar tus
+            metas de fitness.
+          </p>
         </div>
         <div className="flex flex-col gap-4 md:gap-0 md:flex-row items-center">
           <div className="flex-1">
@@ -38,18 +44,23 @@ export default function Home() {
             />
           </div>
           <div className="flex-1 px-4 md:px-8 gap-4 flex flex-col">
-            <h3 className="font-bold text-center text-lg md:text-3xl">Calendarios personalizados</h3>
+            <h3 className="font-bold text-center text-lg md:text-3xl">
+              Calendarios personalizados
+            </h3>
             <p className="text-sm md:text-base">
-              Con C-Fitness, puedes acceder a calendarios personalizados que
-              se adaptan a tus necesidades y metas de fitness. Ya no tendrás que
-              preocuparte por planificar tus entrenamientos, nuestro producto lo
-              hace por ti.
+              Con C-Fitness, puedes acceder a nuestras herramientas para
+              personalizar tu entrenamiento de manera que se adaptan a tus
+              necesidades y metas de fitness. Ya no tendrás que preocuparte por
+              buscar una manera de planificar tus entrenamientos, nuestro
+              producto lo hace por ti.
             </p>
           </div>
         </div>
         <div className="flex flex-col-reverse gap-4 md:gap-0 md:flex-row items-center">
           <div className="flex-1 px-4 md:px-8 gap-4 flex flex-col">
-            <h3 className="font-bold text-center text-lg md:text-3xl">Listas de ejercicios</h3>
+            <h3 className="font-bold text-center text-lg md:text-3xl">
+              Listas de ejercicios
+            </h3>
             <p className="text-sm md:text-base">
               Nuestro producto también te proporciona listas de ejercicios
               detalladas para cada entrenamiento. Esto te ayudará a seguir un
@@ -73,7 +84,9 @@ export default function Home() {
             />
           </div>
           <div className="flex-1 px-4 md:px-8 gap-4 flex flex-col">
-            <h3 className="font-bold text-center text-lg md:text-3xl">Organización y seguimiento</h3>
+            <h3 className="font-bold text-center text-lg md:text-3xl">
+              Organización y seguimiento
+            </h3>
             <p className="text-sm md:text-base">
               C-Fitness te permite organizar tus entrenamientos de manera
               eficiente y realizar un seguimiento de tu progreso. Podrás ver tus
@@ -83,6 +96,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <Footer className="md:hidden p-2 text-[0.5rem] mt-4" />
     </main>
   );
 }

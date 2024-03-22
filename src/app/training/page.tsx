@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import CalendarData from "@/components/CalendarData";
 import Link from "next/link";
 import PlusIcon from "@/components/icons/PlusIcon";
+import Footer from "@/components/Footer";
 
 export default function Training() {
   const { data: session, status } = useSession();
@@ -23,12 +24,12 @@ export default function Training() {
         <Link
           href={"/training/createdlist"}
           className={`
-          text-slate-800 
-          bg-[#F7BE38] 
-          hover:bg-[#F7BE38]/90 
+          text-white
+          bg-slate-700 
+          hover:bg-slate-800/90 
           focus:ring-4 
           focus:outline-none 
-          focus:ring-[#F7BE38]/50 
+          focus:ring-slate-800/50 
           rounded-lg
           text-xs 
           md:text-sm 
@@ -37,7 +38,7 @@ export default function Training() {
           text-center 
           inline-flex 
           items-center 
-          dark:focus:ring-[#F7BE38]/50  
+          dark:focus:ring-slate-800/50  
           self-end 
           font-bold 
           gap-2
@@ -46,6 +47,7 @@ export default function Training() {
           md:top-0
           right-[6.5rem]
           md:right-20
+          transition-all duration-300 ease-in-out
           `}
         >
           <PlusIcon />
@@ -54,6 +56,7 @@ export default function Training() {
         <section className="mt-20 flex flex-col-reverse items-center sm:flex-col sm:mt-8">
           <CalendarData />
         </section>
+        <Footer className="md:hidden p-2 text-[0.5rem] mt-4" />
       </main>
     );
   } else {

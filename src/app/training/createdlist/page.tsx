@@ -20,12 +20,12 @@ const Createdlist = () => {
       <div className="h-auto w-full sm:w-4/5 right-0 absolute sm:p-12 flex flex-col bg-slate-200">
         <Link
           href={"/training"}
-          className={`text-gray-900 
-                      bg-[#F7BE38] 
-                      hover:bg-[#F7BE38]/90 
+          className={`text-white 
+                      bg-slate-700
+                      hover:bg-slate-800/90 
                       focus:ring-4 
                       focus:outline-none 
-                      focus:ring-[#F7BE38]/50 
+                      focus:ring-slate-800/50 
                       rounded-lg 
                       text-sm 
                       px-5 
@@ -33,7 +33,7 @@ const Createdlist = () => {
                       text-center 
                       inline-flex 
                       items-center 
-                      dark:focus:ring-[#F7BE38]/50 
+                      dark:focus:ring-slate-800/50 
                       self-end 
                       font-bold 
                       gap-2
@@ -42,6 +42,7 @@ const Createdlist = () => {
                       right-[9rem]
                       md:top-0
                       md:right-0
+                      transition-all duration-300 ease-in-out
                       `}
         >
           Volver

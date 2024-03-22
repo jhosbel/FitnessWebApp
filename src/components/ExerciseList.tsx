@@ -8,6 +8,7 @@ import { ExerciseOne } from "@/interfaces/training.interface";
 import { useEffect, useState } from "react";
 import Modal from "./Modal";
 import useAuthAndApi from "@/app/api/training";
+import Footer from "./Footer";
 
 interface TrainingListProps {
   onExerciseSelect: (exercise: ExerciseOne) => void;
@@ -73,7 +74,7 @@ export default function TrainingList({
         {Array.isArray(filteredExercises) && filteredExercises.map((exercise) => (
           <div
             key={exercise._id}
-            className="m-4 border-solid border-gray-900 border rounded-lg hover:bg-gray-800 hover:cursor-pointer hover:text-white transition flex sm:flex-col"
+            className="m-4 border-solid border-gray-900 border md:rounded-lg hover:cursor-pointer transition flex sm:flex-col"
             onClick={() => handleExerciseClick(exercise)}
           >
             <img
@@ -95,7 +96,7 @@ export default function TrainingList({
                   Mas Info
                 </button>
                 <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white text-xs font-bold py-2 px-4 rounded"
+                  className="bg-slate-700 hover:bg-slate-800 text-white text-xs font-bold py-2 px-4 rounded"
                   onClick={() => onExerciseSelect(exercise)}
                 >
                   Agregar
@@ -116,6 +117,7 @@ export default function TrainingList({
           </div>
         )}
       </Modal>
+      <Footer className="md:hidden p-2 text-[0.5rem] mt-4" />
     </article>
   );
 }

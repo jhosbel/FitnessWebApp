@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import SessionAuthProviders from "@/context/SessionAuthProviders";
+import "@fontsource-variable/onest";
 
 const inter = Inter({ subsets: ["latin"] });
 

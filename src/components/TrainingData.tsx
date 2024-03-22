@@ -112,10 +112,10 @@ export default function Training() {
             onChange={(e) => setTitle(e.target.value)}
           />
           <button
-            className="bg-indigo-500 px-3 block py-2 w-full text-white hover:bg-opacity-75 transition rounded-lg disabled:bg-opacity-75 disabled:bg-green-500"
+            className="bg-slate-700 hover:bg-slate-800 px-3 block py-2 w-full text-white transition rounded-lg disabled:bg-opacity-75 disabled:bg-green-500"
             disabled={isAdding}
           >
-            {isAdding ? "Lista Creada" : "crear Lista"}
+            {isAdding ? "Lista Creada" : "Crear Lista"}
           </button>
         </form>
         {selectedExercise.length > 0 && (
