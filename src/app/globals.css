@@ -244,6 +244,7 @@ body {
 @media (max-width: 768px) {
   .react-calendar {
     width: 100%;
+    font-size: 0.5rem;
   }
   .react-calendar button {
     height: 3rem;

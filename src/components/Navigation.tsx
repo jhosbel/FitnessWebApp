@@ -50,7 +50,7 @@ export default function Navigation() {
               ) : (
                 <>
                   <li className="cursor-pointer px-4 py-4 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
-                    <LogOutIcon/>
+                    <LogOutIcon />
                     <button onClick={() => signOut()}>Salir</button>
                   </li>
                 </>
@@ -60,7 +60,7 @@ export default function Navigation() {
           <div className="h-20 flex flex-col border-t-2 justify-center">
             {/* Aca un footer o algo mas */}
             {/* <h1 className="text-center">© 2024 JhosbelDev. Ningun derecho reservado.</h1> */}
-            <Footer/>
+            <Footer />
           </div>
         </div>
       </nav>
@@ -90,15 +90,36 @@ export default function Navigation() {
           </button>
         </div>
         {isOpen && (
-          <div className="bg-gray-400 py-4">
+          <div className="bg-white py-4 transition-all duration-300">
             <ul className="flex flex-col items-center space-y-2">
-              <li className="text-gray-800 hover:text-white cursor-pointer px-4 py-2">
+              <li className="cursor-pointer px-4 py-2 flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
+                <BarbellIcon />
                 <Link href={"/training"}>Entrenamiento</Link>
               </li>
-              <li className="text-gray-800 hover:text-white cursor-pointer px-4 py-2">
+              <li className="cursor-pointer px-4 py-2 flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
+                <Dinner />
                 <Link href={"/feeding"}>Alimentación</Link>
               </li>
               {/* Agrega más elementos de menú según sea necesario */}
+              {!session ? (
+                <>
+                  <li className="cursor-pointer px-4 py-2 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
+                    <RegisterIcon />
+                    <Link href={"/register"}>Registrarse</Link>
+                  </li>
+                  <li className="cursor-pointer px-4 py-2 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
+                    <LoginIcon />
+                    <Link href={"/login"}>Entrar</Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="cursor-pointer px-4 py-2 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
+                    <LogOutIcon />
+                    <button onClick={() => signOut()}>Salir</button>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         )}

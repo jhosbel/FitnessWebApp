@@ -22,14 +22,14 @@ export default function Home() {
           />
         </div>
       </section>
-      <section className="flex flex-col gap-20 mt-20">
+      <section className="flex flex-col gap-12 mt-8 md:mt-20">
         <div className="text-center px-4 md:px-32 flex flex-col gap-4">
           <h2 className="font-bold text-base md:text-5xl">
             Planifica tus entrenamientos de manera organizada con C-Fitness
           </h2>
           <p>Accede a calendarios personalizados y listas de ejercicios para alcanzar tus metas de fitness.</p>
         </div>
-        <div className="flex flex-col md:flex-row items-center">
+        <div className="flex flex-col gap-4 md:gap-0 md:flex-row items-center">
           <div className="flex-1">
             <img
               src="https://images.unsplash.com/photo-1517963879433-6ad2b056d712?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMzczODV8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTA5MDA3NTd8&ixlib=rb-4.0.3&q=80&w=1080"
@@ -37,9 +37,9 @@ export default function Home() {
               className="md:rounded-r-2xl"
             />
           </div>
-          <div className="flex-1 px-4 md:px-16 gap-4 flex flex-col">
-            <h3 className="font-bold text-center text-3xl">Calendarios personalizados</h3>
-            <p>
+          <div className="flex-1 px-4 md:px-8 gap-4 flex flex-col">
+            <h3 className="font-bold text-center text-lg md:text-3xl">Calendarios personalizados</h3>
+            <p className="text-sm md:text-base">
               Con C-Fitness, puedes acceder a calendarios personalizados que
               se adaptan a tus necesidades y metas de fitness. Ya no tendrás que
               preocuparte por planificar tus entrenamientos, nuestro producto lo
@@ -47,10 +47,10 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div className="flex flex-col-reverse md:flex-row items-center">
-          <div className="flex-1 px-4 md:px-16 gap-4 flex flex-col">
-            <h3 className="font-bold text-center text-3xl">Listas de ejercicios</h3>
-            <p>
+        <div className="flex flex-col-reverse gap-4 md:gap-0 md:flex-row items-center">
+          <div className="flex-1 px-4 md:px-8 gap-4 flex flex-col">
+            <h3 className="font-bold text-center text-lg md:text-3xl">Listas de ejercicios</h3>
+            <p className="text-sm md:text-base">
               Nuestro producto también te proporciona listas de ejercicios
               detalladas para cada entrenamiento. Esto te ayudará a seguir un
               plan de ejercicios efectivo y maximizar tus resultados.
@@ -64,7 +64,7 @@ export default function Home() {
             />
           </div>
         </div>
-        <div className="flex flex-col md:flex-row items-center">
+        <div className="flex flex-col gap-4 md:gap-0 md:flex-row items-center">
           <div className="flex-1">
             <img
               src="https://images.unsplash.com/photo-1571008887538-b36bb32f4571?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMzczODV8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTA5MDA3NTd8&ixlib=rb-4.0.3&q=80&w=1080"
@@ -72,9 +72,9 @@ export default function Home() {
               className="md:rounded-r-2xl"
             />
           </div>
-          <div className="flex-1 px-4 md:px-16 gap-4 flex flex-col">
-            <h3 className="font-bold text-center text-3xl">Organización y seguimiento</h3>
-            <p>
+          <div className="flex-1 px-4 md:px-8 gap-4 flex flex-col">
+            <h3 className="font-bold text-center text-lg md:text-3xl">Organización y seguimiento</h3>
+            <p className="text-sm md:text-base">
               C-Fitness te permite organizar tus entrenamientos de manera
               eficiente y realizar un seguimiento de tu progreso. Podrás ver tus
               avances y ajustar tu plan según sea necesario para alcanzar tus

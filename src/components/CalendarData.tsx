@@ -132,24 +132,24 @@ const CalendarData = () => {
           {data && (
             <div key={data._id} className="bg-slate-200 flex flex-col w-full h-full gap-4">
               {data.exercises?.map((exercise: any) => (
-                <div key={exercise._id} className="flex gap-8 text-slate-600">
-                  <img src={exercise.image} alt={exercise.name} className="w-36 rounded-sm"/>
+                <div key={exercise._id} className="flex gap-2 md:gap-8 text-slate-600">
+                  <img src={exercise.image} alt={exercise.name} className="h-16 md:h-auto md:w-36 rounded-sm"/>
                   <div>
-                    <p>{exercise.name}</p>
+                    <p className="text-[0.5rem] md:text-base">{exercise.name}</p>
                     <div>
-                      <p>{exercise.muscle}</p>
-                      <p>{exercise.equipment}</p>
-                      <p>{exercise.instructions}</p>
-                      <p>Series: {exercise.series}</p>
+                      <p className="text-[0.5rem] md:text-base">{exercise.muscle}</p>
+                      <p className="text-[0.5rem] md:text-base">{exercise.equipment}</p>
+                      <p className="text-[0.5rem] md:text-base">{exercise.instructions}</p>
+                      <p className="text-[0.5rem] md:text-base">Series: {exercise.series}</p>
                       <div className="flex gap-1">
-                        <p>Peso: {exercise.weight}</p>
-                        <p>{exercise.weightType}</p>
+                        <p className="text-[0.5rem] md:text-base">Peso: {exercise.weight}</p>
+                        <p className="text-[0.5rem] md:text-base">{exercise.weightType}</p>
                       </div>
-                      <p>Repeticiones: {exercise.reps}</p>
+                      <p className="text-[0.5rem] md:text-base">Repeticiones: {exercise.reps}</p>
                     </div>
                   </div>
-                  <div className="max-w-60">
-                    <p>{exercise.note}</p>
+                  <div className="max-h-16 md:max-h-40 max-w-28 md:max-w-60 overflow-auto">
+                    <p className="text-[0.5rem] md:text-base">{exercise.note}</p>
                   </div>
                 </div>
               ))}
@@ -176,7 +176,7 @@ const CalendarData = () => {
                     }}
                   >
                     <div
-                      className={`h-40 w-full backdrop-blur-sm bg-[#39ff396b] absolute rounded-2xl hidden gap-4 justify-center left-0 items-center cursor-pointer list-select ${
+                      className={`h-[8.5rem] md:h-40 w-full backdrop-blur-sm bg-[#39ff396b] absolute rounded-2xl hidden gap-4 justify-center left-0 items-center cursor-pointer list-select ${
                         list._id === selectedList ? "selected" : ""
                       }`}
                       onClick={() => {
@@ -184,10 +184,10 @@ const CalendarData = () => {
                         setSelectedList(null);
                       }}
                     >
-                      <div className="flex gap-4 justify-center items-center h-full">
-                        <CheckIcon className="h-12 w-12 text-[#185918]" />
+                      <div className="flex gap-0 md:gap-4 justify-center items-center h-full">
+                        <CheckIcon className="h-12 w-8 md:w-12 text-[#185918]" />
                         <span
-                          className="text-4xl font-bold text-[#185918]"
+                          className="text-base md:text-4xl font-bold text-[#185918]"
                           onClick={() => {
                             setTrainingListId({});
                             setSelectedList(null);
@@ -200,12 +200,13 @@ const CalendarData = () => {
                     <h1 className="text-center">{list.title}</h1>
                     <div className="flex flex-row mt-2">
                       {list.exercises.map((e: any) => (
-                        <div key={e._id} className="flex my-4">
+                        <div key={e._id} className="flex flex-col md:flex-row my-4 items-center md:items-stretch text-center md:text-start px-1">
                           <img
                             src={e.image}
                             alt={e.name}
-                            className="w-24 h-16 md:h-24 rounded-full"
+                            className="w-12 md:w-24 h-12 md:h-24 rounded-full"
                           />
+                          <p className="md:hidden text-[0.5rem]">{e.name}</p>
                           <div className="hidden md:block">
                             <p>{e.name}</p>
                             <p>{e.muscle}</p>
