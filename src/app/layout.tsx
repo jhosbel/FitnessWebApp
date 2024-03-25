@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-slate-200`}>
         <SessionAuthProviders>
           <Navigation />
           {children}

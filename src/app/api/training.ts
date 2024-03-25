@@ -2,13 +2,22 @@ import { useSession } from "next-auth/react";
 import {
   CalendarData,
   CompleteTrainingList,
+  CreateExerciseOne,
   Exercise,
 } from "../../interfaces/training.interface";
 
-const API = "http://localhost:5000/api";
-
 export const useAuthAndApi = () => {
   const { data: session, status } = useSession();
+
+  /* ----------USERS---------- */
+
+  const getAllUsers = () => 
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${session?.user?.token}`,
+      }
+    })
 
   /* --------EXERCISE--------- */
   const getExercisesRequest = () =>
@@ -32,6 +41,16 @@ export const useAuthAndApi = () => {
         authorization: `Bearer ${session?.user?.token}`,
       },
     });
+  const createExercise = (exercise: CreateExerciseOne) => {
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/exercise`, {
+      method: "POST",
+      body: JSON.stringify(exercise),
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${session?.user?.token}`,
+      },
+    });
+  };
   /* --------TRAINING--------- */
   const createTrainingRequest = (training: Exercise) =>
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/training`, {
@@ -88,6 +107,7 @@ export const useAuthAndApi = () => {
   return {
     session,
     status,
+    getAllUsers,
     getExercisesRequest,
     getExerciseOne,
     getExerciseByMuscle,
@@ -97,6 +117,7 @@ export const useAuthAndApi = () => {
     createTrainingList,
     getCalendarData,
     createCalendarData,
+    createExercise
   };
 };
 

@@ -12,7 +12,7 @@ import CheckIcon from "./icons/CheckIcon";
 import Swal from "sweetalert2";
 
 const CalendarData = () => {
-  const { data: session } = useSession();
+  const { data: session, } = useSession();
   const {
     getTrainingList,
     getCalendarData,
@@ -79,6 +79,7 @@ const CalendarData = () => {
       userId: session?.user?.id || "",
     });
 
+    
     setTrainingListId({ id: "", title: "" });
     setSelectedList(null);
 
@@ -90,8 +91,8 @@ const CalendarData = () => {
     await getTrainingList()
       .then((res) => res.json())
       .then((data) => setTrainingList(data));
-  };
-
+    };
+    
   // Función para renderizar los eventos en el calendario
   const tileContent = ({ date, view }: any) => {
     if (view === "month" && calendarData) {

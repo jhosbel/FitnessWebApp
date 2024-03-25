@@ -36,6 +36,7 @@ export interface ExerciseOne {
   image: string;
 }
 
+export type CreateExerciseOne = Omit<ExerciseOne, "_id">
 export interface CalendarData {
   id: string;
   title: string;

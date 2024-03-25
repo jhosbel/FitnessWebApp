@@ -43,6 +43,7 @@ export default function TrainingList({
     }
   }, [selectedMuscle, exercise]);
 
+
   const handleExerciseClick = (clickedExercise: ExerciseOne) => {};
 
   const handleModalOpen = (clickedExercise: ExerciseOne) => {

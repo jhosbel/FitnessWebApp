@@ -8,6 +8,7 @@ import LogOutIcon from "./icons/LogOutIcon";
 import RegisterIcon from "./icons/RegisterIcon";
 import LoginIcon from "./icons/LoginIcon";
 import Footer from "./Footer";
+import Dashboard from "./icons/Dashboard";
 
 export default function Navigation() {
   const { data: session, status } = useSession();
@@ -28,6 +29,14 @@ export default function Navigation() {
           </div>
           <div className="pt-8 h-96">
             <ul className="space-y-2 px-8">
+              {session?.user.role === "admin" ? (
+                <li className="cursor-pointer px-4 py-2 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
+                  <Dashboard />
+                  <Link href={"/dashboard"}>Dashboard</Link>
+                </li>
+              ) : (
+                ""
+              )}
               <li className="cursor-pointer px-4 py-4 transition rounded-md flex gap-2 hover:bg-opacity-75 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
                 <BarbellIcon />
                 <Link href={"/training"}>Entrenamiento</Link>
