@@ -30,7 +30,7 @@ export default function Navigation() {
           <div className="pt-8 h-96">
             <ul className="space-y-2 px-8">
               {session?.user.role === "admin" ? (
-                <li className="cursor-pointer px-4 py-2 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
+                <li className="cursor-pointer px-4 py-4 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
                   <Dashboard />
                   <Link href={"/dashboard"}>Dashboard</Link>
                 </li>

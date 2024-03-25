@@ -19,7 +19,7 @@ const Dashboard = () => {
 
   if (session && session.user && session.user.email) {
     return (
-      <main className="h-auto w-full sm:w-4/5 right-0 absolute sm:p-12 flex flex-col bg-slate-200">
+      <main className="h-auto w-full sm:w-4/5 right-0 absolute flex flex-col bg-slate-200">
         <CreatedExercise />
         <UsersData />
       </main>
