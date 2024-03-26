@@ -120,7 +120,7 @@ const CalendarData = () => {
   };
 
   return (
-    <div className="relative right-0 w-full">
+    <div className="relative right-0 w-full mt-10">
       <div className="w-full flex justify-center items-center">
         <Calendar
           onChange={onChange}

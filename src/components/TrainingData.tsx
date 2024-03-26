@@ -101,6 +101,8 @@ export default function Training() {
     setOpen(true);
   };
 
+  const splitInstructions = exerInfo?.instructions?.split("\n");
+
   return (
     <main>
       <section className="mt-20 flex flex-col-reverse items-center sm:flex-col sm:mt-0">
@@ -164,18 +166,30 @@ export default function Training() {
         )}
       </section>
       <Modal isOpen={open} onClose={() => setOpen(false)}>
-        <img
-          src={exerInfo?.image}
-          alt={exerInfo?.name}
-          className="w-36 sm:w-full"
-        />
-        <p>{exerInfo?.name}</p>
-        <p>{exerInfo?.muscle}</p>
-        <p>Equipo: {exerInfo?.equipment}</p>
-        <details>
-          <summary>Ver Instrucciones:</summary>
-          <p>Instrucciones: {exerInfo?.instructions}</p>
-        </details>
+        <div>
+          <img
+            src={exerInfo?.image}
+            alt={exerInfo?.name}
+            className="sm:w-36 w-full"
+          />
+          <p>{exerInfo?.name}</p>
+          <br />
+          <p>Musculo: {exerInfo?.muscle}</p>
+          <br />
+          <p>Equipo: {exerInfo?.equipment}</p>
+          <br />
+          <p>Instrucciones:</p>
+          <br />
+          <div className="max-h-40 max-w-[22rem] w-full overflow-auto">
+            <ul>
+              {splitInstructions.map((i: any, index: any) => (
+                  <li key={index}>
+                    {i} <br />
+                  </li>
+                ))}
+            </ul>
+          </div>
+        </div>
       </Modal>
       <section>
         <TrainingProvider>

@@ -14,7 +14,8 @@ import DataTable, {
   ExpanderComponentProps,
   TableColumn,
 } from "react-data-table-component";
-const imagePlaceholder = 'https://media.istockphoto.com/id/1147544807/es/vector/no-imagen-en-miniatura-gr%C3%A1fico-vectorial.jpg?s=612x612&w=0&k=20&c=Bb7KlSXJXh3oSDlyFjIaCiB9llfXsgS7mHFZs6qUgVk='
+const imagePlaceholder =
+  "https://media.istockphoto.com/id/1147544807/es/vector/no-imagen-en-miniatura-gr%C3%A1fico-vectorial.jpg?s=612x612&w=0&k=20&c=Bb7KlSXJXh3oSDlyFjIaCiB9llfXsgS7mHFZs6qUgVk=";
 
 interface DataRow {
   image: string;
@@ -57,7 +58,7 @@ const CreatedExercise = () => {
           setFilteredExercises(data);
         });
     }
-  }, [selectedMuscle, exercise, status]);
+  }, [selectedMuscle, exercise, status, newExercise]);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -79,7 +80,10 @@ const CreatedExercise = () => {
       equipment: "",
       instructions: "",
     });
-    console.log(newExercise);
+    setFilteredExercises((prevExercises: any) => [
+      ...prevExercises,
+      newExercise,
+    ]);
   };
 
   const handleMuscleType = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -107,16 +111,27 @@ const CreatedExercise = () => {
   const ExpandedComponent: React.FC<ExpanderComponentProps<DataRow>> = ({
     data,
   }) => {
+    const splitInstructions = data?.instructions?.split("\n");
     return (
       <div className="flex">
         <div>
           <img src={data.image} alt={data.name} />
         </div>
-        <div>
+        <div className="max-w-[20rem] max-h-[20rem] overflow-auto">
           <p>{data.name}</p>
+          <br />
           <p>{data.muscle}</p>
+          <br />
           <p>{data.equipment}</p>
-          <p>{data.instructions}</p>
+          <br />
+          <ul>
+            {data.instructions &&
+              splitInstructions.map((i, index) => (
+                <li key={index}>
+                  {i} <br />
+                </li>
+              ))}
+          </ul>
         </div>
       </div>
     );
@@ -126,10 +141,15 @@ const CreatedExercise = () => {
     <section
       className={`flex flex-col max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg justify-center p-10 flex-1`}
     >
-      <h1>Crear un nuevo ejercicio</h1>
       <div className="flex">
         <div className="flex flex-col items-center justify-center gap-8 flex-1">
-          <img src={newExercise.image === '' ? imagePlaceholder : newExercise.image } alt="algo" className="h-48 w-48 rounded-md" />
+          <img
+            src={
+              newExercise.image === "" ? imagePlaceholder : newExercise.image
+            }
+            alt="exercise avatar"
+            className="h-48 w-48 rounded-md"
+          />
           <form onSubmit={onSubmit} className="max-w-md mx-auto">
             <div className="relative z-0 w-full mb-5 group">
               <input
@@ -200,7 +220,12 @@ const CreatedExercise = () => {
                 name="instructions"
                 onChange={handleChange}
               />
-              <label htmlFor="instructions" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" >Instrucciones</label>
+              <label
+                htmlFor="instructions"
+                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                Instrucciones
+              </label>
             </div>
             <button
               className={`
@@ -216,41 +241,40 @@ const CreatedExercise = () => {
           </form>
         </div>
         <div className="flex-1">
-          <select name="musculos" onChange={handleMuscleType}>
-            <option value="" className="text-xs">
-              Todos
-            </option>
-            <option value="Pecho" className="text-xs">
-              Pecho
-            </option>
-            <option value="Biceps" className="text-xs">
-              Biceps
-            </option>
-            <option value="Espalda" className="text-xs">
-              Espalda
-            </option>
-            <option value="Cuadriceps" className="text-xs">
-              Cuadriceps
-            </option>
-          </select>
-          {/* {Array.isArray(filteredExercises) &&
-          filteredExercises.map((exe) => (
-            <div key={exe._id}>
-              <img src={exe.image} alt={exe.name} />
-              <p>{exe.name}</p>
-              <p>{exe.muscle}</p>
-              <p>{exe.equipment}</p>
-              <p>{exe.instructions}</p>
+          <h1 className="text-2xl text-center">Lista de ejercicios</h1>
+          <div className="flex flex-col gap-4">
+            <div>
+              <span>Filtrar por musculo: </span>
+              <select name="musculos" onChange={handleMuscleType}>
+                <option value="" className="text-xs">
+                  Todos
+                </option>
+                <option value="Pecho" className="text-xs">
+                  Pecho
+                </option>
+                <option value="Biceps" className="text-xs">
+                  Biceps
+                </option>
+                <option value="Espalda" className="text-xs">
+                  Espalda
+                </option>
+                <option value="Cuadriceps" className="text-xs">
+                  Cuadriceps
+                </option>
+              </select>
             </div>
-          ))} */}
+          </div>
           <DataTable
             columns={columns}
             data={filteredExercises}
             expandableRows
             expandableRowsComponent={ExpandedComponent}
             selectableRows
-            onSelectedRowsChange={(data) => console.log(data.selectedRows)}
+            onSelectedRowsChange={(data) => console.log(data?.selectedRows)}
             highlightOnHover
+            pagination
+            paginationPerPage={10}
+            responsive
           />
         </div>
       </div>

@@ -58,6 +58,7 @@ export default function TrainingList({
   const handleMuscleType = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedMuscle(e.target.value);
   };
+  const splitInstructions = selectedExercise?.instructions?.split("\n");
 
   return (
     <article>
@@ -111,10 +112,20 @@ export default function TrainingList({
         {selectedExercise && (
           <div>
             <img src={selectedExercise.image} alt={selectedExercise.name} className="max-w-[360px] max-h-[360px]"/>
+            <br />
             <p>{selectedExercise.name}</p>
+            <br />
             <p>{selectedExercise.muscle}</p>
+            <br />
             <p>{selectedExercise.equipment}</p>
-            <p className="max-w-80">{selectedExercise.instructions}</p>
+            <br />
+            <div className="max-h-40 max-w-[22rem] w-full overflow-auto">
+              <ul >
+                {selectedExercise.instructions && splitInstructions.map((i:any, index:any) => (
+                  <li key={index}>{i} <br /></li>
+                ))}
+              </ul>
+            </div>
           </div>
         )}
       </Modal>

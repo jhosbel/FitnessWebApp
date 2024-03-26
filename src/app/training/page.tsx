@@ -20,10 +20,11 @@ export default function Training() {
 
   if (session && session.user && session.user.email) {
     return (
-      <main className="h-auto w-full sm:w-4/5 right-0 absolute sm:p-12 flex flex-col bg-slate-200">
-        <Link
-          href={"/training/createdlist"}
-          className={`
+      <main className="h-auto w-full sm:w-4/5 right-0 absolute flex flex-col bg-slate-200">
+        <section className="flex flex-col max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg justify-center p-10 flex-1">
+          <Link
+            href={"/training/createdlist"}
+            className={`
           text-white
           bg-slate-700 
           hover:bg-slate-800/90 
@@ -49,11 +50,10 @@ export default function Training() {
           md:right-20
           transition-all duration-300 ease-in-out
           `}
-        >
-          <PlusIcon />
-          Crear nueva lista
-        </Link>
-        <section className="mt-20 flex flex-col-reverse items-center sm:flex-col sm:mt-8">
+          >
+            <PlusIcon />
+            Crear nueva lista
+          </Link>
           <CalendarData />
         </section>
         <Footer className="md:hidden p-2 text-[0.5rem] mt-4" />
