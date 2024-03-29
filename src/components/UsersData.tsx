@@ -38,6 +38,12 @@ interface DataRow {
       userEmail: string;
     }
   ];
+  userConfig: {
+    _id: string;
+    age: string;
+    height: string;
+    weight: string;
+  }
 }
 
 const UsersData = () => {

@@ -182,7 +182,7 @@ export default function Training() {
           <br />
           <div className="max-h-40 max-w-[22rem] w-full overflow-auto">
             <ul>
-              {splitInstructions.map((i: any, index: any) => (
+              {splitInstructions && splitInstructions.map((i: any, index: any) => (
                   <li key={index}>
                     {i} <br />
                   </li>

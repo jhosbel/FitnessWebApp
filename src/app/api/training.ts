@@ -11,13 +11,61 @@ export const useAuthAndApi = () => {
 
   /* ----------USERS---------- */
 
-  const getAllUsers = () => 
+  const getAllUsers = () =>
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users`, {
       headers: {
         "Content-Type": "application/json",
         authorization: `Bearer ${session?.user?.token}`,
-      }
-    })
+      },
+    });
+
+  const getOneUser = (id: string) =>
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${session?.user?.token}`,
+      },
+    });
+
+  const updateUser = (id: string, body: any) =>
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${session?.user?.token}`,
+      },
+    });
+
+  /* --------USER CONFIG-------- */
+
+  const getOneUserConfig = (id: string) =>
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user-config/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${session?.user?.token}`,
+      },
+    });
+
+  const updateOneUserConfig = (id: string, body: any) =>
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user-config/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${session?.user?.token}`,
+      },
+    });
+
+  const updateUserPassword = (body: any) =>
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/change-password`, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${session?.user?.token}`,
+      },
+    });
 
   /* --------EXERCISE--------- */
   const getExercisesRequest = () =>
@@ -117,7 +165,12 @@ export const useAuthAndApi = () => {
     createTrainingList,
     getCalendarData,
     createCalendarData,
-    createExercise
+    createExercise,
+    getOneUserConfig,
+    updateOneUserConfig,
+    getOneUser,
+    updateUser,
+    updateUserPassword,
   };
 };
 

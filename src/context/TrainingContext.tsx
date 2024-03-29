@@ -6,6 +6,7 @@ import {
   CompleteTraining,
   ExerciseOne,
 } from "@/interfaces/training.interface";
+import { useSession } from "next-auth/react";
 import {
   createContext,
   useState,
@@ -80,7 +81,6 @@ export const TrainingProvider: React.FC<Props> = ({ children }) => {
   });
   const [exerciseList, setExerciseList] = useState<any>([]);
   const [calendarData, setCalendarData] = useState<any[]>([]);
-
   useEffect(() => {
     getExercisesRequest()
       .then((res) => res.json())

@@ -9,6 +9,7 @@ import RegisterIcon from "./icons/RegisterIcon";
 import LoginIcon from "./icons/LoginIcon";
 import Footer from "./Footer";
 import Dashboard from "./icons/Dashboard";
+import Settings from "./icons/Settings";
 
 export default function Navigation() {
   const { data: session, status } = useSession();
@@ -58,6 +59,10 @@ export default function Navigation() {
                 </>
               ) : (
                 <>
+                  <li className=" cursor-pointer px-4 py-4 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
+                    <Settings />
+                    <Link href={"/settings"}>Configuraciones</Link>
+                  </li>
                   <li className="cursor-pointer px-4 py-4 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
                     <LogOutIcon />
                     <button onClick={() => signOut()}>Salir</button>
@@ -123,6 +128,10 @@ export default function Navigation() {
                 </>
               ) : (
                 <>
+                  <li className=" cursor-pointer px-4 py-4 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
+                    <Settings />
+                    <Link href={"/settings"}>Configuraciones</Link>
+                  </li>
                   <li className="cursor-pointer px-4 py-2 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
                     <LogOutIcon />
                     <button onClick={() => signOut()}>Salir</button>
