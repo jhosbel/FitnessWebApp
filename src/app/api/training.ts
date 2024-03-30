@@ -89,7 +89,7 @@ export const useAuthAndApi = () => {
         authorization: `Bearer ${session?.user?.token}`,
       },
     });
-  const createExercise = (exercise: CreateExerciseOne) => {
+  const createExercise = (exercise: CreateExerciseOne) => 
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/exercise`, {
       method: "POST",
       body: JSON.stringify(exercise),
@@ -98,7 +98,25 @@ export const useAuthAndApi = () => {
         authorization: `Bearer ${session?.user?.token}`,
       },
     });
-  };
+
+  const updateExercise = (id: string, body: any) => 
+  fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/exercise/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify(body),
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${session?.user?.token}`,
+    },
+  })
+
+  const deleteExercise = (id: string) => 
+  fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/exercise/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${session?.user?.token}`,
+    },
+  })
   /* --------TRAINING--------- */
   const createTrainingRequest = (training: Exercise) =>
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/training`, {
@@ -171,6 +189,8 @@ export const useAuthAndApi = () => {
     getOneUser,
     updateUser,
     updateUserPassword,
+    deleteExercise,
+    updateExercise
   };
 };
 
