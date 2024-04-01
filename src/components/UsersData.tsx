@@ -8,7 +8,6 @@ import DataTable, {
   ExpanderComponentProps,
   TableColumn,
 } from "react-data-table-component";
-import CustomMenu from "./CustomMenu";
 
 interface DataRow {
   name: string;
@@ -80,12 +79,6 @@ const UsersData = () => {
       name: "Ultima Actualización",
       selector: (row) => format(row.updatedAt, "dd/MM/yyyy HH:mm:ss"),
     },
-    /* {
-		cell: row => <CustomMenu size="small" row={row} />,
-		allowOverflow: true,
-		button: true,
-		width: '56px',
-	}, */
   ];
 
   useEffect(() => {

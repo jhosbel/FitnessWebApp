@@ -366,20 +366,32 @@ const CreatedExercise = () => {
                 <option value="" className="text-xs">
                   Todos
                 </option>
-                <option value="Pecho" className="text-xs">
-                  Pecho
-                </option>
                 <option value="Trapecio" className="text-xs">
                   Trapecio
-                </option>
-                <option value="Biceps" className="text-xs">
-                  Biceps
                 </option>
                 <option value="Espalda" className="text-xs">
                   Espalda
                 </option>
+                <option value="Pecho" className="text-xs">
+                  Pecho
+                </option>
+                <option value="Hombro" className="text-xs">
+                  Hombro
+                </option>
+                <option value="Triceps" className="text-xs">
+                  Triceps
+                </option>
+                <option value="Biceps" className="text-xs">
+                  Biceps
+                </option>
+                <option value="Abdomen" className="text-xs">
+                  Abdomen
+                </option>
                 <option value="Cuadriceps" className="text-xs">
                   Cuadriceps
+                </option>
+                <option value="Isquiotibiales" className="text-xs">
+                  Isquiotibiales
                 </option>
               </select>
             </div>
