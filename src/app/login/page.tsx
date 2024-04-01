@@ -34,7 +34,7 @@ const LoginPage = () => {
             <h1 className="text-2xl xl:text-3xl font-extrabold">Ingresar</h1>
             <div className="w-full flex-1 mt-8">
               <div className="flex flex-col items-center">
-                <button className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
+                {/* <button className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
                   <div className="bg-white p-2 rounded-full">
                     <svg className="w-4" viewBox="0 0 533.5 544.3">
                       <path
@@ -56,7 +56,7 @@ const LoginPage = () => {
                     </svg>
                   </div>
                   <span className="ml-4">Ingresar con Google</span>
-                </button>
+                </button> */}
 
                 {/* <button className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline mt-5">
                   <div className="bg-white p-1 rounded-full">
@@ -70,11 +70,11 @@ const LoginPage = () => {
                   <span className="ml-4">Sign Up with GitHub</span>
                 </button> */}
               </div>
-              <div className="my-12 border-b text-center">
+              {/* <div className="my-12 border-b text-center">
                 <div className="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
                   O ingrese con su correo electrónico
                 </div>
-              </div>
+              </div> */}
               <div className="mx-auto max-w-xs">
                 <form onSubmit={handleSubmit}>
                   <input
