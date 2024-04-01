@@ -44,7 +44,7 @@ export default function Training() {
           font-bold 
           gap-2
           relative
-          top-[4.5rem]
+          top-[1.5rem]
           md:top-0
           right-[6.5rem]
           md:right-20
