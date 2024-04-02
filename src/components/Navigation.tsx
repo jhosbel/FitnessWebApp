@@ -84,7 +84,7 @@ export default function Navigation() {
       <nav className="sm:hidden fixed top-0 left-0 w-full z-50 bg-white text-slate-800">
         <div className="flex justify-between items-center px-4 h-16">
           <h2 className="text-xl font-semibold">
-            <Link href={"/"}>C-Fitness</Link>
+            <Link href={"/"} onClick={() => setIsOpen(false)}>C-Fitness</Link>
           </h2>
           <button
             className="text-white focus:outline-none"
@@ -106,31 +106,39 @@ export default function Navigation() {
         {isOpen && (
           <div className="bg-white py-4 transition-all duration-300">
             <ul className="flex flex-col items-center space-y-2">
+              {session?.user.role === "admin" ? (
+                <li className="cursor-pointer px-4 py-4 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
+                  <Dashboard />
+                  <Link href={"/dashboard"} onClick={() => setIsOpen(false)}>Dashboard</Link>
+                </li>
+              ) : (
+                ""
+              )}
               <li className="cursor-pointer px-4 py-2 flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
                 <BarbellIcon />
-                <Link href={"/training"}>Entrenamiento</Link>
+                <Link href={"/training"} onClick={() => setIsOpen(false)}>Entrenamiento</Link>
               </li>
               <li className="cursor-pointer px-4 py-2 flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
                 <Dinner />
-                <Link href={"/feeding"}>Alimentación</Link>
+                <Link href={"/feeding"} onClick={() => setIsOpen(false)}>Alimentación</Link>
               </li>
               {/* Agrega más elementos de menú según sea necesario */}
               {!session ? (
                 <>
                   <li className="cursor-pointer px-4 py-2 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
                     <RegisterIcon />
-                    <Link href={"/register"}>Registrarse</Link>
+                    <Link href={"/register"} onClick={() => setIsOpen(false)}>Registrarse</Link>
                   </li>
                   <li className="cursor-pointer px-4 py-2 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
                     <LoginIcon />
-                    <Link href={"/login"}>Entrar</Link>
+                    <Link href={"/login"} onClick={() => setIsOpen(false)}>Entrar</Link>
                   </li>
                 </>
               ) : (
                 <>
                   <li className=" cursor-pointer px-4 py-4 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
                     <Settings />
-                    <Link href={"/settings"}>Configuraciones</Link>
+                    <Link href={"/settings"} onClick={() => setIsOpen(false)}>Configuraciones</Link>
                   </li>
                   <li className="cursor-pointer px-4 py-2 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
                     <LogOutIcon />

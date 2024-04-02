@@ -253,7 +253,7 @@ const CreatedExercise = () => {
     <section
       className={`flex flex-col max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg justify-center p-10 flex-1`}
     >
-      <div className="flex">
+      <div className="flex flex-col md:flex-row">
         <div className="flex flex-col items-center justify-center gap-8 flex-1">
           <img
             src={
@@ -358,7 +358,7 @@ const CreatedExercise = () => {
           </form>
         </div>
         <div className="flex-1">
-          <h1 className="text-2xl text-center">Lista de ejercicios</h1>
+          <h1 className="text-2xl my-4 md:mt-0 text-center">Lista de ejercicios</h1>
           <div className="flex flex-col gap-4">
             <div>
               <span>Filtrar por musculo: </span>
