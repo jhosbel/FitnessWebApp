@@ -3,6 +3,7 @@
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const LoginPage = () => {
   const [errors, setErrors] = useState<string[]>([]);
@@ -23,6 +24,7 @@ const LoginPage = () => {
       setErrors(responseNextAuth.error.split(","));
       return;
     }
+
     router.push("/");
   };
 
@@ -112,12 +114,15 @@ const LoginPage = () => {
                     <span className="ml-3">Entrar</span>
                   </button>
                   <p className="mt-6 text-xs text-gray-600 text-center">
-                    Acepto cumplir con los <a
+                    Acepto cumplir con los{" "}
+                    <a
                       href="#"
                       className="border-b border-gray-500 border-dotted"
                     >
-                      Términos de Servicio </a>
-                    y su <a
+                      Términos de Servicio{" "}
+                    </a>
+                    y su{" "}
+                    <a
                       href="#"
                       className="border-b border-gray-500 border-dotted"
                     >
@@ -131,11 +136,24 @@ const LoginPage = () => {
         </div>
       </div>
       {errors.length > 0 && (
-        <div>
+        <div className="p-4 bottom-20 md:bottom-40 text-sm text-red-800 rounded-lg bg-red-50 absolute">
           <ul>
-            {errors.map((error) => (
-              <li key={error}>{error}</li>
-            ))}
+            {errors.map((error) => {
+              if (error === "email must be an email") {
+                error = "email tiene que ser introducido";
+              }
+              if (
+                error ===
+                "password must be longer than or equal to 6 characters"
+              ) {
+                error = "contraseña tiene que ser mayor a 6 caracteres";
+              }
+              return (
+                <li key={error} className="mb-4">
+                  {error}
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}

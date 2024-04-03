@@ -134,11 +134,29 @@ const RegisterPage = () => {
         </div>
       </div>
       {errors.length > 0 && (
-        <div>
+        <div className="p-4 bottom-20 md:bottom-40 text-sm text-red-800 rounded-lg bg-red-50 absolute">
           <ul>
-            {errors.map((error) => (
-              <li key={error}>{error}</li>
-            ))}
+            {errors.map((error) => {
+              if (
+                error === "name must be longer than or equal to 4 characters"
+              ) {
+                error = "El nombre debe tener 4 caracteres o más.";
+              }
+              if (error === "email must be an email") {
+                error = "email tiene que ser introducido";
+              }
+              if (
+                error ===
+                "password must be longer than or equal to 6 characters"
+              ) {
+                error = "la contraseña debe tener más de 6 caracteres o más";
+              }
+              return (
+                <li key={error} className="mb-4">
+                  {error}
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}

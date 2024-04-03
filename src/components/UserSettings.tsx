@@ -183,7 +183,7 @@ const UserSettings = () => {
   };
 
   return (
-    <section className="flex max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg justify-center p-10 flex-1">
+    <section className="flex mt-20 max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg justify-center p-10 flex-1">
       <div className="flex-1 flex flex-col gap-8">
         {userConfig && (
           <>

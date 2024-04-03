@@ -19,7 +19,7 @@ export default function TrainingList({
   onExerciseSelect,
   openModal,
 }: TrainingListProps) {
-  const {getExerciseByMuscle} = useAuthAndApi()
+  const { getExerciseByMuscle } = useAuthAndApi();
   const { exercise } = useTraining();
   const [selectedMuscle, setSelectedMuscle] = useState("");
   const [filteredExercises, setFilteredExercises] = useState<ExerciseOne[]>([]);
@@ -43,7 +43,6 @@ export default function TrainingList({
     }
   }, [selectedMuscle, exercise]);
 
-
   const handleExerciseClick = (clickedExercise: ExerciseOne) => {};
 
   const handleModalOpen = (clickedExercise: ExerciseOne) => {
@@ -65,53 +64,83 @@ export default function TrainingList({
       <div className="flex flex-col items-center">
         <h1>Lista de Ejercicios</h1>
         <select name="musculos" onChange={handleMuscleType}>
-          <option value="" className="text-xs">Todos</option>
-          <option value="Pecho" className="text-xs">Pecho</option>
-          <option value="Biceps" className="text-xs">Biceps</option>
-          <option value="Espalda" className="text-xs">Espalda</option>
-          <option value="Cuadriceps" className="text-xs">Cuadriceps</option>
+          <option value="" className="text-xs">
+            Todos
+          </option>
+          <option value="Trapecio" className="text-xs">
+            Trapecio
+          </option>
+          <option value="Espalda" className="text-xs">
+            Espalda
+          </option>
+          <option value="Pecho" className="text-xs">
+            Pecho
+          </option>
+          <option value="Hombro" className="text-xs">
+            Hombro
+          </option>
+          <option value="Triceps" className="text-xs">
+            Triceps
+          </option>
+          <option value="Biceps" className="text-xs">
+            Biceps
+          </option>
+          <option value="Abdomen" className="text-xs">
+            Abdomen
+          </option>
+          <option value="Cuadriceps" className="text-xs">
+            Cuadriceps
+          </option>
+          <option value="Isquiotibiales" className="text-xs">
+            Isquiotibiales
+          </option>
         </select>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-        {Array.isArray(filteredExercises) && filteredExercises.map((exercise) => (
-          <div
-            key={exercise._id}
-            className="m-4 border-solid border-gray-900 border md:rounded-lg hover:cursor-pointer transition flex sm:flex-col"
-            onClick={() => handleExerciseClick(exercise)}
-          >
-            <img
-              src={exercise.image}
-              alt={exercise.name}
-              className="sm:rounded-t-lg w-20 sm:w-full aspect-square"
-            />
-            <div className="w-full flex flex-col items-center px-2 pb-2 h-full justify-around">
-              <h1 className="text-center text-base sm:text-lg my-2">
-                {exercise.name}
-              </h1>
-              <p className="text-sm">{exercise.muscle}</p>
-              <p className="text-sm">{exercise.equipment}</p>
-              <div className="w-full flex justify-around sm:flex-col">
-                <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white text-xs font-bold py-2 px-4 rounded  sm:mb-2"
-                  onClick={() => handleModalOpen(exercise)}
-                >
-                  Mas Info
-                </button>
-                <button
-                  className="bg-slate-700 hover:bg-slate-800 text-white text-xs font-bold py-2 px-4 rounded"
-                  onClick={() => onExerciseSelect(exercise)}
-                >
-                  Agregar
-                </button>
+        {Array.isArray(filteredExercises) &&
+          filteredExercises.map((exercise) => (
+            <div
+              key={exercise._id}
+              className="m-4 border-solid border-gray-900 border md:rounded-lg hover:cursor-pointer transition flex sm:flex-col"
+              onClick={() => handleExerciseClick(exercise)}
+            >
+              <img
+                src={exercise.image}
+                alt={exercise.name}
+                className="sm:rounded-t-lg w-20 sm:w-full aspect-square"
+              />
+              <div className="w-full flex flex-col items-center px-2 pb-2 h-full justify-around">
+                <h1 className="text-center text-base sm:text-lg my-2">
+                  {exercise.name}
+                </h1>
+                <p className="text-sm">{exercise.muscle}</p>
+                <p className="text-sm">{exercise.equipment}</p>
+                <div className="w-full flex justify-around sm:flex-col">
+                  <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white text-xs font-bold py-2 px-4 rounded  sm:mb-2"
+                    onClick={() => handleModalOpen(exercise)}
+                  >
+                    Mas Info
+                  </button>
+                  <button
+                    className="bg-slate-700 hover:bg-slate-800 text-white text-xs font-bold py-2 px-4 rounded"
+                    onClick={() => onExerciseSelect(exercise)}
+                  >
+                    Agregar
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
       <Modal isOpen={open} onClose={handleCloseModal}>
         {selectedExercise && (
-          <div>
-            <img src={selectedExercise.image} alt={selectedExercise.name} className="max-w-[360px] max-h-[360px]"/>
+          <div className="flex flex-col items-center">
+            <img
+              src={selectedExercise.image}
+              alt={selectedExercise.name}
+              className="max-w-[175px] md:max-w-[360px] max-h-[360px]"
+            />
             <br />
             <p>{selectedExercise.name}</p>
             <br />
@@ -120,10 +149,13 @@ export default function TrainingList({
             <p>{selectedExercise.equipment}</p>
             <br />
             <div className="max-h-40 max-w-[22rem] w-full overflow-auto">
-              <ul >
-                {selectedExercise.instructions && splitInstructions.map((i:any, index:any) => (
-                  <li key={index}>{i} <br /></li>
-                ))}
+              <ul>
+                {selectedExercise.instructions &&
+                  splitInstructions.map((i: any, index: any) => (
+                    <li key={index}>
+                      {i} <br />
+                    </li>
+                  ))}
               </ul>
             </div>
           </div>
