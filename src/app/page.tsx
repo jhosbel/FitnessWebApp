@@ -2,8 +2,12 @@
 "use client";
 
 import Footer from "@/components/Footer";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 export default function Home() {
+  const { data: session, status } = useSession();
+
   return (
     <main className="w-full md:w-4/5 absolute right-0 flex min-h-screen flex-col items-center justify-between bg-slate-200 text-slate-700">
       <section className="flex flex-col md:flex-row mt-20">
@@ -93,6 +97,77 @@ export default function Home() {
               avances y ajustar tu plan según sea necesario para alcanzar tus
               metas de fitness.
             </p>
+          </div>
+        </div>
+        <div className="flex flex-col gap-4 md:gap-0 md:flex-row items-center p-4 md:p-12">
+          <div className="flex-1 p-4 md:px-16 gap-4 flex flex-col md:p-28 rounded-2xl border border-slate-800 items-center justify-center">
+            <h3 className="font-bold text-center text-lg md:text-6xl">
+              Únete a nuestra comunidad de fitness.
+            </h3>
+            <p className="text-sm md:text-lg mt-8 text-center">
+              <span className="italic">
+                “Unirme a CalendarioFit fue la mejor decisión que tomé. No solo
+                me ha ayudado a planificar mis entrenamientos, sino que también
+                me ha permitido alcanzar mis metas de fitness de manera más
+                efectiva.”
+              </span>
+              - Graham Robinson
+            </p>
+            {!session ? (
+              <Link
+                href={"/register"}
+                className={`
+            text-white
+            bg-slate-700 
+            hover:bg-slate-800/90 
+            focus:ring-4 
+            focus:outline-none 
+            focus:ring-slate-800/50 
+            rounded-lg
+            text-base 
+            md:text-4xl 
+            px-5 md:px-10
+            py-4 md:py-9 
+            text-center 
+            inline-flex 
+            items-center 
+            dark:focus:ring-slate-800/50  
+            font-bold 
+            gap-2
+            transition-all duration-300 ease-in-out
+            mt-8
+            `}
+              >
+                Únete Ya!
+              </Link>
+            ) : (
+              <Link
+                href={"/training/createdlist"}
+                className={`
+            text-white
+            bg-slate-700 
+            hover:bg-slate-700/90 
+            focus:ring-4 
+            focus:outline-none 
+            focus:ring-slate-800/50 
+            rounded-lg
+            text-base 
+            md:text-4xl 
+            px-5 md:px-10
+            py-4 md:py-9 
+            text-center 
+            inline-flex 
+            items-center 
+            dark:focus:ring-slate-800/50  
+            font-bold 
+            gap-2
+            transition-all duration-300 ease-in-out
+            mt-8
+            `}
+              >
+                Crea Tu lista de entrenamiento Ya!
+              </Link>
+            )}
           </div>
         </div>
       </section>
