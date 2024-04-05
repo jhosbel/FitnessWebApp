@@ -138,19 +138,19 @@ export default function Training() {
         {selectedExercise.length > 0 && (
           <div className="flex flex-col">
             <h2 className="text-center">Ejercicios Seleccionados</h2>
-            <div className="flex sm:grid grid-cols-2 overflow-x-scroll sm:overflow-x-hidden sm:grid-cols-3 max-w-[375px] sm:max-w-full">
+            <div className="flex sm:grid grid-cols-2 overflow-x-scroll sm:overflow-x-hidden sm:grid-cols-5 max-w-[375px] sm:max-w-full">
               {selectedExercise.map((exercise) => (
                 <div
                   key={exercise._id}
-                  className="my-2 mx-12 sm:m-2 flex flex-col items-center justify-between"
+                  className="my-2 mx-4 max-w-40 sm:max-w-48 sm:m-2 flex flex-col items-center justify-between"
                 >
-                  <h1 className="text-center text-base sm:text-2xl my-2">
+                  <h1 className="text-center text-xs sm:text-xl my-2">
                     {exercise.name}
                   </h1>
-                  <div className="flex flex-col items-center">
-                    <img src={exercise.image} alt={exercise.name} />
-                    <p>Musculo: {exercise.muscle}</p>
-                    <p>Equipo: {exercise.equipment}</p>
+                  <div className="flex flex-col w-full items-center">
+                    <img src={exercise.image} alt={exercise.name} className="max-w-40 sm:max-w-full" />
+                    <p className="text-xs">Musculo: {exercise.muscle}</p>
+                    <p className="text-xs">Equipo: {exercise.equipment}</p>
                     {/* <p>Instrucciones: {exercise.instructions}</p> */}
                     <button
                       className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 text-xs sm:text-base"
@@ -170,7 +170,7 @@ export default function Training() {
                     />
                     <span
                       onClick={() => handleCloseClick(exercise._id)}
-                      className="bg-red-600 px-3 block py-2 w-full text-white hover:bg-opacity-75 transition rounded-lg mt-2 text-center cursor-pointer"
+                      className="bg-red-600 text-xs sm:text-base px-3 block py-2 w-full text-white hover:bg-opacity-75 transition rounded-lg mt-2 text-center cursor-pointer"
                     >
                       Quitar
                     </span>

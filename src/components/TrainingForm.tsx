@@ -96,7 +96,7 @@ export default function TrainingForm({
   onIsAddingChange(isAdding);
 
   return (
-    <div>
+    <div className="w-full">
       <form onSubmit={handleSubmit} className="text-white">
         <input
           type="number"
@@ -115,7 +115,7 @@ export default function TrainingForm({
           />
           <select
             name="weightType"
-            className="text-black w-64 sm:w-20 text-center p-2 rounded-md h-12"
+            className="text-black w-20 sm:w-20 text-xs sm:text-base text-center p-2 rounded-md h-10 sm:h-12"
             onChange={(e) => handleWeightTypeChange(e, index)}
           >
             <option value="Kg">Kg</option>
@@ -139,7 +139,7 @@ export default function TrainingForm({
           />
           <select
             name="breakTimeType"
-            className="text-black w-64 sm:w-20 text-center p-2 rounded-md h-12"
+            className="text-black w-20 sm:w-20 text-sm sm:text-base text-center p-2 rounded-md h-10 sm:h-12"
             onChange={(e) => handleBreakTimeTypeChange(e, index)}
           >
             <option value="Seg">Seg</option>
@@ -154,7 +154,7 @@ export default function TrainingForm({
           onChange={handleExerciseChange}
         ></textarea>
         <button
-          className="bg-indigo-500 px-3 block py-2 w-full text-white hover:bg-opacity-75 transition rounded-lg disabled:bg-opacity-75 disabled:bg-green-500"
+          className="bg-indigo-500 text-xs sm:text-base px-3 block py-2 w-full text-white hover:bg-opacity-75 transition rounded-lg disabled:bg-opacity-75 disabled:bg-green-500"
           disabled={isAdding}
         >
           {isAdding ? "Agregado" : "Agregar"}

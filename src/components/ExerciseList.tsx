@@ -71,7 +71,7 @@ export default function TrainingList({
   return (
     <article>
       <div className="flex flex-col items-center">
-        <h1>Lista de Ejercicios</h1>
+        <h1 className="font-bold text-2xl my-4">Lista de Ejercicios</h1>
         <select name="musculos" onChange={handleMuscleType}>
           <option value="" className="text-xs">
             Todos
@@ -105,7 +105,7 @@ export default function TrainingList({
           </option>
         </select>
       </div>
-      <div className="flex gap-4 justify-center my-8">
+      <div className="flex gap-4 justify-center my-4">
         <button
           onClick={() => setCurrentPage(currentPage - 1)}
           disabled={currentPage === 1}
@@ -144,7 +144,7 @@ export default function TrainingList({
                 className="sm:rounded-t-lg w-20 sm:w-full aspect-square"
               />
               <div className="w-full flex flex-col items-center px-2 pb-2 h-full justify-around">
-                <h1 className="text-center text-base sm:text-lg my-2">
+                <h1 className="text-center text-xs sm:text-sm my-2">
                   {exercise.name}
                 </h1>
                 <p className="text-sm">{exercise.muscle}</p>
@@ -173,7 +173,7 @@ export default function TrainingList({
             <img
               src={selectedExercise.image}
               alt={selectedExercise.name}
-              className="max-w-[175px] md:max-w-[360px] max-h-[360px]"
+              className="max-w-[175px] md:max-w-[200px] max-h-[360px]"
             />
             <br />
             <p>{selectedExercise.name}</p>
