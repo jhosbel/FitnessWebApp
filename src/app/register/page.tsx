@@ -53,7 +53,6 @@ const RegisterPage = () => {
     }
     router.push("/");
   };
-  console.log(typeUser)
   return (
     <div className="absolute right-0 w-full md:w-4/5 min-h-screen bg-gray-100 text-gray-900 flex justify-center">
       <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">

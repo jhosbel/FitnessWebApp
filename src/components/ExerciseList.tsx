@@ -25,6 +25,15 @@ export default function TrainingList({
   const [filteredExercises, setFilteredExercises] = useState<ExerciseOne[]>([]);
   const [selectedExercise, setSelectedExercise] = useState<any>();
   const [open, setOpen] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [exercisesPerPage, setExercisesPerPage] = useState(10);
+
+  const indexOfLastExercise = currentPage * exercisesPerPage;
+  const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
+  const currentExercises = filteredExercises.slice(
+    indexOfFirstExercise,
+    indexOfLastExercise
+  );
 
   useEffect(() => {
     if (selectedMuscle) {
@@ -96,9 +105,34 @@ export default function TrainingList({
           </option>
         </select>
       </div>
+      <div className="flex gap-4 justify-center my-8">
+        <button
+          onClick={() => setCurrentPage(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="bg-slate-700 hover:bg-slate-800 text-white text-xs font-bold py-2 px-4 rounded disabled:opacity-30"
+        >
+          Anterior
+        </button>
+        <select
+          name="exercisesPerPage"
+          onChange={(e) => setExercisesPerPage(Number(e.target.value))}
+          value={exercisesPerPage}
+        >
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="30">30</option>
+        </select>
+        <button
+          onClick={() => setCurrentPage(currentPage + 1)}
+          className="bg-slate-700 hover:bg-slate-800 text-white text-xs font-bold py-2 px-4 rounded"
+        >
+          Siguiente
+        </button>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-        {Array.isArray(filteredExercises) &&
-          filteredExercises.map((exercise) => (
+        {Array.isArray(currentExercises) &&
+          currentExercises.map((exercise) => (
             <div
               key={exercise._id}
               className="m-4 border-solid border-gray-900 border md:rounded-lg hover:cursor-pointer transition flex sm:flex-col"

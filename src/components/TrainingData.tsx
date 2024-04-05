@@ -17,6 +17,7 @@ import { useSession } from "next-auth/react";
 import CalendarData from "@/components/CalendarData";
 import useAuthAndApi from "@/app/api/training";
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 export default function Training() {
   const { data: session } = useSession();
@@ -36,6 +37,7 @@ export default function Training() {
   const [open, setOpen] = useState<boolean>(false);
   const [exerInfo, setExerInfo] = useState<any>();
   const [isAdding, setIsAdding] = useState<boolean>(false);
+  const [exerciseAdding, setExerciseAdding] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -77,21 +79,34 @@ export default function Training() {
   const handleTrainingList = (e: any) => {
     e.preventDefault();
     setIsAdding(false);
-    setTrainingList({
-      title: title,
-      exercises: exercises,
-      userEmail: session?.user?.email || "",
-      userId: session?.user?.id || "",
-    });
-    createTrainingList({
-      title: title,
-      exercises: exercises,
-      userEmail: session?.user?.email || "",
-      userId: session?.user?.id || "",
-    });
-    setIsAdding(true);
-    setSelectedExercise([]);
-    router.push("/training");
+    if (!exerciseAdding) {
+      return Swal.fire({
+        title: "Error",
+        text: "No has agregado ningún ejercicio",
+        icon: "error",
+      });
+    }
+    if (exerciseAdding) {
+      setTrainingList({
+        title: title,
+        exercises: exercises,
+        userEmail: session?.user?.email || "",
+        userId: session?.user?.id || "",
+      });
+      createTrainingList({
+        title: title,
+        exercises: exercises,
+        userEmail: session?.user?.email || "",
+        userId: session?.user?.id || "",
+      });
+      setIsAdding(true);
+      setSelectedExercise([]);
+      router.push("/training");
+    }
+  };
+
+  const handleIsAddingChange = (newIsAdding: boolean) => {
+    setExerciseAdding(newIsAdding);
   };
 
   const openModal = async (exerciseId: string) => {
@@ -151,6 +166,7 @@ export default function Training() {
                       instruction={exercise.instructions}
                       image={exercise.image}
                       onTrainingChange={handleTrainingChange}
+                      onIsAddingChange={handleIsAddingChange}
                     />
                     <span
                       onClick={() => handleCloseClick(exercise._id)}
@@ -182,7 +198,8 @@ export default function Training() {
           <br />
           <div className="max-h-40 max-w-[22rem] w-full overflow-auto">
             <ul>
-              {splitInstructions && splitInstructions.map((i: any, index: any) => (
+              {splitInstructions &&
+                splitInstructions.map((i: any, index: any) => (
                   <li key={index}>
                     {i} <br />
                   </li>

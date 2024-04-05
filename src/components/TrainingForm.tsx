@@ -23,6 +23,7 @@ interface Props {
   instruction: string;
   image: string;
   onTrainingChange: (newTraining: Exercise) => void;
+  onIsAddingChange: (newIsAdding: boolean) => void;
 }
 
 export default function TrainingForm({
@@ -33,6 +34,7 @@ export default function TrainingForm({
   instruction,
   image,
   onTrainingChange,
+  onIsAddingChange,
 }: Props) {
   const [training, setTraning] = useState<Exercise>({
     id,
@@ -90,6 +92,8 @@ export default function TrainingForm({
     onTrainingChange(training);
     setIsAdding(true);
   };
+  
+  onIsAddingChange(isAdding);
 
   return (
     <div>
