@@ -3,7 +3,7 @@
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import Swal from "sweetalert2";
+import io from "socket.io-client";
 
 const LoginPage = () => {
   const [errors, setErrors] = useState<string[]>([]);
@@ -11,10 +11,17 @@ const LoginPage = () => {
   const [password, setPassword] = useState<string>("");
   const router = useRouter();
 
+  const connectSocket = () => {
+    const newSocket = io(`${process.env.NEXT_PUBLIC_BACKEND_URL_SOCKET}`);
+    newSocket.on("connect", () => {
+      console.log("Conectado");
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrors([]);
-
+    connectSocket();
     const responseNextAuth = await signIn("credentials", {
       email,
       password,

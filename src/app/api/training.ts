@@ -89,7 +89,7 @@ export const useAuthAndApi = () => {
         authorization: `Bearer ${session?.user?.token}`,
       },
     });
-  const createExercise = (exercise: CreateExerciseOne) => 
+  const createExercise = (exercise: CreateExerciseOne) =>
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/exercise`, {
       method: "POST",
       body: JSON.stringify(exercise),
@@ -99,24 +99,24 @@ export const useAuthAndApi = () => {
       },
     });
 
-  const updateExercise = (id: string, body: any) => 
-  fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/exercise/${id}`, {
-    method: "PATCH",
-    body: JSON.stringify(body),
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${session?.user?.token}`,
-    },
-  })
+  const updateExercise = (id: string, body: any) =>
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/exercise/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${session?.user?.token}`,
+      },
+    });
 
-  const deleteExercise = (id: string) => 
-  fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/exercise/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${session?.user?.token}`,
-    },
-  })
+  const deleteExercise = (id: string) =>
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/exercise/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${session?.user?.token}`,
+      },
+    });
   /* --------TRAINING--------- */
   const createTrainingRequest = (training: Exercise) =>
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/training`, {
@@ -170,6 +170,14 @@ export const useAuthAndApi = () => {
         authorization: `Bearer ${session?.user?.token}`,
       },
     });
+  /* ------------NOTIFICATION--------------- */
+  const getNotifications = (id: string) =>
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/notification/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${session?.user?.token}`,
+      },
+    });
   return {
     session,
     status,
@@ -190,7 +198,8 @@ export const useAuthAndApi = () => {
     updateUser,
     updateUserPassword,
     deleteExercise,
-    updateExercise
+    updateExercise,
+    getNotifications,
   };
 };
 

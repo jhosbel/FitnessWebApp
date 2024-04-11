@@ -1,7 +1,7 @@
 "use client";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BarbellIcon from "./icons/Barbell";
 import Dinner from "./icons/Dinner";
 import LogOutIcon from "./icons/LogOutIcon";
@@ -10,11 +10,34 @@ import LoginIcon from "./icons/LoginIcon";
 import Footer from "./Footer";
 import Dashboard from "./icons/Dashboard";
 import Settings from "./icons/Settings";
+import { io } from "socket.io-client";
+import useAuthAndApi from "@/app/api/training";
 
 export default function Navigation() {
   const { data: session, status } = useSession();
   const [isOpen, setIsOpen] = useState(false);
+  const [alert, setAlert] = useState([]);
+  const { getNotifications } = useAuthAndApi();
 
+  //console.log("Id del usuario", session?.user.id);
+
+  useEffect(() => {
+    const socket = io(`${process.env.NEXT_PUBLIC_BACKEND_URL_SOCKET}`);
+    socket.on("660460823aeb84730d9d53a2", (data: any) => {
+      //console.log(data.message);
+      setAlert(data.message);
+      getNotifications("660460823aeb84730d9d53a2")
+        .then((res) => res.json())
+        .then((data) => console.log(data));
+    });
+  }, []);
+
+  const handleSignOut = async () => {
+    const socket = io(`${process.env.NEXT_PUBLIC_BACKEND_URL_SOCKET}`);
+    socket.disconnect();
+    await signOut();
+  };
+  //console.log(alert);
   return (
     <aside className="relative">
       {/* Version Escritorio */}
@@ -65,11 +88,16 @@ export default function Navigation() {
                   </li>
                   <li className="cursor-pointer px-4 py-4 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
                     <LogOutIcon />
-                    <button onClick={() => signOut()}>Salir</button>
+                    <button onClick={handleSignOut}>Salir</button>
                   </li>
                 </>
               )}
             </ul>
+          </div>
+          <div>
+            {/* <p>
+              Alerta: {alert && alert.map((i) => <div key={i.id}>jhosbel</div>)}
+            </p> */}
           </div>
           <div className="h-20 flex flex-col border-t-2 justify-center">
             {/* Aca un footer o algo mas */}
@@ -84,7 +112,9 @@ export default function Navigation() {
       <nav className="sm:hidden fixed top-0 left-0 w-full z-50 bg-white text-slate-800">
         <div className="flex justify-between items-center px-4 h-16">
           <h2 className="text-xl font-semibold">
-            <Link href={"/"} onClick={() => setIsOpen(false)}>C-Fitness</Link>
+            <Link href={"/"} onClick={() => setIsOpen(false)}>
+              C-Fitness
+            </Link>
           </h2>
           <button
             className="text-white focus:outline-none"
@@ -109,40 +139,52 @@ export default function Navigation() {
               {session?.user.role === "admin" ? (
                 <li className="cursor-pointer px-4 py-4 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
                   <Dashboard />
-                  <Link href={"/dashboard"} onClick={() => setIsOpen(false)}>Dashboard</Link>
+                  <Link href={"/dashboard"} onClick={() => setIsOpen(false)}>
+                    Dashboard
+                  </Link>
                 </li>
               ) : (
                 ""
               )}
               <li className="cursor-pointer px-4 py-2 flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
                 <BarbellIcon />
-                <Link href={"/training"} onClick={() => setIsOpen(false)}>Entrenamiento</Link>
+                <Link href={"/training"} onClick={() => setIsOpen(false)}>
+                  Entrenamiento
+                </Link>
               </li>
               <li className="cursor-pointer px-4 py-2 flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
                 <Dinner />
-                <Link href={"/feeding"} onClick={() => setIsOpen(false)}>Alimentación</Link>
+                <Link href={"/feeding"} onClick={() => setIsOpen(false)}>
+                  Alimentación
+                </Link>
               </li>
               {/* Agrega más elementos de menú según sea necesario */}
               {!session ? (
                 <>
                   <li className="cursor-pointer px-4 py-2 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
                     <RegisterIcon />
-                    <Link href={"/register"} onClick={() => setIsOpen(false)}>Registrarse</Link>
+                    <Link href={"/register"} onClick={() => setIsOpen(false)}>
+                      Registrarse
+                    </Link>
                   </li>
                   <li className="cursor-pointer px-4 py-2 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
                     <LoginIcon />
-                    <Link href={"/login"} onClick={() => setIsOpen(false)}>Entrar</Link>
+                    <Link href={"/login"} onClick={() => setIsOpen(false)}>
+                      Entrar
+                    </Link>
                   </li>
                 </>
               ) : (
                 <>
                   <li className=" cursor-pointer px-4 py-4 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
                     <Settings />
-                    <Link href={"/settings"} onClick={() => setIsOpen(false)}>Configuraciones</Link>
+                    <Link href={"/settings"} onClick={() => setIsOpen(false)}>
+                      Configuraciones
+                    </Link>
                   </li>
                   <li className="cursor-pointer px-4 py-2 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
                     <LogOutIcon />
-                    <button onClick={() => signOut()}>Salir</button>
+                    <button onClick={handleSignOut}>Salir</button>
                   </li>
                 </>
               )}

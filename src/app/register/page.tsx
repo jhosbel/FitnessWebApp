@@ -3,14 +3,22 @@
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import io from "socket.io-client";
 
 const RegisterPage = () => {
   const [errors, setErrors] = useState<string[]>([]);
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [typeUser, setTypeUser] = useState<string>("")
+  const [typeUser, setTypeUser] = useState<string>("");
   const router = useRouter();
+
+  const connectSocket = () => {
+    const newSocket = io(`${process.env.NEXT_PUBLIC_BACKEND_URL_SOCKET}`);
+    newSocket.on("connect", () => {
+      console.log("Conectado");
+    });
+  };
 
   const handleTypeUser = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setTypeUser(e.target.value);
@@ -19,6 +27,7 @@ const RegisterPage = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrors([]);
+    connectSocket();
 
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/register`,
@@ -36,7 +45,7 @@ const RegisterPage = () => {
       }
     );
     const responseAPI = await res.json();
-    console.log(responseAPI)
+    console.log(responseAPI);
 
     if (!res.ok) {
       setErrors(responseAPI.message);
@@ -128,7 +137,11 @@ const RegisterPage = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
                   />
-                  <select name="typeUser" onChange={handleTypeUser} className="mt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <select
+                    name="typeUser"
+                    onChange={handleTypeUser}
+                    className="mt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
                     <option value="">Tipo de cuenta</option>
                     <option value="user">Usuario</option>
                     <option value="coach">Entrenador</option>
@@ -163,10 +176,7 @@ const RegisterPage = () => {
               ) {
                 error = "la contraseña debe tener más de 6 caracteres o más";
               }
-              if (
-                error ===
-                "typeUser should not be empty"
-              ) {
+              if (error === "typeUser should not be empty") {
                 error = "Seleccione un tipo de cuenta";
               }
               return (
