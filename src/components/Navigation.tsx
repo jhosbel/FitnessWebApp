@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
@@ -16,20 +17,27 @@ import useAuthAndApi from "@/app/api/training";
 export default function Navigation() {
   const { data: session, status } = useSession();
   const [isOpen, setIsOpen] = useState(false);
-  const [alert, setAlert] = useState([]);
+  const [alert, setAlert] = useState();
+  const [noti, setNoti] = useState([]);
   const { getNotifications } = useAuthAndApi();
 
-  //console.log("Id del usuario", session?.user.id);
+  const getNot = async () => {
+    const res = await getNotifications('660460823aeb84730d9d53a2')
+    const data = await res.json()
+    console.log(data)
+    setNoti(data)
+  }
 
   useEffect(() => {
     const socket = io(`${process.env.NEXT_PUBLIC_BACKEND_URL_SOCKET}`);
     socket.on("660460823aeb84730d9d53a2", (data: any) => {
-      //console.log(data.message);
+      console.log(data.message);
       setAlert(data.message);
-      getNotifications("660460823aeb84730d9d53a2")
-        .then((res) => res.json())
-        .then((data) => console.log(data));
     });
+    const fetchData = async () => {
+      await getNot()
+    }
+    fetchData()
   }, []);
 
   const handleSignOut = async () => {
@@ -37,7 +45,8 @@ export default function Navigation() {
     socket.disconnect();
     await signOut();
   };
-  //console.log(alert);
+  console.log(alert);
+  console.log(noti);
   return (
     <aside className="relative">
       {/* Version Escritorio */}
@@ -95,9 +104,10 @@ export default function Navigation() {
             </ul>
           </div>
           <div>
-            {/* <p>
-              Alerta: {alert && alert.map((i) => <div key={i.id}>jhosbel</div>)}
-            </p> */}
+            <p>
+              Alerta: {alert}
+              <button onClick={getNot}>ver</button>
+            </p>
           </div>
           <div className="h-20 flex flex-col border-t-2 justify-center">
             {/* Aca un footer o algo mas */}
