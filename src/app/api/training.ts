@@ -178,6 +178,13 @@ export const useAuthAndApi = () => {
         authorization: `Bearer ${session?.user?.token}`,
       },
     });
+  const getProposalsByRecipientId = (id: string) =>
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/friends/recipient/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${session?.user?.token}`,
+      },
+    });
   return {
     session,
     status,
@@ -200,6 +207,7 @@ export const useAuthAndApi = () => {
     deleteExercise,
     updateExercise,
     getNotifications,
+    getProposalsByRecipientId,
   };
 };
 

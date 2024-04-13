@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { signIn, signOut, useSession } from "next-auth/react";
@@ -13,32 +14,73 @@ import Dashboard from "./icons/Dashboard";
 import Settings from "./icons/Settings";
 import { io } from "socket.io-client";
 import useAuthAndApi from "@/app/api/training";
+import Modal from "./Modal";
 
 export default function Navigation() {
   const { data: session, status } = useSession();
+  const [open, setOpen] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState(false);
   const [alert, setAlert] = useState();
-  const [noti, setNoti] = useState([]);
-  const { getNotifications } = useAuthAndApi();
+  const [noti, setNoti] = useState<
+    { id: string; message: string; userId: string }[]
+  >([]);
+  const [noti2, setNoti2] = useState<number>(0);
+  const { getNotifications, getProposalsByRecipientId, getOneUser } =
+    useAuthAndApi();
+  const [sum, setSum] = useState(0);
+  const [proposal, setProposal] = useState<{ id: string; senderId: string }[]>(
+    []
+  );
+  const handleCloseModal = () => {
+    setOpen(false);
+  };
+
+  const handleOpenModal = async () => {
+    setOpen(true);
+  };
 
   const getNot = async () => {
-    const res = await getNotifications('660460823aeb84730d9d53a2')
-    const data = await res.json()
-    console.log(data)
-    setNoti(data)
-  }
+    const res = await getNotifications("660460823aeb84730d9d53a2");
+    const data = await res.json();
+    const proposalList = await getProposalsByRecipientId(
+      "660460823aeb84730d9d53a2"
+    );
+    const data2 = await proposalList.json();
+
+    console.log(data);
+    console.log(data2);
+
+    const filteredData = data.filter((item: any) => !item.read);
+    setNoti(filteredData);
+    setNoti2(noti.length);
+    setProposal(data2);
+  };
+
+  /* const getInfoSender = async (senderId: string) => {
+    const userName = await getOneUser(senderId)
+    const data = await userName.json()
+    setUserName(data.userName)
+  } */
 
   useEffect(() => {
     const socket = io(`${process.env.NEXT_PUBLIC_BACKEND_URL_SOCKET}`);
     socket.on("660460823aeb84730d9d53a2", (data: any) => {
       console.log(data.message);
-      setAlert(data.message);
+      setNoti(noti2 + 1);
+      setSum(noti.length + 1);
+      setAlert(noti.length + data.message);
     });
     const fetchData = async () => {
-      await getNot()
-    }
-    fetchData()
-  }, []);
+      await getNot();
+    };
+    fetchData();
+  }, [alert, noti2]);
+
+  /* const getInfoSender = async (senderId: any) => {
+    const userName = await getOneUser(senderId);
+    const data = await userName.json();
+    return data.userName;
+  }; */
 
   const handleSignOut = async () => {
     const socket = io(`${process.env.NEXT_PUBLIC_BACKEND_URL_SOCKET}`);
@@ -46,7 +88,10 @@ export default function Navigation() {
     await signOut();
   };
   console.log(alert);
+  console.log(sum);
   console.log(noti);
+  console.log(noti2);
+  console.log(proposal);
   return (
     <aside className="relative">
       {/* Version Escritorio */}
@@ -104,10 +149,8 @@ export default function Navigation() {
             </ul>
           </div>
           <div>
-            <p>
-              Alerta: {alert}
-              <button onClick={getNot}>ver</button>
-            </p>
+            <p>Alerta: {noti.length === 0 ? "" : noti.length}</p>
+            <button onClick={handleOpenModal}>abrir</button>
           </div>
           <div className="h-20 flex flex-col border-t-2 justify-center">
             {/* Aca un footer o algo mas */}
@@ -116,6 +159,18 @@ export default function Navigation() {
           </div>
         </div>
       </nav>
+
+      <Modal isOpen={open} onClose={handleCloseModal}>
+        {Array.isArray(proposal) &&
+          proposal.map((item) => {
+            console.log("hola");
+            return (
+              <div key={item.id}>
+                <p>{'jhosbel'}</p>
+              </div>
+            );
+          })}
+      </Modal>
 
       {/* Version Mobile */}
 
