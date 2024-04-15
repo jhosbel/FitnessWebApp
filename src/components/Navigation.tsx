@@ -35,23 +35,27 @@ export default function Navigation() {
   const [proposal, setProposal] = useState<
     { id: string; senderName: string }[]
   >([]);
-  const handleCloseModal = () => {
+
+  /* const handleCloseModal = () => {
     setOpen(false);
   };
-  //noti.map((item) => console.log(item._id))
+
   const handleOpenModal = async () => {
     setOpen(true);
     for (const notification of noti) {
       await markReadTrueNotification(notification._id);
     }
     await getNot()
-  };
-  console.log(session?.user.id);
+  }; */
+  
+  /* console.log(session?.user.id);
+
   const getNot = async () => {
     if (!session || !session.user || !session.user.id) {
       console.log("Usuario no autenticado");
       return;
     }
+    
     const res = await getNotifications(session?.user.id);
     const data = await res.json();
     const proposalList = await getProposalsByRecipientId(session?.user.id);
@@ -64,9 +68,9 @@ export default function Navigation() {
     setNoti(filteredData);
     setNoti2(noti.length);
     setProposal(data2);
-  };
+  }; */
 
-  useEffect(() => {
+  /* useEffect(() => {
     const socket = io(`${process.env.NEXT_PUBLIC_BACKEND_URL_SOCKET}`);
     if (session && session.user && session.user.id) {
       socket.on(session?.user.id, (data: any) => {
@@ -80,18 +84,18 @@ export default function Navigation() {
       await getNot();
     };
     fetchData();
-  }, [alert, noti2, noti]);
+  }, [alert, noti2]); */
 
   const handleSignOut = async () => {
     const socket = io(`${process.env.NEXT_PUBLIC_BACKEND_URL_SOCKET}`);
     socket.disconnect();
     await signOut();
   };
-  console.log(alert);
+  /* console.log(alert);
   console.log(sum);
   console.log(noti);
   console.log(noti2);
-  console.log(proposal);
+  console.log(proposal); */
   return (
     <aside className="relative">
       {/* Version Escritorio */}
@@ -148,7 +152,7 @@ export default function Navigation() {
               )}
             </ul>
           </div>
-          {<div
+          {/* <div
             onClick={noti.length === 0 ? handleCloseModal : handleOpenModal}
             className="flex justify-center cursor-pointer"
           >
@@ -160,7 +164,7 @@ export default function Navigation() {
               {noti.length === 0 ? "" : noti.length}
             </p>
             <Alert />
-          </div>}
+          </div> */}
           <div className="h-20 flex flex-col border-t-2 justify-center">
             {/* Aca un footer o algo mas */}
             <Footer />
@@ -168,7 +172,7 @@ export default function Navigation() {
         </div>
       </nav>
 
-      <Modal isOpen={open} onClose={handleCloseModal}>
+      {/* <Modal isOpen={open} onClose={handleCloseModal}>
         {Array.isArray(proposal) &&
           proposal.map((item) => {
             return (
@@ -179,7 +183,7 @@ export default function Navigation() {
               </div>
             );
           })}
-      </Modal>
+      </Modal> */}
 
       {/* Version Mobile */}
 
