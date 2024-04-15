@@ -185,6 +185,21 @@ export const useAuthAndApi = () => {
         authorization: `Bearer ${session?.user?.token}`,
       },
     });
+
+  const markReadTrueNotification = (id: string) => {
+    const bodyData = { id };
+    return fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/notification/${id}/markAsRead`,
+      {
+        method: "POST",
+        body: JSON.stringify(bodyData),
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${session?.user?.token}`,
+        },
+      }
+    );
+  };
   return {
     session,
     status,
@@ -208,6 +223,7 @@ export const useAuthAndApi = () => {
     updateExercise,
     getNotifications,
     getProposalsByRecipientId,
+    markReadTrueNotification,
   };
 };
 
