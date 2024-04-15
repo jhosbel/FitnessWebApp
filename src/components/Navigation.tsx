@@ -46,10 +46,10 @@ export default function Navigation() {
     }
     await getNot()
   };
-  /* console.log(session?.user.id); */
+  console.log(session?.user.id);
   const getNot = async () => {
     if (!session || !session.user || !session.user.id) {
-      /* console.log("Usuario no autenticado"); */
+      console.log("Usuario no autenticado");
       return;
     }
     const res = await getNotifications(session?.user.id);
@@ -87,11 +87,11 @@ export default function Navigation() {
     socket.disconnect();
     await signOut();
   };
-  /* console.log(alert);
+  console.log(alert);
   console.log(sum);
   console.log(noti);
   console.log(noti2);
-  console.log(proposal); */
+  console.log(proposal);
   return (
     <aside className="relative">
       {/* Version Escritorio */}
@@ -148,7 +148,7 @@ export default function Navigation() {
               )}
             </ul>
           </div>
-          {/* <div
+          {<div
             onClick={noti.length === 0 ? handleCloseModal : handleOpenModal}
             className="flex justify-center cursor-pointer"
           >
@@ -160,7 +160,7 @@ export default function Navigation() {
               {noti.length === 0 ? "" : noti.length}
             </p>
             <Alert />
-          </div> */}
+          </div>}
           <div className="h-20 flex flex-col border-t-2 justify-center">
             {/* Aca un footer o algo mas */}
             <Footer />
