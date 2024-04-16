@@ -200,6 +200,19 @@ export const useAuthAndApi = () => {
       }
     );
   };
+
+  /* ----------------FRIENDS------------- */
+  const acceptProposal = (proposalId: string, userId: string) =>
+    fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/friends/${proposalId}/accept/${userId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${session?.user?.token}`,
+        },
+      }
+    );
   return {
     session,
     status,
@@ -224,6 +237,7 @@ export const useAuthAndApi = () => {
     getNotifications,
     getProposalsByRecipientId,
     markReadTrueNotification,
+    acceptProposal,
   };
 };
 

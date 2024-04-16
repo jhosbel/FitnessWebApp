@@ -20,23 +20,30 @@ import Alert from "./icons/Alert";
 export default function Navigation() {
   const { data: session, status } = useSession();
   const [open, setOpen] = useState<boolean>(false);
+  const [notiCount, setNotiCount] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [alert, setAlert] = useState();
   const [noti, setNoti] = useState<
-    { _id: string, id: string; message: string; userId: string }[]
+    { _id: string; id: string; message: string; userId: string }[]
   >([]);
   const [noti2, setNoti2] = useState<number>(0);
   const {
     getNotifications,
     getProposalsByRecipientId,
     markReadTrueNotification,
+    acceptProposal,
   } = useAuthAndApi();
   const [sum, setSum] = useState(0);
   const [proposal, setProposal] = useState<
-    { id: string; senderName: string }[]
+    {
+      _id: string;
+      status: any;
+      id: string;
+      senderName: string;
+    }[]
   >([]);
 
-  /* const handleCloseModal = () => {
+  const handleCloseModal = () => {
     setOpen(false);
   };
 
@@ -45,17 +52,17 @@ export default function Navigation() {
     for (const notification of noti) {
       await markReadTrueNotification(notification._id);
     }
-    await getNot()
-  }; */
-  
-  /* console.log(session?.user.id);
+    await getNot();
+  };
+
+  console.log(session?.user.id);
 
   const getNot = async () => {
     if (!session || !session.user || !session.user.id) {
       console.log("Usuario no autenticado");
       return;
     }
-    
+
     const res = await getNotifications(session?.user.id);
     const data = await res.json();
     const proposalList = await getProposalsByRecipientId(session?.user.id);
@@ -66,36 +73,51 @@ export default function Navigation() {
 
     const filteredData = data.filter((item: any) => !item.read);
     setNoti(filteredData);
-    setNoti2(noti.length);
+    //setNoti2(noti.length || 0);
     setProposal(data2);
-  }; */
+  };
 
-  /* useEffect(() => {
+  useEffect(() => {
     const socket = io(`${process.env.NEXT_PUBLIC_BACKEND_URL_SOCKET}`);
     if (session && session.user && session.user.id) {
       socket.on(session?.user.id, (data: any) => {
         console.log(data.message);
-        setNoti(noti2 + 1);
+        //setNoti(noti2 + 1);
         setSum(noti.length + 1);
         setAlert(noti.length + data.message);
+        setNotiCount((prev) => prev + 1);
+        getNot()
       });
     }
     const fetchData = async () => {
       await getNot();
     };
     fetchData();
-  }, [alert, noti2]); */
+  }, [alert, noti2, notiCount, session]);
 
   const handleSignOut = async () => {
     const socket = io(`${process.env.NEXT_PUBLIC_BACKEND_URL_SOCKET}`);
     socket.disconnect();
     await signOut();
   };
-  /* console.log(alert);
+
+  const acceptFriend = async (
+    proposalId: string,
+    userId: string | undefined
+  ) => {
+    if (!userId) {
+      console.error("ID de usuario indefinido");
+      return;
+    }
+    await acceptProposal(proposalId, userId);
+    console.log("Propuesta aceptada");
+  };
+  console.log(alert);
   console.log(sum);
   console.log(noti);
   console.log(noti2);
-  console.log(proposal); */
+  console.log(proposal);
+  console.log(notiCount);
   return (
     <aside className="relative">
       {/* Version Escritorio */}
@@ -152,19 +174,25 @@ export default function Navigation() {
               )}
             </ul>
           </div>
-          {/* <div
-            onClick={noti.length === 0 ? handleCloseModal : handleOpenModal}
-            className="flex justify-center cursor-pointer"
-          >
-            <p
-              className={`${
-                noti.length === 0 ? "hidden" : "absolute"
-              } right-28 top-[42rem] w-6 h-6 rounded-full text-center bg-red-500/70`}
+          {session ? (
+            <div
+              onClick={
+                /* noti.length === 0 ? handleCloseModal :  */ handleOpenModal
+              }
+              className="flex justify-center cursor-pointer"
             >
-              {noti.length === 0 ? "" : noti.length}
-            </p>
-            <Alert />
-          </div> */}
+              <p
+                className={`${
+                  noti.length === 0 ? "hidden" : "absolute"
+                } right-28 top-[42rem] w-6 h-6 rounded-full text-center bg-red-500/70`}
+              >
+                {noti.length === 0 ? "" : noti.length}
+              </p>
+              <Alert />
+            </div>
+          ) : (
+            ""
+          )}
           <div className="h-20 flex flex-col border-t-2 justify-center">
             {/* Aca un footer o algo mas */}
             <Footer />
@@ -172,18 +200,23 @@ export default function Navigation() {
         </div>
       </nav>
 
-      {/* <Modal isOpen={open} onClose={handleCloseModal}>
+      <Modal isOpen={open} onClose={handleCloseModal}>
         {Array.isArray(proposal) &&
           proposal.map((item) => {
             return (
               <div key={item.id} className="flex gap-2">
                 <p>{item.senderName} te ah enviado una solicitud de amistad</p>
-                <button>aceptar</button>
+                <button
+                  onClick={() => acceptFriend(item._id, session?.user.id)}
+                  disabled={item.status[0] === "accepted" ? true : false}
+                >
+                  aceptar
+                </button>
                 <button>rechazar</button>
               </div>
             );
           })}
-      </Modal> */}
+      </Modal>
 
       {/* Version Mobile */}
 
