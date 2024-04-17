@@ -73,7 +73,6 @@ export default function Navigation() {
 
     const filteredData = data.filter((item: any) => !item.read);
     setNoti(filteredData);
-    //setNoti2(noti.length || 0);
     setProposal(data2);
   };
 
