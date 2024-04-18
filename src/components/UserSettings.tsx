@@ -63,6 +63,7 @@ const UserSettings = () => {
   const [userConfigId, setUserConfigId] = useState("");
   const [userConfig, setUserConfig] = useState<UserConfig | null>(null);
   const [userUpdate, setUserUpdate] = useState({
+    avatar: "",
     name: "",
     email: "",
     age: "",
@@ -130,13 +131,27 @@ const UserSettings = () => {
       if (res2.ok) {
         const updateUserConfig = await res2.json();
         setUser(updateUserConfig);
-        setUserUpdate({ name: "", email: "", age: "", height: "", weight: "" });
+        setUserUpdate({
+          avatar: "",
+          name: "",
+          email: "",
+          age: "",
+          height: "",
+          weight: "",
+        });
       }
       const res = await updateOneUserConfig(userConfigId, updatedUserConfig);
       if (res.ok) {
         const updateUserConfig = await res.json();
         setUserConfig(updateUserConfig);
-        setUserUpdate({ name: "", email: "", age: "", height: "", weight: "" });
+        setUserUpdate({
+          avatar: "",
+          name: "",
+          email: "",
+          age: "",
+          height: "",
+          weight: "",
+        });
       } else {
         console.error("Failed to update user config:", res.statusText);
       }

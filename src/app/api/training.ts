@@ -27,6 +27,22 @@ export const useAuthAndApi = () => {
       },
     });
 
+  const getAllforUsers = () =>
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/allforusers`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${session?.user?.token}`,
+      },
+    });
+
+  const getAllforCoach = () =>
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/allforcoach`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${session?.user?.token}`,
+      },
+    });
+
   const updateUser = (id: string, body: any) =>
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${id}`, {
       method: "PATCH",
@@ -238,6 +254,8 @@ export const useAuthAndApi = () => {
     getProposalsByRecipientId,
     markReadTrueNotification,
     acceptProposal,
+    getAllforUsers,
+    getAllforCoach,
   };
 };
 
