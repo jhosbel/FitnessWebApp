@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
@@ -16,6 +17,7 @@ import { io } from "socket.io-client";
 import useAuthAndApi from "@/app/api/training";
 import Modal from "./Modal";
 import Alert from "./icons/Alert";
+import Profile from "./icons/Profile";
 
 export default function Navigation() {
   const { data: session, status } = useSession();
@@ -32,6 +34,7 @@ export default function Navigation() {
     getProposalsByRecipientId,
     markReadTrueNotification,
     acceptProposal,
+    getOneUser,
   } = useAuthAndApi();
   const [sum, setSum] = useState(0);
   const [proposal, setProposal] = useState<
@@ -42,6 +45,7 @@ export default function Navigation() {
       senderName: string;
     }[]
   >([]);
+  const [profile, setProfile] = useState<any>();
 
   const handleCloseModal = () => {
     setOpen(false);
@@ -85,12 +89,21 @@ export default function Navigation() {
         setSum(noti.length + 1);
         setAlert(noti.length + data.message);
         setNotiCount((prev) => prev + 1);
-        getNot()
+        getNot();
       });
     }
+    const fetchUser = async () => {
+      if (session && session.user && session.user.id) {
+        const res = await getOneUser(session?.user.id);
+        const data = await res.json();
+        console.log(data);
+        setProfile(data);
+      }
+    };
     const fetchData = async () => {
       await getNot();
     };
+    fetchUser();
     fetchData();
   }, [alert, noti2, notiCount, session]);
 
@@ -117,6 +130,7 @@ export default function Navigation() {
   console.log(noti2);
   console.log(proposal);
   console.log(notiCount);
+  console.log(profile);
   return (
     <aside className="relative">
       {/* Version Escritorio */}
@@ -130,8 +144,30 @@ export default function Navigation() {
               </h2>
             </div>
           </div>
-          <div className="pt-8 h-96">
-            <ul className="space-y-2 px-8">
+          {session ? (
+            <div className="flex justify-center flex-col items-center">
+              <div className="flex flex-col items-center gap-4">
+                <div className="rounded-full w-40 h-40 overflow-hidden">
+                  {
+                    <img
+                      src={
+                        profile?.avatar === ""
+                          ? "avatar-img.png"
+                          : profile?.avatar
+                      }
+                      alt="profile image"
+                      className="w-full h-full object-cover"
+                    />
+                  }
+                </div>
+                <p>{profile?.name}</p>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+          <div className="flex w-full justify-evenly">
+            <ul>
               {session?.user.role === "admin" ? (
                 <li className="cursor-pointer px-4 py-4 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
                   <Dashboard />
@@ -148,6 +184,36 @@ export default function Navigation() {
                 <Dinner />
                 <Link href={"/feeding"}>Alimentación</Link>
               </li>
+              {session ? (
+                <>
+                  <li className=" cursor-pointer px-4 py-4 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
+                    <Profile />
+                    <Link href={"/profile"}>Perfil</Link>
+                  </li>
+                  <li className=" cursor-pointer px-4 py-4 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
+                    <Settings />
+                    <Link href={"/settings"}>Configuraciones</Link>
+                  </li>
+                  <li
+                    onClick={handleOpenModal}
+                    className=" cursor-pointer px-4 py-4 hover:bg-opacity-75 transition rounded-md flex hover:bg-slate-800 hover:border-slate-950 hover:text-white"
+                  >
+                    <div className="gap-2 flex">
+                      <p
+                        className={`${
+                          noti.length === 0 ? "hidden" : "absolute"
+                        } right-28 top-[42rem] w-6 h-6 rounded-full text-center bg-red-500/70`}
+                      >
+                        {noti.length === 0 ? "" : noti.length}
+                      </p>
+                      <Alert />
+                      <p>Notificaciones</p>
+                    </div>
+                  </li>
+                </>
+              ) : (
+                ""
+              )}
               {!session ? (
                 <>
                   <li className="cursor-pointer px-4 py-4 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
@@ -161,10 +227,6 @@ export default function Navigation() {
                 </>
               ) : (
                 <>
-                  <li className=" cursor-pointer px-4 py-4 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
-                    <Settings />
-                    <Link href={"/settings"}>Configuraciones</Link>
-                  </li>
                   <li className="cursor-pointer px-4 py-4 hover:bg-opacity-75 transition rounded-md flex gap-2 hover:bg-slate-800 hover:border-slate-950 hover:text-white">
                     <LogOutIcon />
                     <button onClick={handleSignOut}>Salir</button>
@@ -173,25 +235,6 @@ export default function Navigation() {
               )}
             </ul>
           </div>
-          {session ? (
-            <div
-              onClick={
-                /* noti.length === 0 ? handleCloseModal :  */ handleOpenModal
-              }
-              className="flex justify-center cursor-pointer"
-            >
-              <p
-                className={`${
-                  noti.length === 0 ? "hidden" : "absolute"
-                } right-28 top-[42rem] w-6 h-6 rounded-full text-center bg-red-500/70`}
-              >
-                {noti.length === 0 ? "" : noti.length}
-              </p>
-              <Alert />
-            </div>
-          ) : (
-            ""
-          )}
           <div className="h-20 flex flex-col border-t-2 justify-center">
             {/* Aca un footer o algo mas */}
             <Footer />
