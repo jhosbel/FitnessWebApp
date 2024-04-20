@@ -1,7 +1,6 @@
+import { ClassNameProps } from "@/interfaces/training.interface";
 import { FC } from "react";
-interface ClassNameProps {
-    className?: string;
-}
+
 
 const Alert: FC<ClassNameProps> = ({className}) => (
   <svg

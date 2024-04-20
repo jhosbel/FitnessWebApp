@@ -1,7 +1,5 @@
+import { ClassNameProps } from "@/interfaces/training.interface";
 import React, { FC } from "react";
-interface ClassNameProps {
-    className?: string;
-}
 
 const RegisterIcon: FC<ClassNameProps> = ({className}) => (
   <svg

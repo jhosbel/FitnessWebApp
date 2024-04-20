@@ -10,9 +10,11 @@ import { useSession } from "next-auth/react";
 import useAuthAndApi from "@/app/api/training";
 import CheckIcon from "./icons/CheckIcon";
 import Swal from "sweetalert2";
+import Muscle from "./icons/Muscle";
+import BarbellIcon from "./icons/Barbell";
 
 const CalendarData = () => {
-  const { data: session, } = useSession();
+  const { data: session } = useSession();
   const {
     getTrainingList,
     getCalendarData,
@@ -65,7 +67,8 @@ const CalendarData = () => {
       confirmButtonText: "Sí, deseo crearla",
       cancelButtonText: "Cancelar",
     });
-    if (!confirmCreateEvent.isConfirmed) {  // Si el usuario cancela, no se crea el evento
+    if (!confirmCreateEvent.isConfirmed) {
+      // Si el usuario cancela, no se crea el evento
       setTrainingListId({ id: "", title: "" });
       setSelectedList(null);
       return;
@@ -79,7 +82,6 @@ const CalendarData = () => {
       userId: session?.user?.id || "",
     });
 
-    
     setTrainingListId({ id: "", title: "" });
     setSelectedList(null);
 
@@ -91,11 +93,11 @@ const CalendarData = () => {
     await getTrainingList()
       .then((res) => res.json())
       .then((data) => setTrainingList(data));
-    };
-    
+  };
+
   // Función para renderizar los eventos en el calendario
   const tileContent = ({ date, view }: any) => {
-    if (view === "month" && calendarData) {
+    if (view === "month" && Array.isArray(calendarData)) {
       const event = calendarData.find((event: any) => {
         const eventStartDate = new Date(format(event.start, "yyyy,MM,dd"));
         return eventStartDate.toDateString() === date.toDateString();
@@ -131,26 +133,54 @@ const CalendarData = () => {
         />
         <Modal isOpen={open} onClose={handleCloseModal}>
           {data && (
-            <div key={data._id} className="bg-slate-200 flex flex-col w-full h-full gap-4">
+            <div
+              key={data._id}
+              className="bg-slate-200 flex flex-col w-full h-full gap-4"
+            >
               {data.exercises?.map((exercise: any) => (
-                <div key={exercise._id} className="flex gap-2 md:gap-8 text-slate-600">
-                  <img src={exercise.image} alt={exercise.name} className="h-16 md:h-auto md:w-36 rounded-sm"/>
+                <div
+                  key={exercise._id}
+                  className="flex gap-2 md:gap-8 text-slate-600"
+                >
+                  <img
+                    src={exercise.image}
+                    alt={exercise.name}
+                    className="h-16 md:h-auto md:w-36 rounded-sm"
+                  />
                   <div>
-                    <p className="text-[0.5rem] md:text-base">{exercise.name}</p>
+                    <p className="text-[0.5rem] md:text-base">
+                      {exercise.name}
+                    </p>
                     <div>
-                      <p className="text-[0.5rem] md:text-base">{exercise.muscle}</p>
-                      <p className="text-[0.5rem] md:text-base">{exercise.equipment}</p>
-                      <p className="text-[0.5rem] md:text-base">{exercise.instructions}</p>
-                      <p className="text-[0.5rem] md:text-base">Series: {exercise.series}</p>
+                      <p className="text-[0.5rem] md:text-base">
+                        {exercise.muscle}
+                      </p>
+                      <p className="text-[0.5rem] md:text-base">
+                        {exercise.equipment}
+                      </p>
+                      <p className="text-[0.5rem] md:text-base">
+                        {exercise.instructions}
+                      </p>
+                      <p className="text-[0.5rem] md:text-base">
+                        Series: {exercise.series}
+                      </p>
                       <div className="flex gap-1">
-                        <p className="text-[0.5rem] md:text-base">Peso: {exercise.weight}</p>
-                        <p className="text-[0.5rem] md:text-base">{exercise.weightType}</p>
+                        <p className="text-[0.5rem] md:text-base">
+                          Peso: {exercise.weight}
+                        </p>
+                        <p className="text-[0.5rem] md:text-base">
+                          {exercise.weightType}
+                        </p>
                       </div>
-                      <p className="text-[0.5rem] md:text-base">Repeticiones: {exercise.reps}</p>
+                      <p className="text-[0.5rem] md:text-base">
+                        Repeticiones: {exercise.reps}
+                      </p>
                     </div>
                   </div>
                   <div className="max-h-16 md:max-h-40 max-w-28 md:max-w-60 overflow-auto">
-                    <p className="text-[0.5rem] md:text-base">{exercise.note}</p>
+                    <p className="text-[0.5rem] md:text-base">
+                      {exercise.note}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -198,20 +228,37 @@ const CalendarData = () => {
                         </span>
                       </div>
                     </div>
-                    <h1 className="text-center">{list.title}</h1>
+                    <h1 className="text-center font-semibold text-slate-700">{list.title}</h1>
                     <div className="flex flex-row mt-2">
                       {list.exercises.map((e: any) => (
-                        <div key={e._id} className="flex flex-col md:flex-row my-4 items-center md:items-stretch text-center md:text-start px-1">
+                        <div
+                          key={e._id}
+                          className="flex md:flex-col flex-row my-4 justify-center items-center text-center md:text-start px-1 md:gap-2"
+                        >
                           <img
                             src={e.image}
                             alt={e.name}
-                            className="w-12 md:w-24 h-12 md:h-24 rounded-full"
+                            className="w-12 h-12 rounded-full"
                           />
-                          <p className="md:hidden text-[0.5rem]">{e.name}</p>
+                          <div className="md:h-16 md:flex md:items-center">
+                            <p className="md:hidden text-[0.5rem] font-semibold text-slate-700">
+                              {e.name}
+                            </p>
+                            <p className="font-semibold text-xs hidden md:block text-slate-700">
+                              {e.name}
+                            </p>
+                          </div>
                           <div className="hidden md:block">
-                            <p>{e.name}</p>
-                            <p>{e.muscle}</p>
-                            <p>{e.equipment}</p>
+                            <div>
+                              <div className="flex flex-col items-center">
+                                <Muscle />
+                                <p className="text-xs text-slate-700">{e.muscle}</p>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <BarbellIcon />
+                                <p className="text-xs text-slate-700">{e.equipment}</p>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       ))}

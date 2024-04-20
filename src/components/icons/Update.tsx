@@ -1,9 +1,8 @@
+import { ClassNameProps } from "@/interfaces/training.interface";
 import { FC } from "react";
 
-interface ClassNameProp {
-  className:string;
-}
-const Update: FC<ClassNameProp> = ({className}) => (
+
+const Update: FC<ClassNameProps> = ({className}) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"

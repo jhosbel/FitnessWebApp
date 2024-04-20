@@ -1,6 +1,7 @@
-import React from "react";
+import { ClassNameProps } from "@/interfaces/training.interface";
+import React, { FC } from "react";
 
-const EyeOff = () => (
+const EyeOff: FC<ClassNameProps> = ({className}) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -11,7 +12,7 @@ const EyeOff = () => (
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className="icon icon-tabler icons-tabler-outline icon-tabler-eye-off"
+    className={`icon icon-tabler icons-tabler-outline icon-tabler-eye-off ${className}`}
   >
     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
     <path d="M10.585 10.587a2 2 0 0 0 2.829 2.828" />

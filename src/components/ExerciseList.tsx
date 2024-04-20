@@ -9,6 +9,10 @@ import { useEffect, useState } from "react";
 import Modal from "./Modal";
 import useAuthAndApi from "@/app/api/training";
 import Footer from "./Footer";
+import { useSession } from "next-auth/react";
+import Muscle from "./icons/Muscle";
+import BarbellIcon from "./icons/Barbell";
+import Clipboard from "./icons/Clipboard";
 
 interface TrainingListProps {
   onExerciseSelect: (exercise: ExerciseOne) => void;
@@ -19,6 +23,7 @@ export default function TrainingList({
   onExerciseSelect,
   openModal,
 }: TrainingListProps) {
+  const { data: session, status } = useSession();
   const { getExerciseByMuscle } = useAuthAndApi();
   const { exercise } = useTraining();
   const [selectedMuscle, setSelectedMuscle] = useState("");
@@ -27,13 +32,6 @@ export default function TrainingList({
   const [open, setOpen] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [exercisesPerPage, setExercisesPerPage] = useState(10);
-
-  const indexOfLastExercise = currentPage * exercisesPerPage;
-  const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
-  const currentExercises = filteredExercises.slice(
-    indexOfFirstExercise,
-    indexOfLastExercise
-  );
 
   useEffect(() => {
     if (selectedMuscle) {
@@ -50,7 +48,14 @@ export default function TrainingList({
       // Si no se ha seleccionado un músculo, mostrar todos los ejercicios
       setFilteredExercises(exercise);
     }
-  }, [selectedMuscle, exercise]);
+  }, [selectedMuscle, exercise, session]);
+
+  const indexOfLastExercise = currentPage * exercisesPerPage;
+  const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
+  const currentExercises =
+    session && Array.isArray(filteredExercises)
+      ? filteredExercises.slice(indexOfFirstExercise, indexOfLastExercise)
+      : [];
 
   const handleExerciseClick = (clickedExercise: ExerciseOne) => {};
 
@@ -143,12 +148,18 @@ export default function TrainingList({
                 alt={exercise.name}
                 className="sm:rounded-t-lg w-20 sm:w-full aspect-square"
               />
-              <div className="w-full flex flex-col items-center px-2 pb-2 h-full justify-around">
-                <h1 className="text-center text-xs sm:text-sm my-2">
+              <div className="w-full flex flex-col items-center px-2 pb-2 h-full justify-around gap-2">
+                <h1 className="text-center text-xs sm:text-sm my-2 font-semibold">
                   {exercise.name}
                 </h1>
-                <p className="text-sm">{exercise.muscle}</p>
-                <p className="text-sm">{exercise.equipment}</p>
+                <div className="flex flex-col items-center">
+                  <Muscle />
+                  <p className="text-sm">Musculo: {exercise.muscle}</p>
+                </div>
+                <div className="flex flex-col items-center">
+                  <BarbellIcon />
+                  <p className="text-sm">Equipo: {exercise.equipment}</p>
+                </div>
                 <div className="w-full flex justify-around sm:flex-col">
                   <button
                     className="bg-blue-500 hover:bg-blue-700 text-white text-xs font-bold py-2 px-4 rounded  sm:mb-2"
@@ -169,28 +180,38 @@ export default function TrainingList({
       </div>
       <Modal isOpen={open} onClose={handleCloseModal}>
         {selectedExercise && (
-          <div className="flex flex-col items-center">
-            <img
-              src={selectedExercise.image}
-              alt={selectedExercise.name}
-              className="max-w-[175px] md:max-w-[200px] max-h-[360px]"
-            />
-            <br />
-            <p>{selectedExercise.name}</p>
-            <br />
-            <p>{selectedExercise.muscle}</p>
-            <br />
-            <p>{selectedExercise.equipment}</p>
-            <br />
-            <div className="max-h-40 max-w-[22rem] w-full overflow-auto">
-              <ul>
-                {selectedExercise.instructions &&
-                  splitInstructions.map((i: any, index: any) => (
-                    <li key={index}>
-                      {i} <br />
-                    </li>
-                  ))}
-              </ul>
+          <div className="flex gap-4">
+            <div>
+              <img
+                src={selectedExercise.image}
+                alt={selectedExercise.name}
+                className="sm:w-[300px] w-full"
+              />
+            </div>
+            <div className="flex flex-col gap-4">
+              <h3 className="font-semibold">{selectedExercise.name}</h3>
+              <div className="flex gap-2">
+                <Muscle />
+                <p>Musculo: {selectedExercise.muscle}</p>
+              </div>
+              <div className="flex gap-2">
+                <BarbellIcon />
+                <p>{selectedExercise.equipment}</p>
+              </div>
+              <div className="flex gap-2">
+                <Clipboard />
+                <p>Instrucciones:</p>
+              </div>
+              <div className="max-h-40 max-w-[26rem] w-full overflow-auto">
+                <ul>
+                  {selectedExercise.instructions &&
+                    splitInstructions.map((i: any, index: any) => (
+                      <li key={index}>
+                        {i} <br />
+                      </li>
+                    ))}
+                </ul>
+              </div>
             </div>
           </div>
         )}

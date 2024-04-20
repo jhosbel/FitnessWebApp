@@ -18,6 +18,9 @@ import CalendarData from "@/components/CalendarData";
 import useAuthAndApi from "@/app/api/training";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
+import Clipboard from "./icons/Clipboard";
+import BarbellIcon from "./icons/Barbell";
+import Muscle from "./icons/Muscle";
 
 export default function Training() {
   const { data: session } = useSession();
@@ -144,13 +147,25 @@ export default function Training() {
                   key={exercise._id}
                   className="my-2 mx-4 max-w-40 sm:max-w-48 sm:m-2 flex flex-col items-center justify-between"
                 >
-                  <h1 className="text-center text-xs sm:text-xl my-2">
+                  <h1 className="text-center text-xs sm:text-xl my-2 font-semibold">
                     {exercise.name}
                   </h1>
                   <div className="flex flex-col w-full items-center">
-                    <img src={exercise.image} alt={exercise.name} className="max-w-40 sm:max-w-full" />
-                    <p className="text-xs">Musculo: {exercise.muscle}</p>
-                    <p className="text-xs">Equipo: {exercise.equipment}</p>
+                    <img
+                      src={exercise.image}
+                      alt={exercise.name}
+                      className="max-w-40 sm:max-w-full"
+                    />
+                    <div className="flex flex-col gap-2 my-2">
+                      <div className="flex gap-2 items-center">
+                        <Muscle />
+                        <p className="text-xs">Musculo: {exercise.muscle}</p>
+                      </div>
+                      <div className="flex gap-2 items-center">
+                        <BarbellIcon />
+                        <p className="text-xs">Equipo: {exercise.equipment}</p>
+                      </div>
+                    </div>
                     {/* <p>Instrucciones: {exercise.instructions}</p> */}
                     <button
                       className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 text-xs sm:text-base"
@@ -182,29 +197,40 @@ export default function Training() {
         )}
       </section>
       <Modal isOpen={open} onClose={() => setOpen(false)}>
-        <div>
-          <img
-            src={exerInfo?.image}
-            alt={exerInfo?.name}
-            className="sm:w-36 w-full"
-          />
-          <p>{exerInfo?.name}</p>
-          <br />
-          <p>Musculo: {exerInfo?.muscle}</p>
-          <br />
-          <p>Equipo: {exerInfo?.equipment}</p>
-          <br />
-          <p>Instrucciones:</p>
-          <br />
-          <div className="max-h-40 max-w-[22rem] w-full overflow-auto">
-            <ul>
-              {splitInstructions &&
-                splitInstructions.map((i: any, index: any) => (
-                  <li key={index}>
-                    {i} <br />
-                  </li>
-                ))}
-            </ul>
+        <div className="flex gap-4">
+          <div>
+            <img
+              src={exerInfo?.image}
+              alt={exerInfo?.name}
+              className="sm:w-[300px] w-full"
+            />
+          </div>
+          <div>
+            <div className="flex flex-col gap-4">
+              <h3 className="font-semibold">{exerInfo?.name}</h3>
+              <div className="flex gap-2">
+                <Muscle />
+                <p>Musculo: {exerInfo?.muscle}</p>
+              </div>
+              <div className="flex gap-2">
+                <BarbellIcon />
+                <p>Equipo: {exerInfo?.equipment}</p>
+              </div>
+              <div className="flex gap-2">
+                <Clipboard/>
+                <p>Instrucciones:</p>
+              </div>
+              <div className="max-h-40 max-w-[26rem] w-full overflow-auto">
+                <ul>
+                  {splitInstructions &&
+                    splitInstructions.map((i: any, index: any) => (
+                      <li key={index}>
+                        {i} <br />
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </Modal>

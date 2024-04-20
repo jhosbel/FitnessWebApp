@@ -44,3 +44,7 @@ export interface CalendarData {
   userEmail: string;
   userId: string;
 }
+
+export interface ClassNameProps {
+  className?: string;
+}
