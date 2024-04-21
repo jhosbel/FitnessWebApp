@@ -135,7 +135,7 @@ const CalendarData = () => {
           {data && (
             <div
               key={data._id}
-              className="bg-slate-200 flex flex-col w-full h-full gap-4"
+              className="bg-slate-200 flex flex-col w-full h-full gap-4 md:h-[40rem] md:overflow-y-scroll"
             >
               {data.exercises?.map((exercise: any) => (
                 <div
@@ -147,7 +147,7 @@ const CalendarData = () => {
                     alt={exercise.name}
                     className="h-16 md:h-auto md:w-36 rounded-sm"
                   />
-                  <div>
+                  <div className="md:w-80">
                     <p className="text-[0.5rem] md:text-base">
                       {exercise.name}
                     </p>
@@ -207,7 +207,7 @@ const CalendarData = () => {
                     }}
                   >
                     <div
-                      className={`h-[8.5rem] md:h-40 w-full backdrop-blur-sm bg-[#39ff396b] absolute rounded-2xl hidden gap-4 justify-center left-0 items-center cursor-pointer list-select ${
+                      className={`h-[8.5rem] md:h-[17rem] w-full backdrop-blur-sm bg-[#39ff396b] absolute rounded-2xl hidden gap-4 justify-center left-0 items-center cursor-pointer list-select ${
                         list._id === selectedList ? "selected" : ""
                       }`}
                       onClick={() => {

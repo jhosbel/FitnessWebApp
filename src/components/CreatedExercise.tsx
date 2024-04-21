@@ -360,7 +360,7 @@ const CreatedExercise = () => {
         <div className="md:w-4/5">
           <h1 className="text-2xl my-4 md:mt-0 text-center">Lista de ejercicios</h1>
           <div className="flex flex-col gap-4">
-            <div>
+            <div className="flex items-center justify-center">
               <span>Filtrar por musculo: </span>
               <select name="musculos" onChange={handleMuscleType}>
                 <option value="" className="text-xs">
