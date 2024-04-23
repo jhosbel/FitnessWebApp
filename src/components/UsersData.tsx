@@ -83,7 +83,7 @@ const UsersData = () => {
 
   useEffect(() => {
     getAllUsers()
-      .then((res) => res.json())
+      .then((res: any) => res.json())
       .then((data: any) => {
         setUsers(data);
         setFilteredName(data);

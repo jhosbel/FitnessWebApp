@@ -4,6 +4,7 @@
 import { useSession } from "next-auth/react";
 import useAuthAndApi from "../api/training";
 import { useEffect, useState } from "react";
+import ListTrainingData from "@/components/ListTrainingData";
 
 type UserData = {
   id: string;
@@ -114,6 +115,7 @@ const Profile = () => {
               ))}
           </div>
         </div>
+        <ListTrainingData />
       </main>
     );
   }
