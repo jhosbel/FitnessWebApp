@@ -7,11 +7,27 @@ import DataTable, {
 import React, { useEffect, useState } from "react";
 
 interface DataRow {
+  exercises: [
+    {
+      _id: string;
+      breakTime: string;
+      breakTimeType: string;
+      id: string;
+      image: string;
+      name: string;
+      muscle: string;
+      note: string;
+      reps: number;
+      series: number;
+      weight: number;
+      weightType: string;
+    }
+  ];
+}
+
+interface Training {
   _id: string;
   createdAt: string;
-  updatedAt: string;
-  title: string;
-  userEmail: string;
   exercises: [
     {
       _id: string;
@@ -31,43 +47,31 @@ interface DataRow {
 }
 
 function ListTrainingData() {
-  const { getTrainingListOne } = useAuthAndApi();
-  const [listTrainingData, setListTrainingData] = useState<DataRow[]>([]);
-  const [users, setUsers] = useState<DataRow[]>([]);
+  const { getTrainingListOne, getOneUser } = useAuthAndApi();
+  const [listTrainingData, setListTrainingData] = useState<Training>();
+  const [user, setUser] = useState<DataRow[]>([]);
 
   const ver = async () => {
     const res = await getTrainingListOne("6621c44798294f7498438af1");
     const data = await res.json();
-    console.log(data);
+
+    const res2 = await getOneUser("65fdd18264aabc5a889d50c8");
+    const data2 = await res2.json();
+
+    setUser(data2);
     setListTrainingData(data);
   };
-  const test = [
-    {
-      userEmail: 'jhosbel',
-      title: 'malditasea'
-    }
-  ]
-
-  const columns: TableColumn<DataRow>[] = [
-    {
-      name: "Nombre",
-      selector: (row) => row.userEmail,
-    },
-    {
-      name: 'otra baina',
-      selector: (row) => row.title,
-    }
-  ];
 
   useEffect(() => {
     ver();
   }, []);
 
   console.log(listTrainingData);
+  console.log(user);
 
   return (
     <div>
-      {/* <div>
+      {<div>
         {listTrainingData &&
           listTrainingData.exercises.map((i: any) => (
             <div key={i._id}>
@@ -76,25 +80,9 @@ function ListTrainingData() {
               <p>{i.note}</p>
             </div>
           ))}
-      </div> */}
-      <DataTable
-        columns={columns}
-        data={test}
-        expandableRows
-        expandableRowsComponent={ExpandedComponent}
-      />
+      </div>}
     </div>
   );
 }
-
-const ExpandedComponent: React.FC<ExpanderComponentProps<DataRow>> = ({
-  data,
-}) => {
-  return (
-    <div>
-      <p>{data.userEmail}</p>
-    </div>
-  );
-};
 
 export default ListTrainingData;
