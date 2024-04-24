@@ -52,10 +52,6 @@ const UsersData = () => {
   const [filteredName, setFilteredName] = useState(users);
 
   const columns: TableColumn<DataRow>[] = [
-    /* {
-      cell: () => <img src={} alt="imagen" />,
-      width: "56px",
-    }, */
     {
       name: "Nombre",
       selector: (row) => row.name,
@@ -96,7 +92,7 @@ const UsersData = () => {
     });
     setFilteredName(onlyName);
   };
-  console.log('guardar')
+
   return (
     <div className="flex flex-col max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg justify-center p-10 flex-1">
       <h1>Datos de los Usuarios</h1>
