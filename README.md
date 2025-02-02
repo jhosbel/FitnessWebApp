@@ -118,9 +118,9 @@ Autenticación:
     │   │   ├── layout.tsx
     │   │   ├── page.tsx
     │   ├── components
-    │   │   ├── Navbar.jsx
-    │   │   ├── ExerciseCard.jsx
-    │   │   ├── Calendar.jsx
+    │   │   ├── Navigation.jsx
+    │   │   ├── CalendarData.jsx
+    │   │   ├── UsersData.jsx
     │   │   └── ...
     │   ├── context
     │   ├── interfaces
