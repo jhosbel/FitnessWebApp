@@ -118,6 +118,7 @@ Autenticación:
     │   │   ├── layout.tsx
     │   │   ├── page.tsx
     │   ├── components
+    │   │   ├── icons
     │   │   ├── Navigation.jsx
     │   │   ├── CalendarData.jsx
     │   │   ├── UsersData.jsx
