@@ -1,5 +1,7 @@
 "use client";
 
+import EyeOff from "@/components/icons/EyeOff";
+import EyeOn from "@/components/icons/EyeOn";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -9,6 +11,7 @@ const LoginPage = () => {
   const [errors, setErrors] = useState<string[]>([]);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(true);
   const router = useRouter();
 
   const connectSocket = () => {
@@ -94,14 +97,22 @@ const LoginPage = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
                   />
-                  <input
-                    type="password"
-                    placeholder="**********"
-                    name="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                  />
+                  <div className="flex justify-end">
+                    <input
+                      type={showPassword === true ? "password" : "text"}
+                      placeholder="**********"
+                      name="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                    />
+                    <p
+                      className="absolute self-end mb-[15px] mr-[15px]"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <EyeOff /> : <EyeOn />}
+                    </p>
+                  </div>
                   <button
                     type="submit"
                     className="mt-5 tracking-wide font-semibold bg-slate-700 text-gray-100 w-full py-4 rounded-lg hover:bg-slate-800 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"

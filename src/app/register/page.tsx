@@ -1,5 +1,7 @@
 "use client";
 
+import EyeOff from "@/components/icons/EyeOff";
+import EyeOn from "@/components/icons/EyeOn";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -9,6 +11,7 @@ const RegisterPage = () => {
   const [errors, setErrors] = useState<string[]>([]);
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(true);
   const [password, setPassword] = useState<string>("");
   const [typeUser, setTypeUser] = useState<string>("");
   const router = useRouter();
@@ -129,14 +132,22 @@ const RegisterPage = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
                   />
-                  <input
-                    type="password"
-                    placeholder="*********"
-                    name="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                  />
+                  <div className="flex justify-end">
+                    <input
+                      type={showPassword === true ? "password" : "text"}
+                      placeholder="*********"
+                      name="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                    />
+                    <p
+                      className="absolute self-end mb-[15px] mr-[15px]"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <EyeOff /> : <EyeOn />}
+                    </p>
+                  </div>
                   <select
                     name="typeUser"
                     onChange={handleTypeUser}
