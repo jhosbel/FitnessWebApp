@@ -7,7 +7,7 @@ import EyeOn from "./icons/EyeOn";
 import EyeOff from "./icons/EyeOff";
 
 interface UserData {
-  _id: string;
+  id: string;
   name: string;
   email: string;
   role: string;
@@ -15,7 +15,7 @@ interface UserData {
   updatedAt: string;
   trainingList: [
     {
-      _id: string;
+      id: string;
       title: string;
       exercises: [
         {
@@ -29,14 +29,14 @@ interface UserData {
   ];
   calendarData: [
     {
-      _id: string;
+      id: string;
       title: string;
       start: string;
       userEmail: string;
     }
   ];
   userConfig: {
-    _id: string;
+    id: string;
     age: string;
   };
 }
@@ -86,9 +86,9 @@ const UserSettings = () => {
         .then((res) => res.json())
         .then((data) => setUser(data));
     }
-    if (session?.user) {
-      setUserConfigId(session.user.userConfig[0]._id);
-      getOneUserConfig(session.user.userConfig[0]._id)
+    if (session?.user?.userConfig) {
+      setUserConfigId(session.user.userConfig.id);
+      getOneUserConfig(session.user.userConfig.id)
         .then((res) => res.json())
         .then((data) => setUserConfig(data));
     }
@@ -184,13 +184,13 @@ const UserSettings = () => {
 
   return (
     <section className="flex mt-20 max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg justify-center p-10 flex-1">
-      <div className="flex-1 flex flex-col gap-8">
+      <div className="flex-1 flex flex-col gap-8 text-[#334155]">
         {userConfig && (
           <>
             <p>Configuraciones de usuario</p>
-            <p>{user?.name}</p>
-            <p>{user?.email}</p>
-            <p>{user?.role}</p>
+            <p>Nombre: {user?.name}</p>
+            <p>Corre: {user?.email}</p>
+            <p>Tipo de usuario: {user?.role === 'admin' ? 'Administrador' : user?.role === 'user' ? 'Usuario' : ''}</p>
             <p>Edad: {userConfig.age}</p>
             <p>Altura: {userConfig.height} cm</p>
             <p>Peso: {userConfig.weight} kg</p>
@@ -233,7 +233,7 @@ const UserSettings = () => {
                 name="name"
                 type="text"
                 placeholder=" "
-                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               />
               <label
                 htmlFor="name"
@@ -249,7 +249,7 @@ const UserSettings = () => {
                 name="email"
                 type="text"
                 placeholder=" "
-                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               />
               <label
                 htmlFor="email"
@@ -265,7 +265,7 @@ const UserSettings = () => {
                 name="age"
                 type="text"
                 placeholder=" "
-                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               />
               <label
                 htmlFor="age"
@@ -281,7 +281,7 @@ const UserSettings = () => {
                 name="height"
                 type="text"
                 placeholder=" "
-                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               />
               <label
                 htmlFor="height"
@@ -297,7 +297,7 @@ const UserSettings = () => {
                 name="weight"
                 type="text"
                 placeholder=" "
-                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               />
               <label
                 htmlFor="weight"

@@ -7,7 +7,7 @@ declare module "next-auth" {
       token: string;
       id: string;
       role: string;
-      userConfig: [{_id: string}]
+      userConfig: { id: string };
     };
   }
 }

@@ -112,6 +112,8 @@ body {
   display: flex;
   height: 44px;
   margin-bottom: 1em;
+  color: #334155;
+  font-weight: bold;
 }
 
 .react-calendar__navigation button {
@@ -140,6 +142,7 @@ body {
   font: inherit;
   font-size: 0.75em;
   font-weight: bold;
+  color: #334155;
 }
 
 .react-calendar__month-view__weekdays__weekday {
@@ -153,6 +156,10 @@ body {
   font: inherit;
   font-size: 0.75em;
   font-weight: bold;
+}
+
+.react-calendar__month-view__days__day {
+  color: #334155;
 }
 
 .react-calendar__month-view__days__day--weekend {
