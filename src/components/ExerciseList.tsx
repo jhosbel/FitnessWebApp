@@ -132,9 +132,9 @@ export default function TrainingList({
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {Array.isArray(currentExercises) &&
-          currentExercises.map((exercise) => (
+          currentExercises.map((exercise, index) => (
             <div
-              key={exercise._id}
+              key={index}
               className="m-4 border-solid border-gray-900 border md:rounded-lg hover:cursor-pointer transition flex sm:flex-col"
               onClick={() => handleExerciseClick(exercise)}
             >

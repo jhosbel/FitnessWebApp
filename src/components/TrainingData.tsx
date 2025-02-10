@@ -86,22 +86,26 @@ export default function Training() {
         icon: "error",
       });
     }
-    if (exerciseAdding) {
-      setTrainingList({
-        title: title,
-        exercises: exercises,
-        userEmail: session?.user?.email || "",
-        userId: session?.user?.id || "",
-      });
-      createTrainingList({
-        title: title,
-        exercises: exercises,
-        userEmail: session?.user?.email || "",
-        userId: session?.user?.id || "",
-      });
-      setIsAdding(true);
-      setSelectedExercise([]);
-      router.push("/training");
+    try {
+      if (exerciseAdding) {
+        setTrainingList({
+          title: title,
+          exercises: exercises,
+          userEmail: session?.user?.email || "",
+          userId: session?.user?.id || "",
+        });
+        createTrainingList({
+          title: title,
+          exercises: exercises,
+          userEmail: session?.user?.email || "",
+          userId: session?.user?.id || "",
+        });
+        setIsAdding(true);
+        setSelectedExercise([]);
+        router.push("/training");
+      }
+    } catch (error) {
+      console.error("Error al crear rutina: ", error)
     }
   };
 
@@ -139,9 +143,9 @@ export default function Training() {
           <div className="flex flex-col">
             <h2 className="text-center">Ejercicios Seleccionados</h2>
             <div className="flex sm:grid grid-cols-2 overflow-x-scroll sm:overflow-x-hidden sm:grid-cols-5 max-w-[375px] sm:max-w-full">
-              {selectedExercise.map((exercise) => (
+              {selectedExercise.map((exercise, index) => (
                 <div
-                  key={exercise._id}
+                  key={index}
                   className="my-2 mx-4 max-w-40 sm:max-w-48 sm:m-2 flex flex-col items-center justify-between"
                 >
                   <h1 className="text-center text-xs sm:text-xl my-2">

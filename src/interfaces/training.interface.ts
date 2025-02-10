@@ -38,7 +38,7 @@ export interface ExerciseOne {
 
 export type CreateExerciseOne = Omit<ExerciseOne, "_id">
 export interface CalendarData {
-  id: string;
+  //id: string;
   title: string;
   start: string;
   userEmail: string;
