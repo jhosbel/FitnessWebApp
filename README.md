@@ -22,8 +22,48 @@ The back-end of the application was developed with **NestJS** and uses **Postgre
 
 ## 🖼️ Screenshots
 
+<table>
+<td>
+
 ### Home Page
+
 <img src="public/c-fitnasshome.png" alt="Página de Inicio" width="600" height="400" />
+
+</td>
+<td>
+
+### Dashboard
+
+<img src="public/makeExercise.png" alt="Página de Inicio" width="600" height="400" />
+
+</td>
+</table>
+
+<table>
+<td>
+
+### Make a training
+
+<img src="public/makeTrainig.png" alt="Página de Inicio" width="600" height="400" />
+
+</td>
+<td>
+
+### Calendar
+
+<img src="public/calendar.png" alt="Página de Inicio" width="600" height="400" />
+
+</td>
+</table>
+
+<table>
+<td>
+
+### Trainig details in calendar
+
+<img src="public/triningDetails.png" alt="Página de Inicio" width="600" height="400" />
+
+</table>
 
 ## 🛠️ Installation
 
@@ -33,24 +73,32 @@ Follow these steps to install and run the project on your local machine:
    ```bash
    git clone https://github.com/jhosbel/FitnessWebApp.git
    cd FitnessWebApp
+   ```
 2. **Install front-end dependencies:**
-    ```bash Copy
-    npm install
+   ```bash Copy
+   npm install
+   ```
 3. **Set up environment variables:**
-    ```bash Copy
-    Create a .env file inside the frontend folder and add the following variables:
 
-    NEXT_PUBLIC_BACKEND_URL=http://localhost:7000/api
-    NEXTAUTH_SECRET=no_hacer_publica_esta_variable
+   ```bash Copy
+   Create a .env file inside the frontend folder and add the following variables:
+
+   NEXT_PUBLIC_BACKEND_URL=http://localhost:7000/api
+   NEXTAUTH_SECRET=no_hacer_publica_esta_variable
+   ```
+
 4. **Start the front-end server:**
    ```bash Copy
     npm run dev
+   ```
 5. **Open your browser and visit:**
-    ```bash Copy
-    http://localhost:3000
+   ```bash Copy
+   http://localhost:3000
+   ```
 6. **Access the API documentation:**
-    ```bash Copy
-    http://localhost:7000/docs
+   ```bash Copy
+   http://localhost:7000/docs
+   ```
 
 ## ⚙️ Configuration
 
@@ -77,6 +125,7 @@ This application uses the following main dependencies:
 - **WebSocket**: For real-time communication with the back-end.
 
 ## 🚀 Usage
+
 1. **Sign Up:** Go to `/register` to create a new account.
 
 2. **Login:** Go to `/login` to log in.
@@ -92,7 +141,9 @@ This application uses the following main dependencies:
 7. **Modify Routines:** Edit or delete routines as needed.
 
 ## 🛠️ Technologies Used
+
 Front-End:
+
 - **React:** JavaScript library for building user interfaces.
 
 - **Next.js:** React framework for server-side rendering.
@@ -102,9 +153,11 @@ Front-End:
 - **WebSocket:** For real-time communication with the back-end.
 
 Authentication:
+
 - **JWT (JSON Web Tokens):** For user authentication.
 
 ## 📂 Project Structure
+
     /FitnessWebApp
     ├── public
     ├── src
