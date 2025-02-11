@@ -1,105 +1,111 @@
 # 🍔 C-Fitness
 
-¡Bienvenido a C-Fitness! Esta aplicación está diseñada para ayudarte a mantener un estilo de vida activo y saludable. Con ella, puedes crear una cuenta, buscar ejercicios, crear rutinas personalizadas, guardar tus rutinas y organizar tus entrenamientos en un calendario para un mejor control y seguimiento.
+Welcome to C-Fitness! This application is designed to help you maintain an active and healthy lifestyle. With it, you can create an account, search for exercises, create custom routines, save your routines, and organize your workouts in a calendar for better control and tracking.
 
 ## 📝 Descripción
 
-Esta es una aplicación web desarrollada con **React usando Next.js** en el front-end. Los usuarios pueden:
+This is a web application developed with **React using Next.js** on the front-end. Users can:
 
-- Crear una cuenta e iniciar sesión.
+- Create an account and log in.
 
-- Buscar ejercicios y crear rutinas personalizadas.
+- Search for exercises and create custom routines.
 
-- Guardar rutinas en su perfil.
+- Save routines in their profile.
 
-- Agregar rutinas a un calendario para planificar sus entrenamientos.
+- Add routines to a calendar to plan workouts.
 
-- Modificar o eliminar rutinas según sea necesario.
+- Modify or delete routines as needed.
 
-El back-end de la aplicación fue desarrollado con NestJS y utiliza MongoDB como base de datos. La autenticación se maneja con JWT (JSON Web Tokens), puedes bajarlo del siguiente link: https://github.com/jhosbel/Fitness-Backend
+The back-end of the application was developed with **NestJS** and uses **PostgreSQL** as the database. The API is documented with **Swagger** for easier use and understanding. Authentication is handled using JWT (JSON Web Tokens).
 
-## 🖼️ Capturas de Pantalla
+🔗 Backend Repository: [Fitness-Backend](https://github.com/jhosbel/Fitness-Backend)
 
-### Página de Inicio
+## 🖼️ Screenshots
+
+### Home Page
 <img src="public/c-fitnasshome.png" alt="Página de Inicio" width="600" height="400" />
 
-## 🛠️ Instalación
+## 🛠️ Installation
 
-Sigue estos pasos para instalar y ejecutar el proyecto en tu máquina local:
+Follow these steps to install and run the project on your local machine:
 
-1. **Clona el repositorio**:
+1. **Clone the repository:**
    ```bash
-   git clone https://github.com/tu-usuario/FitnessWebApp.git
+   git clone https://github.com/jhosbel/FitnessWebApp.git
    cd FitnessWebApp
-2. **Instala las dependencias del front-end:**
+2. **Install front-end dependencies:**
     ```bash Copy
     npm install
-3. **Configura las variables de entorno:**
+3. **Set up environment variables:**
     ```bash Copy
-    Crea un archivo .env en la carpeta frontend y agrega las siguientes variables:
+    Create a .env file inside the frontend folder and add the following variables:
 
-    NEXT_PUBLIC_BACKEND_URL=http://localhost:5000/api
-    NEXT_PUBLIC_BACKEND_URL_SOCKET=http://localhost:5000
+    NEXT_PUBLIC_BACKEND_URL=http://localhost:7000/api
+    NEXT_PUBLIC_BACKEND_URL_SOCKET=http://localhost:7000
     NEXTAUTH_SECRET=no_hacer_publica_esta_variable
-4. **Inicia el servidor front-end:**
+4. **Start the front-end server:**
    ```bash Copy
     npm run dev
-5. **Abre tu navegador y visita:**
+5. **Open your browser and visit:**
     ```bash Copy
     http://localhost:3000
+6. **Access the API documentation:**
+    ```bash Copy
+    http://localhost:7000/docs
 
-## ⚙️ Configuración
+## ⚙️ Configuration
 
-Variables de Entorno
-Asegúrate de configurar las siguientes variables de entorno en el archivo .env:
+**Environment Variables**
 
-- NEXT_PUBLIC_BACKEND_URL: URL del backend para las solicitudes HTTP.
+Make sure to configure the following environment variables in the `.env` file:
 
-- NEXT_PUBLIC_BACKEND_URL_SOCKET: URL del backend para la conexión WebSocket.
+- `NEXT_PUBLIC_BACKEND_URL`: Backend URL for HTTP requests.
 
-- NEXTAUTH_SECRET: Clave secreta para la autenticación JWT. No compartirla públicamente.
+- `NEXT_PUBLIC_BACKEND_URL_SOCKET`: Backend URL for WebSocket connection.
 
-**Dependencias**
+- `NEXTAUTH_SECRET`: Secret key for JWT authentication. Do not share it publicly.
 
-- La aplicación utiliza las siguientes dependencias principales:
+**Dependencies**
 
-- Next.js: Framework de React para renderizado del lado del servidor y generación de sitios estáticos.
+This application uses the following main dependencies:
 
-- Tailwind CSS: Framework de CSS para estilizar la aplicación.
+- **Next.js**: React framework for server-side rendering and static site generation.
 
-- JWT (JSON Web Tokens): Para manejar la autenticación de usuarios.
+- **Tailwind CSS**: CSS framework for styling the application.
 
-- WebSocket: Para comunicación en tiempo real con el back-end.
+- **JWT (JSON Web Tokens)**: For user authentication.
 
-## 🚀 Uso
-1. Registro: Ve a /register para crear una nueva cuenta.
+- **WebSocket**: For real-time communication with the back-end.
 
-2. Inicio de Sesión: Ve a /login para iniciar sesión.
+## 🚀 Usage
+1. **Sign Up:** Go to `/register` to create a new account.
 
-3. Búsqueda de Ejercicios: Una vez autenticado, puedes buscar ejercicios en la página de inicio.
+2. **Login:** Go to `/login` to log in.
 
-4. Crear Rutinas: Selecciona ejercicios y crea rutinas personalizadas.
+3. **Search Exercises:** Once authenticated, search for exercises on the home page.
 
-5. Guardar Rutinas: Guarda tus rutinas en tu perfil personal.
+4. **Create Routines:** Select exercises and create custom routines.
 
-6. Calendario de Entrenamientos: Agrega rutinas a un calendario para planificar tus entrenamientos.
+5. **Save Routines:** Store your routines in your personal profile.
 
-7. Modificar Rutinas: Edita o elimina rutinas según tus necesidades.
+6. **Training Calendar:** Add routines to a calendar to plan your workouts.
 
-## 🛠️ Tecnologías Utilizadas
+7. **Modify Routines:** Edit or delete routines as needed.
+
+## 🛠️ Technologies Used
 Front-End:
-- React: Biblioteca de JavaScript para construir interfaces de usuario.
+- **React:** JavaScript library for building user interfaces.
 
-- Next.js: Framework de React para renderizado del lado del servidor.
+- **Next.js:** React framework for server-side rendering.
 
-- Tailwind CSS: Framework de CSS para estilizar la aplicación.
+- **Tailwind CSS:** CSS framework for styling the application.
 
-- WebSocket: Para comunicación en tiempo real con el back-end.
+- **WebSocket:** For real-time communication with the back-end.
 
-Autenticación:
-- JWT (JSON Web Tokens): Para manejar la autenticación de usuarios.
+Authentication:
+- **JWT (JSON Web Tokens):** For user authentication.
 
-## 📂 Estructura del Proyecto
+## 📂 Project Structure
     /FitnessWebApp
     ├── public
     ├── src
@@ -131,6 +137,6 @@ Autenticación:
     ├── package.json
     └── README.md
 
-## 📄 Licencia
+## 📄 License
 
-Este proyecto está bajo la licencia MIT. Consulta el archivo LICENSE para más detalles.
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
