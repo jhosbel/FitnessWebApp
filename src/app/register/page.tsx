@@ -5,7 +5,7 @@ import EyeOn from "@/components/icons/EyeOn";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import io from "socket.io-client";
+//import io from "socket.io-client";
 
 const RegisterPage = () => {
   const [errors, setErrors] = useState<string[]>([]);
@@ -16,12 +16,12 @@ const RegisterPage = () => {
   const [typeUser, setTypeUser] = useState<string>("");
   const router = useRouter();
 
-  const connectSocket = () => {
+  /* const connectSocket = () => {
     const newSocket = io(`${process.env.NEXT_PUBLIC_BACKEND_URL_SOCKET}`);
     newSocket.on("connect", () => {
       console.log("Conectado");
     });
-  };
+  }; */
 
   const handleTypeUser = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setTypeUser(e.target.value);
@@ -30,7 +30,7 @@ const RegisterPage = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrors([]);
-    connectSocket();
+    //connectSocket();
 
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/register`,

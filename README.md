@@ -41,7 +41,6 @@ Follow these steps to install and run the project on your local machine:
     Create a .env file inside the frontend folder and add the following variables:
 
     NEXT_PUBLIC_BACKEND_URL=http://localhost:7000/api
-    NEXT_PUBLIC_BACKEND_URL_SOCKET=http://localhost:7000
     NEXTAUTH_SECRET=no_hacer_publica_esta_variable
 4. **Start the front-end server:**
    ```bash Copy

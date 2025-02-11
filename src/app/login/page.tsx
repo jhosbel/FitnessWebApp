@@ -5,7 +5,7 @@ import EyeOn from "@/components/icons/EyeOn";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import io from "socket.io-client";
+//import io from "socket.io-client";
 
 const LoginPage = () => {
   const [errors, setErrors] = useState<string[]>([]);
@@ -14,17 +14,17 @@ const LoginPage = () => {
   const [showPassword, setShowPassword] = useState<boolean>(true);
   const router = useRouter();
 
-  const connectSocket = () => {
+  /* const connectSocket = () => {
     const newSocket = io(`${process.env.NEXT_PUBLIC_BACKEND_URL_SOCKET}`);
     newSocket.on("connect", () => {
       console.log("Conectado");
     });
-  };
+  }; */
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrors([]);
-    connectSocket();
+    //connectSocket();
     const responseNextAuth = await signIn("credentials", {
       email,
       password,

@@ -12,7 +12,7 @@ import LoginIcon from "./icons/LoginIcon";
 import Footer from "./Footer";
 import Dashboard from "./icons/Dashboard";
 import Settings from "./icons/Settings";
-import { io } from "socket.io-client";
+//import { io } from "socket.io-client";
 import useAuthAndApi from "@/app/api/training";
 import Modal from "./Modal";
 import Alert from "./icons/Alert";
@@ -87,8 +87,8 @@ export default function Navigation() {
   }, [alert, noti2]); */
 
   const handleSignOut = async () => {
-    const socket = io(`${process.env.NEXT_PUBLIC_BACKEND_URL_SOCKET}`);
-    socket.disconnect();
+    /* const socket = io(`${process.env.NEXT_PUBLIC_BACKEND_URL_SOCKET}`);
+    socket.disconnect(); */
     await signOut();
   };
   /* console.log(alert);
