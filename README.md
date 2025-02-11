@@ -108,8 +108,6 @@ Make sure to configure the following environment variables in the `.env` file:
 
 - `NEXT_PUBLIC_BACKEND_URL`: Backend URL for HTTP requests.
 
-- `NEXT_PUBLIC_BACKEND_URL_SOCKET`: Backend URL for WebSocket connection.
-
 - `NEXTAUTH_SECRET`: Secret key for JWT authentication. Do not share it publicly.
 
 **Dependencies**
