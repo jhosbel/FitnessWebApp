@@ -120,8 +120,6 @@ This application uses the following main dependencies:
 
 - **JWT (JSON Web Tokens)**: For user authentication.
 
-- **WebSocket**: For real-time communication with the back-end.
-
 ## 🚀 Usage
 
 1. **Sign Up:** Go to `/register` to create a new account.
@@ -147,8 +145,6 @@ Front-End:
 - **Next.js:** React framework for server-side rendering.
 
 - **Tailwind CSS:** CSS framework for styling the application.
-
-- **WebSocket:** For real-time communication with the back-end.
 
 Authentication:
 
